@@ -1,0 +1,315 @@
+// Extra small
+@media screen and (max-width:575px){
+    /*    .w-xs-100{
+            width : 100% !important;
+        }   */
+}
+
+
+
+// Small and less
+@media screen and(max-width:576px){
+    .main{
+        .main-top-header{
+            display: none !important;
+        }
+
+        #slider{
+            margin-top: 50px;
+        }
+
+        #mainWelcomTextHeading, #subWelcomTextHeading{
+            margin-left: 5%;
+        }
+        #mainWelcomTextHeading{
+            font-size: 1.5rem !important;
+        }
+        #subWelcomTextHeading{
+            width : 90%;
+            font-size: 0.8rem !important;
+        }
+    }
+    // in main page
+    .services{
+        .expressive-img{
+            width: 220px;
+            height: 220px;
+        }
+        .explain-srvices-heading{
+            font-size: 1.75rem;
+        }
+    }
+    // in main page
+    .website-team-section .team-member img{
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .registration{
+        #smartwizard #stepsNav .nav-item .nav-link{
+            width: 50px;
+            height: 50px;
+            padding: 10px 0px;
+        }
+    }
+
+    .share-story{
+        #stepsNav .nav-item .nav-link{
+            width: 30px !important;
+            height: 30px !important;
+            padding: 0rem 0.3rem !important;
+        }
+    }
+
+    .share-story.stepper-section .uploade-img-box{
+        width: 75%;
+        height: 250px;
+    }
+
+
+    .applicant-students {
+        &.students-section #no-content{
+            width: 40%;
+            padding-top: 40%;
+            font-size: 1.3rem;
+        }
+    }
+    .view-story{
+        width: 100%;
+        .dropdown{
+            right: 7%;
+        }
+    }
+
+    /*  profile page */
+    .profile.profile-div{
+        margin-left: 0px;
+
+        .profile-overview{
+            margin: auto;
+            width: 80%;
+        }
+        .profile-info-name {
+            width: 80px;
+        }
+        .profile-picture-div{
+            margin-bottom: 20px;
+        }
+    }
+}
+
+// medium and less
+@media screen and (max-width : 768px){
+    .search-scholarship{
+        .wrapper.sidebar-toggle:after {
+            content: " ";
+            position: fixed;
+            height: calc(100vh - 153px);
+            width: 100vw;
+            top: 153px;
+            left: 0;
+            z-index: -1;
+            background:rgba(239, 239, 239, 0.47);
+        }
+        .wrapper {
+            position: absolute !important;
+            height: 84vh !important;
+            padding-left: 0 !important;
+            max-width: unset;
+        }
+        .wrapper .sidebar-filter {
+            height: calc(100vh - 153px);
+            overflow-y: scroll;
+            min-height: unset;
+        }
+    }
+
+}
+
+
+// Large and less
+@media (max-width: 992px) {
+    .student-navbar{
+        #searchField{
+            width: 200px;
+            padding: 0 8px;
+        }
+
+        #dropdownMoreItem{
+            background: $primary-color;
+            list-style: none;
+            padding-left:0px !important;
+        }
+    }
+
+    .view-story{
+        .story {
+            .story-body{margin-right: 0%;}
+            .hr-end{margin-right: 0%;}
+        }
+    }
+    // view profile page
+    .profile{
+        &.profile-div{
+            padding-left: 10px;
+            .profile-info{
+                padding-right: -0;
+            }
+        }
+        &.about-container{
+            width: 90%;
+        }
+        &.profile-tabs{
+            #educationTab .experiences-container,
+            #experienceTab .experiences-container{
+                .period {
+                    left: 15px;
+                    width: 165px;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                }
+            }
+        }
+    }
+}
+
+
+// Medium and above
+@media screen and (min-width:768px){
+    .website-team-section .team-member img{
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .w-md-50{
+        width : 49% !important;
+    }
+
+
+    .advertiser-navbar{
+        .search-box-small-nav{
+            display: none;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+        .search-btn {
+            border-radius: 50%;
+            background: #2f3640;
+            display: flex;
+            position: absolute;
+            right: 0;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .dropdown{
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+        }
+        .dropdown-toggle{
+            margin-left: 6px;
+        }
+
+    }
+    .profile{
+
+        &.profile-div{
+            .profile-picture-div{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            .social-media-links .fa{
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+
+        &.profile-tabs{
+            .story-nodes-box .story-node{
+                margin: 0px;
+                margin-bottom: 15px;
+            }
+        }
+
+    }
+    .search-scholarship {
+        .sidebar-toggle .sidebar-filter {
+            margin-left: -272px
+        }
+        .sidebar-filter {
+            margin-left: 0 !important;
+        }
+
+        .row-custom-container{
+            max-width: calc(100% - 272px);
+        }
+    }
+}
+
+
+
+@media only screen and (max-width:600px) {
+    /* profile page */
+    .profile.profile-tabs{
+        #educationTab .experiences-container,
+        #experienceTab .experiences-container{
+            margin-top: 25px;
+
+            .icon-education,
+            .icon-experience{
+                display: none;
+            }
+            .experience-nodes-box {
+                margin-left: 0;
+            }
+            .period {
+                position: static;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                margin-bottom: 12px;
+                width: 100%;
+            }
+            .experience-node{
+                margin-left: -5%;
+            }
+            .experience-node::before {
+                /* hide circle */
+                display: none;
+            }
+            .experience-nodes-box {
+                /* hide vertical line */
+                border-left: none;
+            }
+        }
+    }
+}
+
+
+
+
+// larger and above
+@media screen and (min-width: 992px){
+
+    .services{
+        .service-explaination{
+            order : 1;
+        }
+        .services .service-img{
+            order: 2;
+        }
+    }
+
+
+    .student-navbar{
+        .more-item-box .animate {
+            animation-duration: 0.3s;
+            -webkit-animation-duration: 0.3s;
+            animation-fill-mode: both;
+            -webkit-animation-fill-mode: both;
+        }
+    }
+
+}

@@ -1,0 +1,12 @@
+$primary-color: #1F3543;
+$primary-color-rcode: 31;
+$primary-color-gcode: 53;
+$primary-color-bcode: 67;
+
+$accent-color: #89563B;
+$accent-color-rcode: red($accent-color); //137;
+$accent-color-gcode: green($accent-color); //86;
+$accent-color-bcode: blue($accent-color); //59;
+
+$advertiser-nav-color: #233D4D;
+$link-color: white;

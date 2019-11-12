@@ -50,7 +50,7 @@
                         <li><a href="${contextPath}/edit-profile" class="dropdown-item">Edit profile</a></li>
                         <li><a href="#" class="dropdown-item">Desired scholarships </a></li>
                         <li><a href="${contextPath}/wished-scholarships" class="dropdown-item">Wish list</a></li>
-                        <li><a href="${contextPath}/share-story" class="dropdown-item">New story</a></li>
+                        <li><a href="${contextPath}/story/share" class="dropdown-item">New story</a></li>
                         <li><a href="#" class="dropdown-item">Saved stories</a></li>
                         <li><a href="${contextPath}/logout"  class="dropdown-item">Logout</a></li>
                     </ul>

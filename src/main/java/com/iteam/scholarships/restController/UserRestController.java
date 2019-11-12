@@ -173,9 +173,4 @@ public class UserRestController {
         return success ? ResponseEntity.ok("updated successfully")  : ResponseEntity.badRequest().body("error occured");
     }
 
-    @GetMapping("test")
-    public String test(){
-        System.out.println("//////////////////////////////////////");
-        return "[{\"ahmad\"}, {\"basem\"}, {\"khaled\"}]";
-    }
 }

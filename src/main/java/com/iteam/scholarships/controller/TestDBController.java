@@ -8,12 +8,14 @@ import com.iteam.scholarships.enums.UserType;
 import com.iteam.scholarships.repository.StudentRepository;
 import com.iteam.scholarships.service.AdvertiserService;
 import com.iteam.scholarships.service.UserService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
@@ -130,6 +132,13 @@ public class TestDBController {
     public void testMapping(User user, Advertiser advertiser){
         System.out.println("\n\n"+user);
         System.out.println("\n\n"+advertiser);
+
+    }
+    @GetMapping("test-context")
+    public ModelAndView testContextPath(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("testContext");
+        return mv;
 
     }
 

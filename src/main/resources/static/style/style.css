@@ -1367,9 +1367,7 @@ footer {
     top: 5px; }
   .share-story.life-preview #opportunityHeader::before {
     content: "\f19d"; }
-  .share-story.life-preview #educationHeader::before {
-    content: "\f19c"; }
-  .share-story.life-preview #traningHeader::before {
+  .share-story.life-preview #institutionHeader::before {
     content: "\f0b1"; }
   .share-story.life-preview #accommodationHeader::before {
     content: "\f015"; }

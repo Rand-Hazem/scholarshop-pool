@@ -35,6 +35,9 @@ function formValidator() {
             dateTo: "required",
             countryList: "required",
             fieldsList: "required",
+            storyInShort: "required",
+            aboutOpportunity: "required",
+            aboutInstitution : "required",
             providerOrg: {minlength: 5},
             "img-1": imgRule,
             "img-2": imgRule,
@@ -64,7 +67,8 @@ function swInit() {
     var btnShare = $('<button></button>').text('Share')
             .addClass('btn btn-share d-none')
             .on('click', function () {
-                alert('A model with suceess of falier');
+                console.log("clicccccccced")
+               $("#storyForm")[0].submit();
             });
     var btnCancel = $('<button></button>').text('Cancel')
             .attr({type: "button"})
@@ -142,7 +146,7 @@ function swToolbarBtnDiffView(stepNum) {
  * If its internship-story > visible talk about-internship-div
  */
 function setOnUserCheckStoryType() {
-    $('input[type=radio][name=storyFor]').on("change", function () {
+    $('input[type=radio][name=storyType]').on("change", function () {
         if ($(this).val() == 'internship') {
             $('#aboutInternshipDiv').removeClass("d-none");
             $('#aboutUniversityDiv').addClass("d-none");
@@ -270,8 +274,7 @@ function implementLifePreview() {
     onFocuseOut("#providerOrg", "#providerOrg", "#type"); // #type header for providerOrg, to not display scholarship in first the load
     onFocuseOut("#storyInshort", "#storyInshort");
     onFocuseOut("#aboutOpportunity", "#opportunity", "#opportunityHeader");
-    onFocuseOut("#aboutUniversity", "#education", "#educationHeader");
-    onFocuseOut("#aboutCompany", "#traning", "#traningHeader");
+    onFocuseOut("#aboutInstitution", "#institution", "#institutionHeader");
     onFocuseOut("#aboutAccommodation", "#accommodation", "#accommodationHeader");
     onFocuseOut("#lifeInCity", "#lifeInCity", "#lifrInCityHeader");
     onFocuseOut("#transportation", "#transportation", "#transportationHeader");
@@ -281,16 +284,15 @@ function implementLifePreview() {
     onSelectedOptionChange("#countryList", "#country", "", "/", "");
     onSelectedOptionChange("#dateFrom", "#dateFrom");
     onSelectedOptionChange("#dateTo", "#dateTo", "", " - ");
-    onSelectedOptionChange("input[name='storyFor']", "#type", "", "", " provided by");
+    onSelectedOptionChange("input[name='storyType']", "#type", "", "", " provided by");
     onSelectedOptionChange("#fieldsList", "#field", "", "In field of ");
 }
-
 
 
 function onFocuseOut(idElm, idElmPrev, idHeader) {
     idElm = ".stepper-section " + idElm;
     idElmPrev = ".life-preview " + idElmPrev;
-
+    console.log(idElm);
     // On first load, if data is saved in from
     if ($(idElm).val().trim() != "") {
         $(idElmPrev).text($(idElm).val().trim());
@@ -299,6 +301,7 @@ function onFocuseOut(idElm, idElmPrev, idHeader) {
 
     $(idElm).on("focusout", function () {
         $(idElmPrev).text($(this).val().trim());
+        console.log(idHeader)
         showLifePrevHeader(idHeader);
     });
 }

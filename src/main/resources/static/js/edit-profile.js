@@ -566,7 +566,7 @@ function saveAccountTab() {
                 disableButton("#accountTab #save");
             },
             success: function (data) {
-                showAlert(true, "#accountTab", data);
+                showAlert(true, "#accountTab", "updated successfully");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status == 403) {
@@ -617,8 +617,10 @@ function savePasswordTab() {
 function uploadeProfileImgAjax() {
     var formData = new FormData();
     var fileInput = $("input[name='profileImg']");
+    var deleteImg = false;
     if ($(fileInput)[0].files.length === 0) {
         formData.append("profileImg", null);
+        deleteImg = true;
     }else {
         formData.append("profileImg", $(fileInput)[0].files[0]);
     }
@@ -638,6 +640,9 @@ function uploadeProfileImgAjax() {
             success: function (data) {
                 $(".upload-profile-pic #profilePic").css("opacity", "1");
                 $(fileInput).val("");
+                if(deleteImg){
+                    $("#profilePic").attr("src", "/resources/static/img/user-icon.png");
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $(".upload-profile-pic #profilePic").css("opacity", "0.5");

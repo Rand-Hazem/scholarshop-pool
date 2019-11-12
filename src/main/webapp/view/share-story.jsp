@@ -26,7 +26,7 @@
 <section class="share-story stepper-section container-fluid"> <!--  Stepper section    -->
     <div class="d-flex justify-content-center">
         <div class="stepper col-12 col-md-10">
-            <form:form action="${ontextPath}/story/share" id="storyForm" name="story" role="form" method="post" modelAttribute="story">
+            <form:form action="${ontextPath}/story/share" id="storyForm" name="story" role="form" method="post" modelAttribute="story" enctype="multipart/form-data">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <!--SmartWizard html-->
                 <div id="smartwizard" class="sw-main sw-theme-circles">
@@ -267,7 +267,7 @@
                                             </div>
                                             <div class="upload-options">
                                                 <label>
-                                                    <input name="img-1" type="file" class="input-image" accept="image/png, image/jpg"/>
+                                                    <input name="img" type="file" class="input-image" accept="image/png, image/jpg"/>
                                                 </label>
                                             </div>
                                         </div>
@@ -277,7 +277,7 @@
                                             </div>
                                             <div class="upload-options">
                                                 <label>
-                                                    <input name="img-2" type="file" class="input-image" accept="image/png, image/jpg"/>
+                                                    <input name="img" type="file" class="input-image" accept="image/png, image/jpg"/>
                                                 </label>
                                             </div>
                                         </div>
@@ -287,7 +287,7 @@
                                             </div>
                                             <div class="upload-options">
                                                 <label>
-                                                    <input name="img-3" type="file" class="input-image" accept="image/png, image/jpg"/>
+                                                    <input name="img" type="file" class="input-image" accept="image/png, image/jpg"/>
                                                 </label>
                                             </div>
                                         </div>

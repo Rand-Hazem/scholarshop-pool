@@ -1,5 +1,6 @@
 package com.iteam.scholarships.entity;
 
+import com.iteam.scholarships.convertor.ListStringConvertor;
 import com.iteam.scholarships.enums.StoryType;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,12 +9,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Story {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
@@ -25,13 +29,18 @@ public class Story {
     @Column(nullable = false)
     private String hostCountry;
 
-    @Column(nullable = false) @Temporal(TemporalType.DATE) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date startDate;
 
-    @Column(nullable = false) @Temporal(TemporalType.DATE) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date endDate;
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private StoryType storyType;
 
     @Column(nullable = false)
@@ -45,6 +54,15 @@ public class Story {
 
     @Column(nullable = false)
     private String aboutInstitution;
+
+    @Column(nullable = false)
+    private int likeCount = 0;
+
+    @Column(nullable = false)
+    private float rate = 0;
+
+    @Convert(converter = ListStringConvertor.class)
+    private List<String> imgList;
 
     private String aboutOpportunity;
 
@@ -62,7 +80,7 @@ public class Story {
     private User user;
 
     public Story() {
-        this.hostCountry="hos";
+        imgList = new ArrayList<>(3);
     }
 
     public int getId() {
@@ -175,6 +193,22 @@ public class Story {
         this.aboutInstitution = aboutInstitution;
     }
 
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public List<String> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
+    }
+
     public String getAboutAccommodation() {
         return aboutAccommodation;
     }
@@ -222,6 +256,7 @@ public class Story {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     @Override
     public String toString() {

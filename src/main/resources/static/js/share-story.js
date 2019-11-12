@@ -147,7 +147,7 @@ function swToolbarBtnDiffView(stepNum) {
  */
 function setOnUserCheckStoryType() {
     $('input[type=radio][name=storyType]').on("change", function () {
-        if ($(this).val() == 'internship') {
+        if ($(this).val() == 'INTERNSHIP') {
             $('#aboutInternshipDiv').removeClass("d-none");
             $('#aboutUniversityDiv').addClass("d-none");
             $('#aboutUnivTrainTab a i').removeClass("fa-university").addClass("fa-briefcase");
@@ -255,6 +255,7 @@ function initImageUpload(box) {
         $(prevDiv).addClass(' no-default');
     }
 }
+
 
 function initImageDrop(box) {
     var btnDelete = $(box).find('.btnc-delete')[0];

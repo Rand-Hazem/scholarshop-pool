@@ -28,12 +28,10 @@ public class Organization {
     @Column(nullable = true)
     private String fax;
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
-    @Column(insertable = false, updatable = false)
-    private List<Advertiser> advertisers;
+    @OneToOne(mappedBy = "organization", fetch = FetchType.LAZY)
+    private Advertiser advertisers;
 
     public Organization() {
-        advertisers = new ArrayList<>();
         setState(OrganizationState.PENDING_APPROVAL);
     }
 
@@ -50,7 +48,7 @@ public class Organization {
         this.location = location;
     }
 
-    public Organization(String name, OrganizationState state, String location, ArrayList<Advertiser> advertisers) {
+    public Organization(String name, OrganizationState state, String location, Advertiser advertisers) {
         this.name = name;
         this.state = state;
         this.location = location;
@@ -101,11 +99,11 @@ public class Organization {
         this.fax = fax;
     }
 
-    public List<Advertiser> getAdvertisers() {
+    public Advertiser getAdvertisers() {
         return advertisers;
     }
 
-    public void setAdvertisers(ArrayList<Advertiser> advertisers) {
+    public void setAdvertisers(Advertiser advertisers) {
         this.advertisers = advertisers;
     }
 

@@ -22,7 +22,7 @@ public class Advertiser {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 

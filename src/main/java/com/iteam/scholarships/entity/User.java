@@ -70,6 +70,10 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<EducationHistory> educationHistoryList;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Story> storyList;
+
+
     public User(){
         userOptionalInfoList = new ArrayList<>();
         workHistoryList = new ArrayList<>();
@@ -247,6 +251,22 @@ public class User {
 
     public void setEducationHistoryList(List<EducationHistory> educationHistoryList) {
         this.educationHistoryList = educationHistoryList;
+    }
+
+    public boolean isDataChangedFromCopy() {
+        return dataChangedFromCopy;
+    }
+
+    public void setDataChangedFromCopy(boolean dataChangedFromCopy) {
+        this.dataChangedFromCopy = dataChangedFromCopy;
+    }
+
+    public List<Story> getStoryList() {
+        return storyList;
+    }
+
+    public void setStoryList(List<Story> storyList) {
+        this.storyList = storyList;
     }
 
     public void copyFrom(User user){

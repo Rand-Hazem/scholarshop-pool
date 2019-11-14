@@ -81,5 +81,8 @@ public class CurrentUser {
         return -1;
     }
 
+    public boolean matchId(int id){
+        return isLogIn() && (id==getId());
+    }
 
 }

@@ -11,17 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/story/")
+@RequestMapping("story")
 public class StoryController {
 
     @Autowired
     private StoryService storyService;
     @Autowired
     private UplodeFille uplodeFille;
+    @Autowired
+    private CurrentUser currentUser;
 
     @GetMapping("share")
     public String shareStory(Model model) {
@@ -32,7 +35,8 @@ public class StoryController {
     @PostMapping("share")
     @PreAuthorize("hasAuthority('student')")
     public String shareStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
-                             @RequestParam(value = "img", required = false) MultipartFile[] imglist, Model model) {
+                             @RequestParam(value = "img", required = false) MultipartFile[] imglist,
+                             Model model, RedirectAttributes redirectAttributes) {
 
         boolean success = false;
         if (!bindingResult.hasErrors()) {
@@ -40,39 +44,43 @@ public class StoryController {
             success = storyService.save(story);
         }
         if(success){
-            model.addAttribute("story", story);
-            model.addAttribute("owner", true);
-            return viewStory(model);
+            redirectAttributes.addFlashAttribute("story", story);
+            return "redirect:"+story.getId()+"/view";
         }
-        uplodeFille.deleteAll(story.getImgList());
+        uplodeFille.deleteAllStoryImg(story.getImgList());
         return "share-story";
     }
 
 
-    @PostMapping("edit")
-    @PreAuthorize("hasAuthority('student')")
-    public String editStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
-                             @RequestParam(value = "img", required = false) MultipartFile[] imglist, Model model) {
+//    @PostMapping("edit")
+//    @PreAuthorize("hasAuthority('student')")
+//    public String editStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
+//                             @RequestParam(value = "img", required = false) MultipartFile[] imglist, Model model) {
+//
+//        boolean success = false;
+//        if (!bindingResult.hasErrors()) {
+//            story.setImgList(uplodeFille.uploadeStoryImage(imglist));
+//            success = storyService.save(story);
+//        }
+//        if(success){
+//            model.addAttribute("story", story);
+//            model.addAttribute("owner", true);
+//            return viewStory(model);
+//        }
+//        uplodeFille.deleteAll(story.getImgList());
+//        return "share-story";
+//    }
 
-        boolean success = false;
-        if (!bindingResult.hasErrors()) {
-            story.setImgList(uplodeFille.uploadeStoryImage(imglist));
-            success = storyService.save(story);
+
+
+    @GetMapping("{id}/view")
+    public String viewStory(@PathVariable("id") int id, @ModelAttribute(name = "story")Story story ,Model model) {
+
+        if(story == null){
+            story = storyService.find(id);
         }
-        if(success){
-            model.addAttribute("story", story);
-            model.addAttribute("owner", true);
-            return viewStory(model);
-        }
-        uplodeFille.deleteAll(story.getImgList());
-        return "share-story";
-    }
-
-
-
-    @GetMapping("/story/view/")
-    public String viewStory(Model model) {
-        //model.addAttribute("story", new Story());
+        model.addAttribute("story", story);
+        //model.addAttribute("owner", currentUser.matchId(story.getUser().getId()));
         return "view-story";
     }
 

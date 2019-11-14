@@ -1,10 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
     <title>View Story</title>
     <meta name="description" content="${story.storyInShort}">
     <%@include file="parts/links.html" %>
+    <%@include file="parts/imgStaticPath.jsp" %>
     <script src="${contextPath}/resources/static/js/view-story.js"></script>
 </head>
 
@@ -18,12 +20,16 @@
             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Save</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#reportModal">
-                <i class="fa fa-flag-o" aria-hidden="true"></i> Report
-            </a>
+            <c:if test="${owner}">
+                <a class="dropdown-item" href="#${contextPath}/story/edit?id=${story.id}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+            </c:if>
+            <c:if test="${!owner}">
+                <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Save</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#reportModal">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i> Report
+                </a>
+            </c:if>
         </div>
     </div>
 
@@ -40,23 +46,26 @@
 
             <!-------- Story duration -------->
             <div class="duration">
-                <span class="text-muted" id="dateFrom">${story.startDate}</span>
-                <span class="text-muted" id="dateTo">${story.endDate}</span>
+                <span class="text-muted" id="dateFrom">
+                    <fmt:formatDate value="${story.startDate}" type="date"></fmt:formatDate>
+                    </span>
+                <span class="text-muted" id="dateTo">
+                    <fmt:formatDate value="${story.endDate}" type="date"></fmt:formatDate>
+                </span>
             </div>
 
             <!-------- Story carousel -------->
             <div id="storyCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
-                    <li data-target="#storyCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#storyCarousel" data-slide-to="1"></li>
-                    <li data-target="#storyCarousel" data-slide-to="2"></li>
+                    <c:forEach var="index" begin="0" end="${story.imgList.size() - 1}">
+                    <li data-target="#storyCarousel" data-slide-to="${index}" class="${index==0 ? 'active' : ''}"></li>
+                    </c:forEach>
                 </ul>
 
                 <div class="carousel-inner">
-
-                    <c:forEach var="item" items="${story.imgList}">
-                        <div class="carousel-item active">
-                            <img src="${item}" alt="${story.city}">
+                    <c:forEach var="index" begin="0" end="${story.imgList.size() -1 }">
+                        <div class="carousel-item ${index eq 0 ? 'active' : ''}">
+                            <img src="${contextPath}${storyImgPath}${story.imgList[index]}" alt="${story.city}">
                         </div>
                     </c:forEach>
                 </div>
@@ -80,7 +89,7 @@
             <!---------- Story meta ---------->
             <div class="story-meta">
               <span class="author mr-2 border-right">
-                <img src="${contextPath}/resources/static/img/user-icon.png" alt="author" class="mr-2">
+                <img src="resources/static/img/user-icon.png" alt="author" class="mr-2">
                 fName
               </span>
                 <i class="fa fa-clock-o" aria-hidden="true"></i>

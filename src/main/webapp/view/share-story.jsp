@@ -143,12 +143,7 @@
                                     <label for="fieldsList">Field *</label>
                                     <form:select id="fieldsList" path="field" name="fieldsList" class="custom-select" required="required"
                                     data-selected="${story.field}">
-                                        <option value="" selected disabled hidden> -- select option --</option>
-                                        <option value="1">Computer Science & IT</option>
-                                        <option value="2">Business Information Systems</option>
-                                        <option value="3">Journalism & Media</option>
-                                        <option value="4">Medicine & Health</option>
-                                        <option value="5">Arts, Design & Architecture</option>
+                                        <%@include file="parts/majors.html" %>
                                     </form:select>
                                     <form:errors path="field" class="error"/>
                                 </div>

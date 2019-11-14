@@ -20,5 +20,8 @@ public class StoryService {
         return stored!=null && stored.getId() > 0 ;
     }
 
+    public Story find(int id){
+        return storyRepositoty.findById(id).orElse(null);
+    }
 
 }

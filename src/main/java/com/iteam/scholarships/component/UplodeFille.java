@@ -3,9 +3,13 @@ package com.iteam.scholarships.component;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +28,7 @@ public class UplodeFille {
     }
 
 
-    private boolean deleteFile(String path) {
+    private boolean delete(String path) {
         try {
             File file = new File(path);
             if (file.exists()) {
@@ -37,16 +41,23 @@ public class UplodeFille {
         }
     }
 
+    public void deleteAll(String path, List<String> list) {
+        for (String img : list) {
+            delete(path + img);
+        }
+    }
 
-    private boolean saveFile(String path, MultipartFile multipartFile) {
+    private boolean save(String path, MultipartFile multipartFile){
         try {
-            File file = new File(path);
-            if (!file.exists()) {
-                file.createNewFile();
+            File fileOutput = new File(path);
+            if (!fileOutput.exists()) {
+                fileOutput.createNewFile();
             }
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-            stream.write(multipartFile.getBytes());
-            stream.close();
+            BufferedImage bufferedImage = ImageIO.read(multipartFile.getInputStream());
+            BufferedImage resBufferedImage1 = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+            resBufferedImage1.createGraphics().drawImage(bufferedImage, 0, 0, Color.WHITE, null);
+            ImageIO.write(resBufferedImage1, "jpg", fileOutput);
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
@@ -63,18 +74,10 @@ public class UplodeFille {
             if (!validImage(img.getOriginalFilename())) {
                 return null;
             }
-            // src/main/resources/static/uploaded/profile/" uniqeId
-            String fileName = (oldImg != null ? oldImg : "resources/static/uploaded/profile/" + UUID.randomUUID().toString() + ".jpg");
-            File file = new File("src/main/" + fileName);
 
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            String fileName = (oldImg != null ? oldImg : UUID.randomUUID().toString() + ".jpg");
 
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-            stream.write(img.getBytes());
-            stream.close();
-            return fileName;
+            return save("src/main/upload/profile/" + fileName, img) ? fileName : null;
         } catch (Exception e) {
             System.out.println("\n\n" + e.getMessage() + "\n\n");
             return null;
@@ -83,7 +86,7 @@ public class UplodeFille {
 
 
     public boolean deleteUserProfileImg(String imgUrl) {
-        return deleteFile("src/main/" + imgUrl);
+        return delete("src/main/upload/profile/" + imgUrl);
     }
 
 
@@ -91,15 +94,14 @@ public class UplodeFille {
         ArrayList<String> newImgPath = new ArrayList<>(3);
         try {
             for (int i = 0; i < arrImg.length; i++) {
-                // src/main/resources/static/uploaded/story/" uniqeId
-                String fileName = (oldImg != null && oldImg.size() >= i ? oldImg.get(i) : "resources/static/uploaded/story/" + UUID.randomUUID().toString() + ".jpg");
+                String fileName = (oldImg != null && oldImg.size() >= i ? oldImg.get(i) : "" + UUID.randomUUID().toString() + ".jpg");
 
                 // delete image
                 if (arrImg[i] == null || arrImg[i].isEmpty()) {
-                    deleteFile("src/main/" + fileName);
+                    delete("src/main/upload/story/" + fileName);
                     continue;
                 }
-                if (validImage(arrImg[i].getOriginalFilename()) && saveFile("src/main/" + fileName, arrImg[i])) {
+                if (validImage(arrImg[i].getOriginalFilename()) && save("src/main/upload/story/" + fileName, arrImg[i])) {
                     newImgPath.add(fileName);
                 }
             }
@@ -115,10 +117,8 @@ public class UplodeFille {
     }
 
 
-    public void deleteAll(List<String> list){
-        for(String path: list){
-            deleteFile("src/main/"+path);
-        }
+    public void deleteAllStoryImg(List<String> list) {
+        deleteAll("src/main/upload/story/", list);
     }
 
 }

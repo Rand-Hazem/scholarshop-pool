@@ -10,6 +10,7 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <%@include file="parts/links.html" %>
+    <%@include file="parts/imgStaticPath.jsp" %>
     <script src="${contextPath}/resources/static/js/edit-profile.js"></script>
 </head>
 <body>
@@ -65,7 +66,7 @@
                             <div class="form-group col-sm-2 upload-profile-pic">
                                 <div class="img-shape">
                                 <button type="button" class="btn delete-button">&Chi;</button>
-                                    <img id="profilePic" src="${contextPath}${user.imgUrl == null ? '/resources/static/img/user-icon.png' : user.imgUrl}"
+                                    <img id="profilePic" src="${contextPath}${profileImgPath}${user.imgUrl == null ? 'user-icon.png' : user.imgUrl}"
                                          alt="username">
                                 </div>
                                 <div>

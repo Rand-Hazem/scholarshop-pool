@@ -2,6 +2,7 @@ package com.iteam.scholarships.service;
 
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.entity.Story;
+import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.repository.StoryRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,12 @@ public class StoryService {
         return stored!=null && stored.getId() > 0 ;
     }
 
-    public Story find(int id){
-        return storyRepositoty.findById(id).orElse(null);
+    public Story findStoryForView(int id){
+        Story story = storyRepositoty.findById(id).orElse(null);
+        story.getUser();
+//        User user =
+        return story;
     }
+
 
 }

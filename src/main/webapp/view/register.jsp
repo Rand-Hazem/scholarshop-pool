@@ -149,8 +149,8 @@
                                         <label for="organizationsList">Organization*</label>
                                         <form:select id="organizationsList" path="advertiser.organization.name"
                                                      class="custom-select">
-                                            <option value="eu">European Union</option>
-                                            <option value="udp">University Di Parma</option>
+                                            <option value="European Union">European Union</option>
+                                            <option value="University Di Parm">University Di Parma</option>
                                             <option >...</option>
                                             <option id="organizattionOtherOption" value="other">Other</option>
                                         </form:select>
@@ -165,11 +165,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="display-block">work mobile number *</label>
+                                <label class="d-block">work mobile number *</label>
                                 <div class="d-inline-block  w-100 w-md-50  align-top mb-3">
                                     <!-- Nooooooooooooote .. this list must be in file and included , file already exists (Rand) -->
                                     <select id="countriesCode" name="advertiserMobileCode" class="custom-select"
-                                            required>
+                                            data-selected='${fn:split(advertiser.mobileNum," ")[0]}' required>
                                         <%@include file="parts/country-international-phone-code.html" %>
                                     </select>
                                 </div>

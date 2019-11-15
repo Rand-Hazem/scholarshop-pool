@@ -28,9 +28,6 @@ public class Organization {
     @Column(nullable = true)
     private String fax;
 
-    @OneToOne(mappedBy = "organization", fetch = FetchType.LAZY)
-    private Advertiser advertisers;
-
     public Organization() {
         setState(OrganizationState.PENDING_APPROVAL);
     }
@@ -46,13 +43,6 @@ public class Organization {
         this.name = name;
         this.state = state;
         this.location = location;
-    }
-
-    public Organization(String name, OrganizationState state, String location, Advertiser advertisers) {
-        this.name = name;
-        this.state = state;
-        this.location = location;
-        this.advertisers = advertisers;
     }
 
     public int getId() {
@@ -97,14 +87,6 @@ public class Organization {
 
     public void setFax(String fax) {
         this.fax = fax;
-    }
-
-    public Advertiser getAdvertisers() {
-        return advertisers;
-    }
-
-    public void setAdvertisers(Advertiser advertisers) {
-        this.advertisers = advertisers;
     }
 
     public void copyFrom(Organization organization) {

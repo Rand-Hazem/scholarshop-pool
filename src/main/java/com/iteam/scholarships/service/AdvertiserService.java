@@ -24,7 +24,7 @@ public class AdvertiserService {
     }
 
     public Advertiser findCurrent(){
-        return advertiserRepository.findById(currentUser.getAdvertiserId()).orElse(null);
+        return advertiserRepository.findById(currentUser.getId()).orElse(null);
     }
 
     public Advertiser register(Advertiser advertiser) {

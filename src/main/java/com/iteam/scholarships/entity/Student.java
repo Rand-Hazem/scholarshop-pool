@@ -5,11 +5,13 @@ import javax.persistence.*;
 @Entity
 public class Student{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = false)
+    @MapsId
     private User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

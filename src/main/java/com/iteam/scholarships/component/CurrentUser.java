@@ -67,20 +67,6 @@ public class CurrentUser {
         return UserType.ADMIN.equals(getType());
     }
 
-    public int getStudentId() {
-        if (isStudent()) {
-            return getAuthetecatedUser().getStudentId();
-        }
-        return -1;
-    }
-
-    public int getAdvertiserId() {
-        if (isAdvertiser()) {
-            return getAuthetecatedUser().getAdvertiserId();
-        }
-        return -1;
-    }
-
     public boolean matchId(int id){
         return isLogIn() && (id==getId());
     }

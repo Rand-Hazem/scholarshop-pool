@@ -1,5 +1,6 @@
 package com.iteam.scholarships.component;
 
+import com.iteam.scholarships.entity.Student;
 import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.enums.UserType;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ public class UserFactory {
         if (studentReqister) {
             user.setType(UserType.STUDENT);
             user.setAdvertiser(null);
+            user.setStudent(new Student());
         } else if (advertiserReqister) {
             user.setType(UserType.ADVERTISER);
             user.getAdvertiser().setMobileNum(data.getOrDefault("advertiserMobileCode","")+" "+data.getOrDefault("advertiser.mobileNum",""));

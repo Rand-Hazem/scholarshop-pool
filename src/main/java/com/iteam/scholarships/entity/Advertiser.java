@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 public class Advertiser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "work_email", nullable = false)
@@ -18,8 +17,8 @@ public class Advertiser {
     @Column(nullable = false)
     private String mobileNum;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId
     private User user;
 
     @OneToOne(cascade = CascadeType.PERSIST, optional = false)

@@ -76,7 +76,10 @@ public class Story {
 
     private String recommendationAndAdvice;
 
-    @ManyToOne(optional = false)
+    @Column(name = "user_id", insertable = false, updatable = false)
+    private int userId;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
     public Story() {
@@ -257,6 +260,13 @@ public class Story {
         this.user = user;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     @Override
     public String toString() {
@@ -278,6 +288,7 @@ public class Story {
                 ", aboutTransportation='" + aboutTransportation + '\'' +
                 ", aboutTradition='" + aboutTradition + '\'' +
                 ", recommendationAndAdvice='" + recommendationAndAdvice + '\'' +
+                "\n"+user+
                 '}';
     }
 }

@@ -9,8 +9,6 @@ import java.util.Collection;
 public class AuthentecatedUser extends User {
 
     private int id;
-    private int studentId = -1;
-    private int advertiserId = -1;
     private UserType userType;
 
     public AuthentecatedUser(String username, String password, Collection<? extends GrantedAuthority> authorities, int id, UserType userType) {
@@ -31,22 +29,6 @@ public class AuthentecatedUser extends User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public int getAdvertiserId() {
-        return advertiserId;
-    }
-
-    public void setAdvertiserId(int advertiserId) {
-        this.advertiserId = advertiserId;
     }
 
     public UserType getUserType() {

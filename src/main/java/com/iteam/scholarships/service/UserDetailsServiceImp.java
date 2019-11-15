@@ -32,21 +32,16 @@ public class UserDetailsServiceImp implements UserDetailsService {
         SimpleGrantedAuthority authority;
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 
-        int advertiserId = -1,studentId = -1;
         if (user.getType() == UserType.ADMIN) {
             authority = new SimpleGrantedAuthority("admin");
         } else if (user.getType() == UserType.ADVERTISER) {
             authority = new SimpleGrantedAuthority("advertiser");
-            advertiserId = user.getAdvertiser().getId();
         } else {
             authority = new SimpleGrantedAuthority("student");
-            studentId = user.getStudent().getId();
         }
         authorities.add(authority);
-        AuthentecatedUser authentecatedUser = new AuthentecatedUser(user.getEmail(), user.getPassword(), authorities, user.getId(), user.getType());
-        authentecatedUser.setStudentId(studentId);
-        authentecatedUser.setAdvertiserId(advertiserId);
 
-        return authentecatedUser;
+        return new AuthentecatedUser(user.getEmail(), user.getPassword(),
+                authorities, user.getId(), user.getType());
     }
 }

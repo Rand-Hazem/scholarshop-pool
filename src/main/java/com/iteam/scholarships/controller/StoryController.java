@@ -43,9 +43,9 @@ public class StoryController {
             story.setImgList(uplodeFille.uploadeStoryImage(imglist));
             success = storyService.save(story);
         }
-        if(success){
+        if (success) {
             redirectAttributes.addFlashAttribute("story", story);
-            return "redirect:"+story.getId()+"/view";
+            return "redirect:" + story.getId() + "/view";
         }
         uplodeFille.deleteAllStoryImg(story.getImgList());
         return "share-story";
@@ -72,18 +72,20 @@ public class StoryController {
 //    }
 
 
-
     @GetMapping("{id}/view")
-    public String viewStory(@PathVariable("id") int id, @ModelAttribute(name = "story")Story story ,Model model) {
+    public String viewStory(@PathVariable("id") int id, @ModelAttribute("story") Story story, Model model) {
 
-        if(story == null){
-            story = storyService.find(id);
+        if (story == null) {
+            story = storyService.findStoryForView(id);
         }
+        story = storyService.findStoryForView(id);
+        System.out.println("\n\n"+story);
+
+
         model.addAttribute("story", story);
         //model.addAttribute("owner", currentUser.matchId(story.getUser().getId()));
         return "view-story";
     }
-
 
 
 }

@@ -4,6 +4,10 @@ import com.iteam.scholarships.enums.AccountState;
 import com.iteam.scholarships.enums.UserType;
 import com.iteam.scholarships.validate.FieldMatch;
 import com.iteam.scholarships.validate.Gender;
+import org.hibernate.annotations.LazyGroup;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -55,7 +59,7 @@ public class User {
     @Column(name = "img_url",nullable = true)
     private String imgUrl;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Advertiser advertiser;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -96,6 +100,12 @@ public class User {
         this.password = password;
         this.confirmPass = confirmPass;
         this.gender = gender;
+    }
+
+    public User( String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public int getId() {
@@ -314,9 +324,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", confirmPass='" + confirmPass + '\'' +
                 ", gender=" + gender +
-                ", \n\nworkList= "+workHistoryList+
-                ", \n\neducationList= "+educationHistoryList+
-                ", \n\noptionalList= "+userOptionalInfoList+
                 '}';
     }
 }

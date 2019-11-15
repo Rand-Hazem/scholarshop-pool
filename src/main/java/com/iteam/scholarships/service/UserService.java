@@ -78,17 +78,16 @@ public class UserService {
     public User registerUser(User user) {
         encryptUserPassword(user);
         if (user.getType().equals(UserType.STUDENT)) {
-            Student student = new Student();
-            student.setUser(user);
-            user = studentService.register(student).getUser();
-        } else if (user.getType().equals(UserType.ADVERTISER)) {
-            Advertiser advertiser = user.getAdvertiser();
-            advertiser.setUser(user);
             user.setAdvertiser(null);
-            user = advertiserService.register(advertiser).getUser();
+            user.getStudent().setUser(user);
+        } else if (user.getType().equals(UserType.ADVERTISER)) {
+            user.setStudent(null);
+            user.getAdvertiser().setUser(user);
         } else {
             // admin registration
         }
+
+        userRepository.save(user);
         // send verivcation email
         accountService.sendEmailVerification(user);
         return user;

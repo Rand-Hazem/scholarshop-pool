@@ -58,6 +58,7 @@ public class UserController {
             model.addAttribute("duplicate_email", "This email already registered");
             return "register";
         }
+
         // register user
         userService.registerUser(user);
         return "profile";

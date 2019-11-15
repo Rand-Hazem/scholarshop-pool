@@ -57,13 +57,13 @@
             <!-------- Story carousel -------->
             <div id="storyCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
-                    <c:forEach var="index" begin="0" end="${story.imgList.size() - 1}">
+                    <c:forEach var="index" begin="0" end="${story.imgList.size()}">
                     <li data-target="#storyCarousel" data-slide-to="${index}" class="${index==0 ? 'active' : ''}"></li>
                     </c:forEach>
                 </ul>
 
                 <div class="carousel-inner">
-                    <c:forEach var="index" begin="0" end="${story.imgList.size() -1 }">
+                    <c:forEach var="index" begin="0" end="${story.imgList.size()}">
                         <div class="carousel-item ${index eq 0 ? 'active' : ''}">
                             <img src="${contextPath}${storyImgPath}${story.imgList[index]}" alt="${story.city}">
                         </div>

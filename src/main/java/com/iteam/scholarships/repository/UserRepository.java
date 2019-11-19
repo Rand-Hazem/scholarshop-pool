@@ -15,12 +15,11 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-
+    @Query("select new com.iteam.scholarships.entity.User(u.id, u.type, u.email, u.password) " +
+            "from User u where u.email=:email")
     User findByEmail(String email);
 
-    @Query("select u from User u where u.id=:id")
-    User findBasicNoRelation(int id);
-
+    
     @Override
     @Query("select new com.iteam.scholarships.entity.User(u.firstName, u.lastName, u.email) " +
             "from User u where u.id=:id")
@@ -30,8 +29,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u.id from User u where u.email=:email")
     int findIdByEmail(@Param("email") String email);
 
+
     @Query("select u.email from User u where u.id=:id")
     String findEmailById(@Param("id") int id);
+
 
     @Query("select u.password from User u where u.id=:id")
     String findPasswordById(@Param("id") int id);
@@ -41,6 +42,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update User u set u.state=:accountState where u.id=:id")
     int updateAccountState(@Param("id") int id, @Param("accountState") AccountState accountState);
 
+
     @Modifying
     @Query("update User u set u.password=:password where u.id=:id")
     int resetPassword(@Param("id") int id, @Param("password") String password);
@@ -48,6 +50,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u.imgUrl from User u where u.id=:id")
     String findImgUrlById(@Param("id") int id);
+
 
     @Modifying
     @Query("update User u set u.imgUrl=:imgUrl where u.id=:id")

@@ -102,7 +102,14 @@ public class User {
         this.gender = gender;
     }
 
-    public User( String firstName, String lastName, String email) {
+    public User(int id, UserType type, String email, String password) { // use in user-repository
+        this.id = id;
+        this.type = type;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String firstName, String lastName, String email) { // use in user-repository
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

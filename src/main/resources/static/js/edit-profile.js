@@ -274,14 +274,6 @@ function showAlert(success, tabId, msg) {
         .addClass(type).show("slow").delay(4000).hide("slow");
 }
 
-function getCSRFToken() {
-    return $("meta[name='_csrf']").attr("content");
-}
-
-function getCSRFHeader() {
-    return $("meta[name='_csrf_header']").attr("content");
-}
-
 function getFormChangedData(formId) {
     var formData = new FormData();
     var count = 0;

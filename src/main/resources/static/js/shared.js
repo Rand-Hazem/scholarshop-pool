@@ -1,3 +1,13 @@
+
+function getCSRFToken() {
+    return $("meta[name='_csrf']").attr("content");
+}
+
+function getCSRFHeader() {
+    return $("meta[name='_csrf_header']").attr("content");
+}
+
+
 function universityAutoComplete() {
     var inputItem = $("input[name='university']");
     $("input[name='university']").autocomplete({
@@ -31,6 +41,7 @@ function universityAutoComplete() {
     });
 
 }
+
 
 
 $(document).ready(function () {

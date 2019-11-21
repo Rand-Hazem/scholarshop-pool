@@ -8,6 +8,22 @@ function getCSRFHeader() {
 }
 
 
+/**
+ *
+ * @param btn id, selector or element
+ */
+function disableButton(btn) {
+    $(btn).prop('disabled', true);
+}
+
+/**
+ *
+ * @param btn id, selector or element
+ */
+function enableButton(btn) {
+    $(btn).prop('disabled', false);
+}
+
 function universityAutoComplete() {
     var inputItem = $("input[name='university']");
     $("input[name='university']").autocomplete({

@@ -252,22 +252,6 @@ function setActionsForSaveCancleBtns() {
 
 }
 
-/**
- *
- * @param btn id, selector or element
- */
-function disableButton(btn) {
-    $(btn).prop('disabled', true);
-}
-
-/**
- *
- * @param btn id, selector or element
- */
-function enableButton(btn) {
-    $(btn).prop('disabled', false);
-}
-
 function showAlert(success, tabId, msg) {
     var type = success == true ? "alert-success" : "alert-danger";
     $(tabId + " .alert").text(msg).removeClass("alert-danger alert-success")

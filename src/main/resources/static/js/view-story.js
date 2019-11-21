@@ -1,10 +1,32 @@
-
-
 function likeStoryAction() {
     //toggle like button
     $('.button-like').on('click', function (event) {
+        var isLiked = $(this).hasClass("liked");
+        var ajaxUrl = isLiked ? "/story/unlike" : "/story/like";
 
-        // send json request
+
+        $.ajax({
+                method: "put",
+                url: ajaxUrl,
+                dataType: "json",
+                contentType: 'application/json',
+                data: {"storyId": $("input[name='storyId']").val()},
+                beforeSend: function (jqXHR, settings) {
+                    jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                    disableButton("#personalTab #save");
+                },
+                success: function (data) {
+                    showAlert(true, "#personalTab", data);
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showAlert(false, "#personalTab", "fail to update, invalid data");
+                },
+                complete: function (jqXHR, textStatus) {
+                    enableButton("#personalTab #save");
+                }
+            }
+        );
 
         // if request sucess, do toogle
         $(this).toggleClass("liked");
@@ -49,7 +71,7 @@ function rateAction() {
         for (i = 0; i < onStar; i++) {
             $(stars[i]).addClass('selected');
         }
-        
+
     });
 }
 

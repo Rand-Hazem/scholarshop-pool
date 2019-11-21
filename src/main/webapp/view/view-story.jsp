@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,24 +15,26 @@
 <jsp:include page="parts/navbar.jsp"/>
 <section class="view-story container">
     <!-------- Drop down menu -------->
-
-    <div class="dropdown">
-        <button type="button" class="btn btn-toggle-menu" data-toggle="dropdown">
-            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <c:if test="${owner}">
-                <a class="dropdown-item" href="#${contextPath}/story/edit?id=${story.id}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-            </c:if>
-            <c:if test="${!owner}">
-                <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Save</a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#reportModal">
-                    <i class="fa fa-flag-o" aria-hidden="true"></i> Report
-                </a>
-            </c:if>
+    <sec:authorize access="isAuthenticated()">
+        <div class="dropdown">
+            <button type="button" class="btn btn-toggle-menu" data-toggle="dropdown">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <c:if test="${owner}">
+                    <a class="dropdown-item" href="#${contextPath}/story/edit?id=${story.id}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                </c:if>
+                <c:if test="${!owner}">
+                    <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Save</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#reportModal">
+                        <i class="fa fa-flag-o" aria-hidden="true"></i> Report
+                    </a>
+                </c:if>
+            </div>
         </div>
-    </div>
+    </sec:authorize>
+
 
     <div class="row story ">
         <div class="col-md-12 col-lg-8">
@@ -57,15 +60,15 @@
             <!-------- Story carousel -------->
             <div id="storyCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
-                    <c:forEach var="index" begin="0" end="${story.imgList.size()}">
-                    <li data-target="#storyCarousel" data-slide-to="${index}" class="${index==0 ? 'active' : ''}"></li>
+                    <c:forEach var="item" items="${story.imgList}" varStatus="state">
+                        <li data-target="#storyCarousel" data-slide-to="${state.index}" class="${state.index==0 ? 'active' : ''}"></li>
                     </c:forEach>
                 </ul>
 
                 <div class="carousel-inner">
-                    <c:forEach var="index" begin="0" end="${story.imgList.size()}">
-                        <div class="carousel-item ${index eq 0 ? 'active' : ''}">
-                            <img src="${contextPath}${storyImgPath}${story.imgList[index]}" alt="${story.city}">
+                    <c:forEach var="item" items="${story.imgList}" varStatus="state">
+                        <div class="carousel-item ${state.index eq 0 ? 'active' : ''}">
+                            <img src="${contextPath}${storyImgPath}${item}" alt="${story.city}">
                         </div>
                     </c:forEach>
                 </div>
@@ -88,16 +91,18 @@
 
             <!---------- Story meta ---------->
             <div class="story-meta">
-              <span class="author mr-2 border-right">
-                <img src="resources/static/img/user-icon.png" alt="author" class="mr-2">
-                fName
-              </span>
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                <span class="date mr-2 border-right">${story.startDate}</span>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <span class="like-counts mr-2"> 20</span>
-            </div>
+                <span class="like-counts mr-2 border-right">${story.likes} &nbsp;</span>
 
+                <ul class="list-inline d-inline">
+                    <fmt:formatNumber var="rate" type="number" pattern="#" value="${story.rate + 0.5 - ((story.rate+0.5) % 1)}"></fmt:formatNumber>
+                    <c:forEach begin="1" end="${rate}">
+                        <li class='list-inline-item mr-0'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
             <!---------- Story body ---------->
             <div class="story-body">
                 <p id="general" data-aos="fade-up">
@@ -168,61 +173,68 @@
 
             </div>
 
-            <hr class="hr-end mt-5">
+            <sec:authorize access="isAuthenticated()">
+                <hr class="hr-end mt-5">
+                <%------------ Like button -----------%>
+                <button class="btn button-like">
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;Like
+                </button>
 
-            <!---------- Like button --------->
-            <button class="btn button-like">
-                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;Like
-            </button>
-
-            <!--------- Rating stars --------->
-            <section class='rating-widget d-inline-block'
-                     style="position: relative; top: 8px; left: 10px;">
-                <!-- Rating Stars Box -->
-                <div class='rating-stars text-center'>
-                    <ul id='stars'>
-                        <li class='star' data-value='1'>
-                            <i class='fa fa-star fa-fw'></i>
-                        </li>
-                        <li class='star' data-value='2'>
-                            <i class='fa fa-star fa-fw'></i>
-                        </li>
-                        <li class='star' data-value='3'>
-                            <i class='fa fa-star fa-fw'></i>
-                        </li>
-                        <li class='star' data-value='4'>
-                            <i class='fa fa-star fa-fw'></i>
-                        </li>
-                        <li class='star' data-value='5'>
-                            <i class='fa fa-star fa-fw'></i>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                <!--------- Rating stars ------- -->
+                <section class='rating-widget d-inline-block' style="position: relative; top: 8px; left: 10px;">
+                    <div class='rating-stars text-center'>
+                        <ul id='stars'>
+                            <li class='star' data-value='1'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' data-value='2'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' data-value='3'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' data-value='4'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' data-value='5'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </sec:authorize>
         </div>
 
         <!------- profile overview ------>
         <div class="profile-section col-md-12 col-lg-4">
             <div class="profile-section-box mt-5">
                 <div class="profile text-center">
-                    <img src="${contextPath}/resources/static/img/user-icon.png" class="img-fluid" alt="username">
+                    <img src="${contextPath}${profileImgPath}${story.user.imgUrl == null ? 'user-icon.png' : user.imgUrl}" class="img-fluid" alt="username">
                     <div class="profile-body">
-                        <h5>firstname lastname</h5>
-                        <p id="profileAbout">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Exercitationem facilis sunt repellendus excepturi beatae
-                            porro debitis voluptate nulla quo veniam fuga sit molestias minus.
-                        </p>
-
+                        <h5>${story.user.firstName} ${story.user.lastName}</h5>
+                        <c:forEach var="item" items="${story.user.userOptionalInfoList}">
+                            <c:if test="${item.key == 'BIO'}">
+                                <p id="profileAbout">${item.data}</p>
+                            </c:if>
+                        </c:forEach>
                         <a href="#" class="btn btn-profile btn-sm rounded mb-3" role="button">View profile</a>
-
                         <p class="social">
-                            <a href="#" class="p-2"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="p-2"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="p-2"><i class="fa fa-envelope"></i></a>
-                            <a href="#" class="p-2"><i class="fa fa-linkedin"></i></a>
-                            <a href="#" class="p-2"><i class="fa fa-instagram"></i></a>
-                            <a href="#" class="p-2"><i class="fa fa-globe"></i></a>
+                            <c:forEach var="item" items="${story.user.userOptionalInfoList}">
+                                <c:choose>
+                                    <c:when test="${item.key == 'FACEBOOK_LINK'}">
+                                        <a href="${item.data}" class="p-2"><i class="fa fa-facebook"></i></a>
+                                    </c:when>
+                                    <c:when test="${item.key == 'TWITTER_LINK'}">
+                                        <a href="${item.data}" class="p-2"><i class="fa fa-twitter"></i></a>
+                                    </c:when>
+                                    <c:when test="${item.key == 'LINKEDIN_LINK'}">
+                                        <a href="${item.data}" class="p-2"><i class="fa fa-linkedin"></i></a>
+                                    </c:when>
+                                    <c:when test="${item.key == 'WEBSITE_LINK'}">
+                                        <a href="${item.data}" class="p-2"><i class="fa fa-globe"></i></a>
+                                    </c:when>
+                                </c:choose>
+                            </c:forEach>
                         </p>
                     </div>
                 </div>
@@ -250,7 +262,7 @@
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Message:</label>
+                            <label for="messageText" class="col-form-label">Message:</label>
                             <textarea id="messageText" class="form-control"></textarea>
                         </div>
                     </form>
@@ -262,6 +274,8 @@
             </div>
         </div>
     </div>
+
+
 </section>
 <%@include file="parts/footer.html" %>
 </body>

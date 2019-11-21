@@ -19,15 +19,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "from User u where u.email=:email")
     User findByEmail(String email);
 
-    
-    @Override
-    @Query("select new com.iteam.scholarships.entity.User(u.firstName, u.lastName, u.email) " +
+
+
+
+
+    @Query("select  new com.iteam.scholarships.entity.User(u.id, u.type, u.firstName, u.lastName, u.imgUrl) " +
             "from User u where u.id=:id")
-    Optional<User> findById(Integer id);
-
-
-    @Query("select u.id from User u where u.email=:email")
-    int findIdByEmail(@Param("email") String email);
+    User findUserHeader(@Param("id") int id);
 
 
     @Query("select u.email from User u where u.id=:id")

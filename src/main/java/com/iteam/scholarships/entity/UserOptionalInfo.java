@@ -116,7 +116,7 @@ public class UserOptionalInfo {
 
     @Override
     public String toString() {
-        return "UserOptionalInfo{" +
+        return "{" +
                 "id=" + id +
                 ", key=" + key +
                 ", data='" + data + '\'' +

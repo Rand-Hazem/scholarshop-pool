@@ -49,6 +49,10 @@ public class UserService {
         return userRepository.findById(id).orElse(new User());
     }
 
+    public User findUserHeader(int id){
+        return userRepository.findUserHeader(id);
+    }
+
     public User getCurrentUserWithId() {
         return new User(currentUser.getId());
     }
@@ -74,6 +78,13 @@ public class UserService {
     public User findCurrent() {
         return userRepository.findById(currentUser.getId()).orElse(null);
     }
+
+    public List<UserOptionalInfo>findUserOptionalInfo(int id){
+        return userOptionalInfoRepository.findByUser(new User(id));
+    }
+
+
+    /* ----------------------------- Account ------------------------------------- */
 
     public User registerUser(User user) {
         encryptUserPassword(user);

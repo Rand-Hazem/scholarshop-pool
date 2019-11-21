@@ -28,8 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
 //                .antMatchers("/test-context").permitAll()
-                .antMatchers("/resources/**", "/", "/main", "/register").permitAll()
+                .antMatchers("/resources/**", "/upload/**", "/", "/main", "/register").permitAll()
                 .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
+                .antMatchers("/story/{\\d+}/view").permitAll()
                 .antMatchers("/story/share").hasAuthority("student")
                 .anyRequest().authenticated()
 

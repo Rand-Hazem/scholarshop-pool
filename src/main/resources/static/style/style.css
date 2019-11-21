@@ -1388,6 +1388,7 @@ footer {
   background: #fff;
   box-shadow: 0 4px 8px 0px #e1d9d9; }
   .view-story .dropdown {
+    z-index: 100;
     position: absolute;
     top: 150px;
     right: 13%; }
@@ -1417,6 +1418,8 @@ footer {
     .view-story .story .carousel-inner img {
       width: 100%;
       height: 100%;
+      max-width: 710px;
+      max-height: 452.5px;
       object-fit: cover; }
     .view-story .story .tags p {
       display: inline-block;

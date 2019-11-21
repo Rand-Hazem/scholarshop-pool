@@ -2,6 +2,8 @@ package com.iteam.scholarships.entity;
 
 import com.iteam.scholarships.convertor.ListStringConvertor;
 import com.iteam.scholarships.enums.StoryType;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.JoinFormula;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -55,11 +57,11 @@ public class Story {
     @Column(nullable = false)
     private String aboutInstitution;
 
-    @Column(nullable = false)
-    private int likeCount = 0;
+    @Formula("(select count(*) from story_like l where l.story_id=id)")
+    private int likes;
 
-    @Column(nullable = false)
-    private float rate = 0;
+    @Formula("(select AVG(r.value) from story_rate r where r.story_id=id)")
+    private float rate;
 
     @Convert(converter = ListStringConvertor.class)
     private List<String> imgList;
@@ -82,8 +84,12 @@ public class Story {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
+    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<StoryRate> storyRateList;
+
     public Story() {
         imgList = new ArrayList<>(3);
+        storyRateList = new ArrayList<>();
     }
 
     public int getId() {
@@ -196,14 +202,6 @@ public class Story {
         this.aboutInstitution = aboutInstitution;
     }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
     public List<String> getImgList() {
         return imgList;
     }
@@ -268,6 +266,22 @@ public class Story {
         this.userId = userId;
     }
 
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
     @Override
     public String toString() {
         return "Story{" +
@@ -288,7 +302,6 @@ public class Story {
                 ", aboutTransportation='" + aboutTransportation + '\'' +
                 ", aboutTradition='" + aboutTradition + '\'' +
                 ", recommendationAndAdvice='" + recommendationAndAdvice + '\'' +
-                "\n"+user+
                 '}';
     }
 }

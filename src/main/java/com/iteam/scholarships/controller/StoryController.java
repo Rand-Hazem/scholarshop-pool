@@ -75,15 +75,9 @@ public class StoryController {
     @GetMapping("{id}/view")
     public String viewStory(@PathVariable("id") int id, @ModelAttribute("story") Story story, Model model) {
 
-        if (story == null) {
-            story = storyService.findStoryForView(id);
-        }
         story = storyService.findStoryForView(id);
-        System.out.println("\n\n"+story);
-
-
         model.addAttribute("story", story);
-        //model.addAttribute("owner", currentUser.matchId(story.getUser().getId()));
+        model.addAttribute("owner", currentUser.matchId(story.getUser().getId()));
         return "view-story";
     }
 

@@ -77,6 +77,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Story> storyList;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<StoryRate> listStoryRate; // this has no setter or getter, it's just for relation
+
 
     public User(){
         userOptionalInfoList = new ArrayList<>();
@@ -113,6 +116,14 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public User(int id, UserType type, String firstName, String lastName, String imgUrl) {
+        this.id=id;
+        this.type = type;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.imgUrl = imgUrl;
     }
 
     public int getId() {
@@ -311,7 +322,6 @@ public class User {
             this.setImgUrl(user.getImgUrl());
             dataChangedFromCopy= true;
         }
-
     }
 
     public boolean isDataChanged(){

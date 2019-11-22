@@ -1,27 +1,12 @@
-function likeStoryAction() {
-    //toggle like button
-    $('button.button-like').on('click', function (event) {
-        var btn = $(this);
-        var isLiked = $(this).hasClass("liked");
-        var ajaxUrl = isLiked ? "/story/unlike" : "/story/like";
+function setLikeStoryAction() {
 
-        var ajaxData = {"storyId": $("input[name='storyId']").val()};
-        $.ajax({
-                method: "put",
-                url: ajaxUrl,
-                data: ajaxData,
-                beforeSend: function (jqXHR, settings) {
-                    jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
-                    disableButton("button.button-like");
-                },
-                success: function () {
-                    $(btn).toggleClass("liked");
-                },
-                complete: function (jqXHR, textStatus) {
-                    enableButton("button.button-like");
-                }
-            }
-        );
+    var btnLike = $('button.button-like');
+    var successCallbackFun = function () {
+        $(btnLike).toggleClass("liked");
+    };
+
+    $(btnLike).on('click', function (event) {
+        likeStoryAction($(this), $("input[name='storyId']").val(), successCallbackFun);
     });
 }
 
@@ -105,11 +90,29 @@ function setReportStoryAction() {
 
 }
 
+function setDeleteStoryAction() {
+
+    var deleteBtn = $("#mainDropDownMenu #deleteStory");
+    if ($(deleteBtn).length < 1) {
+        return;
+    }
+    var successCallbackFun = function (location) {
+        window.location = location;
+    };
+
+    var errorCallbackFun = function () {
+        // nothing to do, stay in the same page
+    };
+    deletStoryAction(deleteBtn, $("input[name='storyId']").val(), successCallbackFun, errorCallbackFun);
+}
+
 
 $(document).ready(function () {
 
-    likeStoryAction();
     starMouseAction();
     rateAction();
+    // these function in story-ajax.js file
+    setLikeStoryAction();
     setReportStoryAction();
+    setDeleteStoryAction();
 });

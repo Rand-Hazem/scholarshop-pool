@@ -1,13 +1,14 @@
 package com.iteam.scholarships.repository;
 
 import com.iteam.scholarships.entity.Story;
-import org.springframework.data.jpa.repository.EntityGraph;
+import com.iteam.scholarships.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StoryRepositoty extends JpaRepository<Story, Integer> {
+
+
+    int deleteByIdAndUser(int storyId, User user);
 
 }

@@ -45,7 +45,7 @@ public class StoryService {
     }
 
 
-    public boolean likeStory(int storyId) {
+    public boolean like(int storyId) {
         Story story = storyRepositoty.findById(storyId).orElse(null);
         if (story == null) {
             return false;
@@ -58,12 +58,12 @@ public class StoryService {
     }
 
 
-    public boolean unLikeStory(int storyId) {
+    public boolean unLike(int storyId) {
         return storyLikeService.deleteByStoryAndUser(new Story(storyId), userService.getCurrentUserWithId());
     }
 
 
-    public boolean rateStory(int storyId, int rateValue) {
+    public boolean rate(int storyId, int rateValue) {
         User user = userService.getCurrentUserWithId();
         Story story = storyRepositoty.findById(storyId).orElse(null);
         if(story == null){
@@ -86,7 +86,7 @@ public class StoryService {
     }
 
 
-    public boolean reportStory(StoryReport storyReport) {
+    public boolean report(StoryReport storyReport) {
         try {
             storyReport.setReporterUser(userService.getCurrentUserWithId());
             storyReport.setStory(new Story(storyReport.getStoryId()));
@@ -101,6 +101,10 @@ public class StoryService {
         }
     }
 
+
+    public boolean delete(int storyId){
+       return storyRepositoty.deleteByIdAndUser(storyId, userService.getCurrentUserWithId()) > 0;
+    }
 
 
 

@@ -25,14 +25,14 @@
 <section class="view-story container">
     <!-------- Drop down menu -------->
     <sec:authorize access="isAuthenticated()">
-        <div class="dropdown">
+        <div id="mainDropDownMenu" class="dropdown">
             <button type="button" class="btn btn-toggle-menu" data-toggle="dropdown">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 <c:if test="${owner}">
                     <a class="dropdown-item" href="#${contextPath}/story/edit?id=${story.id}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                    <a id="deleteStory" class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
                 </c:if>
                 <c:if test="${!owner}">
                     <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Save</a>
@@ -276,7 +276,6 @@
                             <label for="messageText" class="col-form-label">Message:</label>
                             <textarea id="messageText" name="message" class="form-control"></textarea>
                         </div>
-                        <input type="hidden" name="storyId" value="${story.id}">
                     </form>
                 </div>
                 <div class="modal-footer">

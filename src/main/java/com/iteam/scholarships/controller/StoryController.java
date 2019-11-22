@@ -104,26 +104,3 @@ public class StoryController {
 }
 
 
-
-
-
-/*
-
-    @PreAuthorize("hasAuthority('student')")
-    @PostMapping("share")
-    public String shareStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
-                             @RequestParam(value = "img-1", required = false) MultipartFile img1,
-                             @RequestParam(value = "img-3", required = false) MultipartFile img2,
-                             @RequestParam(value = "img-2", required = false) MultipartFile img3, Model model) {
-
-        System.out.println("\n\n**" + story);
-        System.out.println("\n\nBinding result " + bindingResult);
-        if (!bindingResult.hasErrors() && storyService.save(story)) {
-            System.out.println("\n\n" + story);
-            return "profile";
-
-        }
-        return "share-story";
-    }
-
- */

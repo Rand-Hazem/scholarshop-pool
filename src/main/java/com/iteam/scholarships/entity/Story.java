@@ -57,9 +57,6 @@ public class Story {
     @Column(nullable = false)
     private String aboutInstitution;
 
-    @Column(nullable = false, columnDefinition = "integer default 0")
-    private int reporteCount;
-
     @Formula("(select count(*) from story_like l where l.story_id=id)")
     private Integer likes;
 
@@ -87,8 +84,14 @@ public class Story {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<StoryRate> storyRateList;
+
+    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<StoryLike> storyLikeList;
+
+    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<StoryReport> storyReportList;
 
     public Story() {
         imgList = new ArrayList<>(3);

@@ -1,13 +1,7 @@
-function showUserCard() {
-    $(".user-card").hover(function () {
-            $(".user-details").stop(true, true).fadeIn();
-        }
-        , function () {
-            $(".user-details").stop(true, true).fadeOut();
-        });
-}
-
-function likeStoryAction() {
+/**
+ * this for like story in stories.jsp page, it differ from like story in view-story.jsp page
+ */
+function likeStoryNodeAction() {
     $('.story-node .like').click(function () {
 
         // send json request
@@ -25,7 +19,7 @@ function likeStoryAction() {
 function ajaxDeleteStory(btnID) {
     // get the story node
     var storyNode = $(btnID).parents(".story-node");
-    
+
     // send json request & update these variable
     var msg = "story deleted successfully"; // something went wrong, try agin
     var resClass = "text-success"; // text-danger
@@ -33,12 +27,12 @@ function ajaxDeleteStory(btnID) {
 
     // if ajsax success, update view
     var msg = $(
-            "<div class='alert alert-dismissible fade show w-75 mx-auto " + resClass + "'>" +
-            "<strong>Success!</strong> " + msg +
-            "</div>")
-            .fadeTo(2000, 500).slideUp(1000, function () {
-        $(this).remove();
-    });
+        "<div class='alert alert-dismissible fade show w-75 mx-auto " + resClass + "'>" +
+        "<strong>Success!</strong> " + msg +
+        "</div>")
+        .fadeTo(2000, 500).slideUp(1000, function () {
+            $(this).remove();
+        });
     $(storyNode).replaceWith(msg);
 }
 
@@ -68,23 +62,33 @@ function saveStoryAction() {
     });
 }
 
-function reportStoryAction() {
+function reportStoryAction(btnSendSelector, formId, errorCallBack, successCallBack) {
+        $.ajax({
+                method: "post",
+                url: "/story/report",
+                data: $(formId).serialize(),
+                beforeSend: function (jqXHR, settings) {
+                    jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                    disableButton(btnSendSelector);
+                },
+                success: function () {
+                    successCallBack();
 
-    $('.story-node .dropdown .dropdown-item[data-option-name="reportStory"]').on("click", function (event) {
-        event.preventDefault();
-
-        // SET IMPORTANT DATA TO MODEL FORM
-        // MODEL >   #reportModelSection #reportModel
-
-    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    errorCallBack();
+                },
+                complete: function (jqXHR, textStatus) {
+                    enableButton(btnSendSelector);
+                }
+            }
+        );
 }
+
 $(document).ready(function () {
-    showUserCard();
-    likeStoryAction();
+    likeStoryNodeAction();
     deletStoryAction();
     saveStoryAction();
-    reportStoryAction();
-
 
 });
 

@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/test-context").permitAll()
                 .antMatchers("/resources/**", "/upload/**", "/", "/main", "/register").permitAll()
                 .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
-                .antMatchers("/story/{\\d+}/view").permitAll()
+                .antMatchers("/story/{\\d+}/**", "/story/all").permitAll()
                 .antMatchers("/story/share").hasAuthority("student")
                 .anyRequest().authenticated()
 

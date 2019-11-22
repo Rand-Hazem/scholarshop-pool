@@ -57,11 +57,14 @@ public class Story {
     @Column(nullable = false)
     private String aboutInstitution;
 
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int reporteCount;
+
     @Formula("(select count(*) from story_like l where l.story_id=id)")
-    private int likes;
+    private Integer likes;
 
     @Formula("(select AVG(r.value) from story_rate r where r.story_id=id)")
-    private float rate;
+    private Float rate;
 
     @Convert(converter = ListStringConvertor.class)
     private List<String> imgList;
@@ -92,6 +95,11 @@ public class Story {
         storyRateList = new ArrayList<>();
     }
 
+    public Story(int id){
+        this();
+        this.id=id;
+    }
+
     public int getId() {
         return id;
     }
@@ -106,8 +114,15 @@ public class Story {
         return title;
     }
 
+    public String getUrlTitle(){
+        if(getTitle() != null){
+            return getTitle().replaceAll(" ", "-");
+        }
+        return getTitle();
+    }
+
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title != null ? title.trim() : title;
     }
 
     @NotBlank
@@ -267,19 +282,20 @@ public class Story {
     }
 
     public int getLikes() {
-        return likes;
+        return likes==null ? 0: likes.intValue();
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setLikes(Integer likes) {
+        this.likes = likes ;
     }
 
     public float getRate() {
-        return rate;
+        // rate + 0.5 - ((rate+0.5) % 1)
+        return rate==null ? 1 : (rate + 0.5f - ( (rate + 0.5f)%1 ));
     }
 
-    public void setRate(float rate) {
-        this.rate = rate;
+    public void setRate(Float rate) {
+        this.rate = rate==null || rate.intValue()==0 ? 1 : rate;
     }
 
     @Override

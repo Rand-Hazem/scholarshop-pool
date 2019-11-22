@@ -6,13 +6,22 @@
 <head>
     <title>View Story</title>
     <meta name="description" content="${story.storyInShort}">
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
     <%@include file="parts/imgStaticPath.jsp" %>
+    <script src="${contextPath}/resources/static/js/story-ajax.js"></script>
     <script src="${contextPath}/resources/static/js/view-story.js"></script>
 </head>
 
 <body>
 <jsp:include page="parts/navbar.jsp"/>
+
+<sec:authorize access="isAnonymous()">
+    <%@include file="parts/register-now-dialog.html" %>
+</sec:authorize>
+
+
 <section class="view-story container">
     <!-------- Drop down menu -------->
     <sec:authorize access="isAuthenticated()">
@@ -95,7 +104,7 @@
                 <span class="like-counts mr-2 border-right">${story.likes} &nbsp;</span>
 
                 <ul class="list-inline d-inline">
-                    <fmt:formatNumber var="rate" type="number" pattern="#" value="${story.rate + 0.5 - ((story.rate+0.5) % 1)}"></fmt:formatNumber>
+                    <fmt:formatNumber var="rate" type="number" pattern="#" value="${story.rate}"></fmt:formatNumber>
                     <c:forEach begin="1" end="${rate}">
                         <li class='list-inline-item mr-0'>
                             <i class='fa fa-star fa-fw'></i>
@@ -175,8 +184,9 @@
 
             <sec:authorize access="isAuthenticated()">
                 <hr class="hr-end mt-5">
+                <input type="hidden" name="storyId" value="${story.id}">
                 <%------------ Like button -----------%>
-                <button class="btn button-like">
+                <button class="btn button-like ${userLiked ? 'liked' : ''}">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;Like
                 </button>
 
@@ -184,19 +194,19 @@
                 <section class='rating-widget d-inline-block' style="position: relative; top: 8px; left: 10px;">
                     <div class='rating-stars text-center'>
                         <ul id='stars'>
-                            <li class='star' data-value='1'>
+                            <li class='star ${userRate>0 ? 'selected' : ''}' data-value='1'>
                                 <i class='fa fa-star fa-fw'></i>
                             </li>
-                            <li class='star' data-value='2'>
+                            <li class='star ${userRate>1 ? 'selected' : ''}' data-value='2'>
                                 <i class='fa fa-star fa-fw'></i>
                             </li>
-                            <li class='star' data-value='3'>
+                            <li class='star ${userRate>2 ? 'selected' : ''}' data-value='3'>
                                 <i class='fa fa-star fa-fw'></i>
                             </li>
-                            <li class='star' data-value='4'>
+                            <li class='star ${userRate>3 ? 'selected' : ''}' data-value='4'>
                                 <i class='fa fa-star fa-fw'></i>
                             </li>
-                            <li class='star' data-value='5'>
+                            <li class='star ${userRate>4 ? 'selected' : ''}' data-value='5'>
                                 <i class='fa fa-star fa-fw'></i>
                             </li>
                         </ul>
@@ -254,17 +264,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="reportResponseMsgDiv" class="small d-none">Report send successfully, we will progress it
-                    </div>
-                    <form>
-                        <div class="form-group">
+                    <div id="reportResponseMsgDiv" class="alert d-none"></div>
+                    <form id="reportForm">
+                        <div class="form-group" name="storyReport">
                             <label for="recipient-name" class="col-form-label">Select Why do you want to report?</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <select name="reportContentType" class="form-control custom-select">
+                                <%@include file="parts/report-content-type.html" %>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="messageText" class="col-form-label">Message:</label>
-                            <textarea id="messageText" class="form-control"></textarea>
+                            <textarea id="messageText" name="message" class="form-control"></textarea>
                         </div>
+                        <input type="hidden" name="storyId" value="${story.id}">
                     </form>
                 </div>
                 <div class="modal-footer">

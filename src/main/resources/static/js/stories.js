@@ -1,3 +1,11 @@
+function showUserCard() {
+    $(".user-card").hover(function () {
+            $(".user-details").stop(true, true).fadeIn();
+        }
+        , function () {
+            $(".user-details").stop(true, true).fadeOut();
+        });
+}
 
 function autocompleteSearch() {
     var searchBy = ["ahmad", "basem", "khaled"];
@@ -8,6 +16,8 @@ function autocompleteSearch() {
     });
 }
 
+
 $(document).ready(function () {
     autocompleteSearch();
+    showUserCard();
 });

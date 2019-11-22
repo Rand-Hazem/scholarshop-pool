@@ -1,16 +1,19 @@
 package com.iteam.scholarships.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.JoinFormula;
 
 import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
 public class StoryRate {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private int value;
 
     @Column(name = "user_id", insertable = false, updatable = false)
@@ -19,10 +22,10 @@ public class StoryRate {
     @Column(name = "story_id", insertable = false, updatable = false)
     private int storyId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "story_id")
     private  Story story;
 
     public StoryRate() {

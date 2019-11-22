@@ -9,15 +9,13 @@ public class StoryLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int value;
-
     @Column(name = "user_id", insertable = false, updatable = false)
     private int userId;
 
     @Column(name = "story_id", insertable = false, updatable = false)
     private int storyId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -32,14 +30,6 @@ public class StoryLike {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public int getUserId() {

@@ -3,6 +3,8 @@ package com.iteam.scholarships.controller;
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.component.UplodeFille;
 import com.iteam.scholarships.entity.Story;
+import com.iteam.scholarships.service.StoryLikeService;
+import com.iteam.scholarships.service.StoryRateService;
 import com.iteam.scholarships.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -24,7 +27,18 @@ public class StoryController {
     @Autowired
     private UplodeFille uplodeFille;
     @Autowired
+    private StoryLikeService storyLikeService;
+    @Autowired
+    private StoryRateService storyRateService;
+    @Autowired
     private CurrentUser currentUser;
+
+
+    @GetMapping("all")
+    public String viewAllStories(Model model){
+        return "stories";
+    }
+
 
     @GetMapping("share")
     public String shareStory(Model model) {
@@ -45,7 +59,7 @@ public class StoryController {
         }
         if (success) {
             redirectAttributes.addFlashAttribute("story", story);
-            return "redirect:" + story.getId() + "/view";
+            return "redirect:" + story.getId() + "/" + story.getTitle().replaceAll(" ", "-");
         }
         uplodeFille.deleteAllStoryImg(story.getImgList());
         return "share-story";
@@ -72,12 +86,17 @@ public class StoryController {
 //    }
 
 
-    @GetMapping("{id}/view")
-    public String viewStory(@PathVariable("id") int id, @ModelAttribute("story") Story story, Model model) {
+    @GetMapping({"{id}", "{id}/{title}"})
+    public String viewStory(@PathVariable("id") int id, @PathVariable(name = "title", required = false) String title, Model model, HttpServletRequest request) {
+        Story story = storyService.findStoryForView(id);
 
-        story = storyService.findStoryForView(id);
+        if(story == null ){
+            return "redirect:all";
+        }
         model.addAttribute("story", story);
         model.addAttribute("owner", currentUser.matchId(story.getUser().getId()));
+        model.addAttribute("userLiked", storyLikeService.isCurrentUserLikeStory(story.getId()));
+        model.addAttribute("userRate", storyRateService.getCurrentUserRate(story.getId()));
         return "view-story";
     }
 

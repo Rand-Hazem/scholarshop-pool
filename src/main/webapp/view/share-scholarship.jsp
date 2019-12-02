@@ -1,114 +1,21 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
     <title>share scholarship</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <%@include file="parts/links.html" %>
+    <%@include file="parts/imgStaticPath.jsp" %>
 
-
-
-
-    <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- bootstrap v.4 -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!-- JQuery validator -->
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/additional-methods.min.js"></script>
-
-    <!-- animation  bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
-    <!-- Animation On Scroll -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/css/nanoscroller.min.css'>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/javascripts/jquery.nanoscroller.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/javascripts/jquery.nanoscroller.min.js.map'></script>
-
-    <!-- Animation On Scroll -->
-    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css'>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js'></script>
-
-    <!-- sweet-aleart library -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-
-
-    <!-- multi select list -->
-    <script type="text/javascript" src="../assest/js/bootstrap-multiselect.js"></script>
-    <link rel="stylesheet" type="text/css" href="../assest/style/bootstrap-multiselect.css"/>
-
-    <script type="text/javascript" src="../assest/js/jquery.smartWizard.min.js"></script>
-    <script src="../assest/js/share-scholarship.js"></script>
-    <link rel="stylesheet" type="text/css" href="../assest/style/style.css">
-
-
+    <script src="${contextPath}/resources/static/js/jquery.smartWizard.min.js"></script>
+    <script src="${contextPath}/resources/static/js/share-scholarship.js"></script>
 </head>
 
 
 <body>
-<!-- -------------------------------------- Advertiser navbar, in a file to include , delete ---------------------------- -->
-<!-- ---------------------------------------------------------------------------------------------------------------------- -->
-<section class="advertiser-navbar">
-    <nav class="navbar navbar-expand-md fixed-top">
-
-
-        <a class="navbar-brand" href="#">
-            <img src="../assest/img/scholarship-graduaed-icon.svg" class="logo" style="color: #fff">
-        </a>
-        <div class="menu-toggle" data-toggle="collapse" data-target="#collapse_target">
-            <div class="hamburger"></div>
-        </div>
-
-        <div class="collapse navbar-collapse" id="collapse_target">
-
-            <div class="search-box-small-nav">
-                <input type="text" id="search" placeholder="Search ...">
-            </div>
-
-
-            <ul class="navbar-nav open desktop ">
-                <li><a class="nav-link nav-link-grow-up" href="#">Home</a></li>
-                <li><a class="nav-link nav-link-grow-up" href="#">Add Opportunity</a></li>
-                <li><a class="nav-link nav-link-grow-up" href="#">Opportunities</a></li>
-                <li><a class="nav-link nav-link-grow-up" href="#">Applications</a></li>
-
-                <li class="nav-item dropdown">
-
-                    <div class="search-box">
-                        <input name="mainSearch" type="text" class="search-txt" placeholder="Search ..."/>
-                        <a class="search-btn" href="#"><i class="fa fa-search" style="display:flex;"></i></a>
-                    </div>
-
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> Profile
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-info"
-                         aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item dp-color" href="#">View Profile</a>
-                        <a class="dropdown-item dp-color" href="#">Edit Profile</a>
-                        <a class="dropdown-item dp-color" href="#">Log out</a>
-                    </div>
-                </li>
-            </ul>
-    </nav>
-</section>
-<!-- ------------------------------------------------------------------------------------------------ -->
-<!-- ------------------------------------------------------------------------------------------------ -->
-
+<jsp:include page="parts/navbar.jsp"/>
 
 <section class="share-scholarship page-header">
     <div class="headerText">
@@ -158,7 +65,7 @@
                                 Upon submission, we will review the scholarship information to make sure it reflects our
                                 standards.
                                 <div class="mt-2">
-                                    <img src="..\assest\img\meeting.png" class="img-fluid">
+                                    <img src="${contextPath}/resources/static/img/meeting.png" class="img-fluid">
                                 </div>
                             </div>
 
@@ -185,6 +92,26 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <div class="d-inline-block w-100 w-md-50 align-top">
+                                            <label>Opportunity degree<b> *</b></label>
+                                            <select id="opportunityDegree" name="opportunityDegree" class="form-control custom-select" required>
+                                                <option value="BACHELOR">Bachelor</option>
+                                                <option value="BACHELOR_MASTER">Bachelor, Master</option>
+                                                <option value="BACHELOR_MASTER_DOCTORAL">Bachelor, Master, Doctoral</option>
+                                                <option value="MASTER">Master</option>
+                                                <option value="MASTER_DOCTORAL">Master, Doctoral</option>
+                                                <option value="DOCTORAL">Doctoral</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-inline-block w-100 w-md-50 align-top">
+                                            <label>Available Seats<b> *</b></label>
+                                            <input id="opportunitySeats" name="opportunitySeats" type="number" min="1"
+                                                   class="form-control overflow-hidden" value="1"
+                                                   placeholder="Available Seats" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>Opportunity Description</label><b> *</b>
                                         <textarea class="form-control noresize" rows="3" id="opportunityDescription"
                                                   name="opportunityDescription"
@@ -197,7 +124,7 @@
                                             <select id="opportunityCountry" name="opportunityCountry"
                                                     class="form-control custom-select" required>
                                                 <option value="" disabled selected>Country</option>
-                                                <option value="Afghanistan" class="">Afghanistan</option>
+                                                <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Åland Islands">Åland Islands</option>
                                                 <option value="Albania">Albania</option>
                                                 <option value="Algeria">Algeria</option>
@@ -261,10 +188,10 @@
                                                 <select id="opportunityFund" name="opportunityFund"
                                                         class="form-control custom-select align-top" required>
                                                     <option value="" disabled selected>Select Funding</option>
-                                                    <option value="full">Full Funding</option>
-                                                    <option value="partial">Partial Funding</option>
-                                                    <option value="salary">Monthly Salary</option>
-                                                    <option value="No">No Funding</option>
+                                                    <option value="FULL">Full Funding</option>
+                                                    <option value="PARTIAL">Partial Funding</option>
+                                                    <option value="SALARY">Monthly Salary</option>
+                                                    <option value="NO">No Funding</option>
                                                 </select>
                                             </div>
                                             <div class="w-md-50 d-inline-block align-top">
@@ -277,40 +204,34 @@
                                             <div id="fundCover" class="w-100">
                                                 <div class="col-sm-11 col-md-5  d-inline-block">
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Tuition Fee"> Tuition Fee
+                                                        <input type="checkbox" name="fundCover" value="TUITION_FEE"> Tuition Fee
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Travel Costs"> Travel Costs
+                                                        <input type="checkbox" name="fundCover" value="TRAVEL_COSTS"> Travel Costs
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Visa Costs"> Visa Costs
+                                                        <input type="checkbox" name="fundCover" value="VISA_COSTS"> Visa Costs
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Accommodation"> Accommodation
+                                                        <input type="checkbox" name="fundCover" value="ACCOMMODATION"> Accommodation
                                                     </label>
                                                 </div>
                                                 <div class="col-sm-11 col-md-5 d-inline-block">
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Food"> Food
+                                                        <input type="checkbox" name="fundCover" value="FOOD"> Food
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Participation Fees"> Participation Fees
+                                                        <input type="checkbox" name="fundCover" value="PARTICIPATION_FEES"> Participation Fees
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Stipend/ Living allowance"> Stipend/ Living allowance
+                                                        <input type="checkbox" name="fundCover" value="STIPEND_LIVING_ALLOWANCE"> Stipend/ Living allowance
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" name="fundCover" value="Other"> Other
+                                                        <input type="checkbox" name="fundCover" value="HEALTH_INSURANCE"> Health insurance
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Available Seats</label><b> *</b>
-                                        <input id="opportunitySeats" name="opportunitySeats" type="number" min="1"
-                                               class="form-control overflow-hidden" value="1"
-                                               placeholder="Available Seats" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Opportunity Website Address</label>
@@ -350,7 +271,7 @@
                                             </select>
                                         </div>
                                         <div class="d-inline-block w-md-50 align-top">
-                                            <input id="otherProviderOrg" name="otherProviderOrg"  type="text" class="form-control"
+                                            <input id="otherProviderOrg" name="otherProviderOrg" type="text" class="form-control"
                                                    placeholder="Provider Organization">
                                         </div>
                                     </div>
@@ -450,8 +371,10 @@
                                         <div class="form-group">
                                             <label class="d-block">Teaching Language<b> *</b></label>
                                             <select id="teachingLanguageList" name="teachingLanguage" class="custom-select" required>
-                                                <option value="en">English</option>
-                                                <option value="hcl">Host Country Language</option>
+                                                <option value="ENGLISH">English</option>
+                                                <option value="HOST_COUNTRY_LANG">Host Country Language</option>
+                                                <option value="BOTH">Both</option>
+                                                <option value="UNDEFINED">undefined</option>
                                             </select>
                                         </div>
                                     </div>
@@ -461,8 +384,10 @@
                                         <div class="form-group">
                                             <label>Training Language<b> *</b></label>
                                             <select id="trainingLanguageList" name="trainingLanguage" class="custom-select" required>
-                                                <option value="en">English</option>
-                                                <option value="hcl">Host Country Language</option>
+                                                <option value="ENGLISH">English</option>
+                                                <option value="HOST_COUNTRY_LANG">Host Country Language</option>
+                                                <option value="BOTH">Both</option>
+                                                <option value="UNDEFINED">undefined</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -544,9 +469,9 @@
                                             <label>Applicant Gender<b> *</b></label>
                                             <select id="applicantGenderList" name="applicantGender"
                                                     class="form-control custom-select" required>
-                                                <option value="M">Male</option>
-                                                <option value="F">Female</option>
-                                                <option value="Both">Both</option>
+                                                <option value="MALE">Male</option>
+                                                <option value="FEMALE">Female</option>
+                                                <option value="BOTH">Both</option>
                                             </select>
                                         </div>
                                     </div>
@@ -675,7 +600,8 @@
                                                        data-rule-max="10" data-rule-min="1">
                                             </div>
                                             <div class="d-inline-block col-1 p-0">
-                                                <button class="btn delete-current"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                                <button class="btn delete-current">
+                                                    <i class="fa fa-times-circle" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -711,7 +637,7 @@
                                     </div>
                                     <div class="form-group mt-3">
                                         <label>Other Required Documents</label>
-                                        <textarea class="form-control noresize" rows="3" id="otherRequiredDocuments"  name="otherRequiredDocuments"></textarea>
+                                        <textarea class="form-control noresize" rows="3" id="otherRequiredDocuments" name="otherRequiredDocuments"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>How to apply for the opportunity?<b> *</b></label>
@@ -776,5 +702,5 @@
 </section>
 
 </body>
-
+<%@include file="parts/footer.html" %>
 </html>

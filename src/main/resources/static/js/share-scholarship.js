@@ -50,7 +50,7 @@ function deadlineCheckboxListener() {
  */
 function fundTypeListListener() {
     $("#opportunityFund").on("change", function () {
-        if ($(this).val() == "No") {
+        if ($(this).val() == "NO") {
             $("#amount").val("0");
             $("#fundCover input").prop('disabled', true).prop("checked", false);
         } else {
@@ -367,7 +367,7 @@ function formValidator() {
 
     jQuery.validator.addMethod("fundAmount", function (value, element) {
         var fundType = $("#opportunityFund").val();
-        if (fundType == 'No') {
+        if (fundType == 'NO') {
             return true;
         }
         return value > 0;

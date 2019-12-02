@@ -2332,7 +2332,7 @@ footer {
 
   &.page-header{
     &:after{
-      content: "ADD AN OPPORTUNITY";
+      content: "";
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/share-scholarship-header.jpg');
       opacity: 0.9;
       height: 100vh;

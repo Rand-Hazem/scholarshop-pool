@@ -1,7 +1,6 @@
 package com.iteam.scholarships.entity;
 
-import com.iteam.scholarships.enums.ScholarshipE;
-import com.iteam.scholarships.validate.Gender;
+import com.iteam.scholarships.enums.Scholarshipi;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -10,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-public class AcadimicInformation {
+public class AcademicInformation {
 
     @Id
     private int id;
@@ -19,20 +18,16 @@ public class AcadimicInformation {
     private String hostUniversity;
 
     @Enumerated(EnumType.STRING)
-    private ScholarshipE.TeachingLanguage teachingLanguage;
+    private Scholarshipi.TeachingLanguage teachingLanguage;
 
-    @ElementCollection
+    @ElementCollection @CollectionTable(name = "sh_academic_info_major")
     private List<String> major;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @MapsId @OneToOne(fetch = FetchType.LAZY)
     private Scholarship scholarship;
 
-
-
-
-
-
+/* --------------------------------------------------------------- */
 
 
     public int getId() {
@@ -53,11 +48,11 @@ public class AcadimicInformation {
     }
 
     @NotNull(message = "required")
-    public ScholarshipE.TeachingLanguage getTeachingLanguage() {
+    public Scholarshipi.TeachingLanguage getTeachingLanguage() {
         return teachingLanguage;
     }
 
-    public void setTeachingLanguage(ScholarshipE.TeachingLanguage teachingLanguage) {
+    public void setTeachingLanguage(Scholarshipi.TeachingLanguage teachingLanguage) {
         this.teachingLanguage = teachingLanguage;
     }
 

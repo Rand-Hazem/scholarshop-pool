@@ -1,7 +1,7 @@
 package com.iteam.scholarships.entity;
 
 import com.iteam.scholarships.convertor.ListStringConvertor;
-import com.iteam.scholarships.enums.ScholarshipE;
+import com.iteam.scholarships.enums.Scholarshipi;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -23,19 +23,19 @@ public class Scholarship {
     private String title;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private ScholarshipE.Type type;
+    private Scholarshipi.Type type;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private String country;
+    private String country; // host country
 
     @Column(nullable = false)
     private String city;
 
     @Temporal(TemporalType.DATE)
-    private Date applayDeadline;
+    private Date applyDeadline;
 
     @Column(nullable = false) @Temporal(TemporalType.DATE)
     private Date durationFrom;
@@ -47,13 +47,13 @@ public class Scholarship {
     private int seats;
 
     @Column(nullable = false)
-    private ScholarshipE.FundType fundType;
+    private Scholarshipi.FundType fundType;
 
     @Column(nullable = false)
     private double fundAmount;
 
     @Convert(converter = ListStringConvertor.class)
-    private ArrayList<ScholarshipE.FundCover> fundCovers;
+    private ArrayList<Scholarshipi.FundCover> fundCovers;
 
     private String officialWebsite;
 
@@ -65,9 +65,13 @@ public class Scholarship {
     private String specialProgram;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private ScholarshipE.Degree degree;
+    private Scholarshipi.Degree degree;
 
 
+    /* ----------------------------------------------------------------- */
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private AcademicInformation academicInformation;
 
 
 
@@ -108,11 +112,11 @@ public class Scholarship {
     }
 
     @NotBlank
-    public ScholarshipE.Type getType() {
+    public Scholarshipi.Type getType() {
         return type;
     }
 
-    public void setType(ScholarshipE.Type type) {
+    public void setType(Scholarshipi.Type type) {
         this.type = type;
     }
 
@@ -143,12 +147,12 @@ public class Scholarship {
         this.city = city;
     }
 
-    public Date getApplayDeadline() {
-        return applayDeadline;
+    public Date getApplyDeadline() {
+        return applyDeadline;
     }
 
-    public void setApplayDeadline(Date applayDeadline) {
-        this.applayDeadline = applayDeadline;
+    public void setApplyDeadline(Date applyDeadline) {
+        this.applyDeadline = applyDeadline;
     }
 
     @NotNull(message = "required")
@@ -182,11 +186,11 @@ public class Scholarship {
     }
 
     @NotBlank
-    public ScholarshipE.FundType getFundType() {
+    public Scholarshipi.FundType getFundType() {
         return fundType;
     }
 
-    public void setFundType(ScholarshipE.FundType fundType) {
+    public void setFundType(Scholarshipi.FundType fundType) {
         this.fundType = fundType;
     }
 
@@ -196,12 +200,21 @@ public class Scholarship {
     }
 
     public void setFundAmount(double fundAmount) {
-        if (ScholarshipE.FundType.NO.equals(getFundType())) {
+        if (Scholarshipi.FundType.NO.equals(getFundType())) {
             this.fundAmount = 0;
         } else {
             this.fundAmount = fundAmount;
 
         }
+    }
+
+
+    public ArrayList<Scholarshipi.FundCover> getFundCovers() {
+        return fundCovers;
+    }
+
+    public void setFundCovers(ArrayList<Scholarshipi.FundCover> fundCovers) {
+        this.fundCovers = fundCovers;
     }
 
     @URL(message = "invalid url")
@@ -219,15 +232,6 @@ public class Scholarship {
 
     public void setPrivilege(String privilege) {
         this.privilege = privilege;
-    }
-
-
-    public ArrayList<ScholarshipE.FundCover> getFundCovers() {
-        return fundCovers;
-    }
-
-    public void setFundCovers(ArrayList<ScholarshipE.FundCover> fundCovers) {
-        this.fundCovers = fundCovers;
     }
 
     @NotNull(message = "required")

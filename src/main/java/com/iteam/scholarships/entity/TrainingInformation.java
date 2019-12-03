@@ -1,6 +1,6 @@
 package com.iteam.scholarships.entity;
 
-import com.iteam.scholarships.enums.ScholarshipE;
+import com.iteam.scholarships.enums.Scholarshipi;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class TrainingInformation {
 
+    @Id
     private int id;
 
     @Column(nullable = false)
@@ -35,7 +36,7 @@ public class TrainingInformation {
     private String benefit;
 
     @Column(nullable = false)  @Enumerated(EnumType.STRING)
-    private ScholarshipE.TrainingLanguage trainingLanguage;
+    private Scholarshipi.TrainingLanguage trainingLanguage;
 
     @Column(nullable = false)
     private int weekOffered;
@@ -49,7 +50,7 @@ public class TrainingInformation {
     @MapsId @OneToOne(fetch = FetchType.LAZY)
     private Scholarship scholarship;
 
-
+/* ------------------------------------------------------------------------------ */
 
 
 
@@ -138,11 +139,11 @@ public class TrainingInformation {
     }
 
     @NotNull(message = "required")
-    public ScholarshipE.TrainingLanguage getTrainingLanguage() {
+    public Scholarshipi.TrainingLanguage getTrainingLanguage() {
         return trainingLanguage;
     }
 
-    public void setTrainingLanguage(ScholarshipE.TrainingLanguage trainingLanguage) {
+    public void setTrainingLanguage(Scholarshipi.TrainingLanguage trainingLanguage) {
         this.trainingLanguage = trainingLanguage;
     }
 

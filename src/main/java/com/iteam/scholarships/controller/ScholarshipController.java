@@ -1,6 +1,5 @@
 package com.iteam.scholarships.controller;
 
-import com.iteam.scholarships.enums.ScholarshipE;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

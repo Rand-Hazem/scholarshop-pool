@@ -503,13 +503,13 @@
                                             <label>Minimum Degree Held</label><b> *</b>
                                             <select id="applicantMinimumDegreeHeldList" name="applicantMinimumDegreeHeld"
                                                     class="form-control custom-select" required>
-                                                <option value="Primary School">Primary School</option>
-                                                <option value="Secondary School">Secondary School</option>
-                                                <option value="Diploma">Diploma</option>
-                                                <option value="Bachelor">Bachelor</option>
-                                                <option value="Master">Master</option>
-                                                <option value="Ph.D">Ph.D</option>
-                                                <option value="no">No Education Level is Required</option>
+                                                <option value="PRIMARY_SCHOOL">Primary School</option>
+                                                <option value="SECONDARY_SCHOOL">Secondary School</option>
+                                                <option value="DIPLOMA">Diploma</option>
+                                                <option value="BACHELOR">Bachelor</option>
+                                                <option value="MASTER">Master</option>
+                                                <option value="DOCTORAL">Ph.D</option>
+                                                <option value="NO_CONSTRAINT">No constraint</option>
                                             </select>
                                         </div>
                                     </div>
@@ -585,7 +585,7 @@
                                             <option value="B2">B2 (Upper-Intermediate English)</option>
                                             <option value="C1">C1 (Advanced English)</option>
                                             <option value="C2">C2 (Proficiency English)</option>
-                                            <option value="NS">Not required</option>
+                                            <option value="NS">Not specific</option>
                                         </select>
                                     </div>
 
@@ -623,16 +623,13 @@
                                         <select id="requiredDocumentList" name="opportunityRequiredDocuments"
                                                 class="form-control selectpicker" multiple required>
                                             <option value="CV">CV</option>
-                                            <option value="Motivation Letter">Motivation Letter</option>
-                                            <option value="Transcript of Records">Transcript of Records</option>
-                                            <option value="University Certificate">University Certificate</option>
-                                            <option value="Copy of Passport">Copy of Passport</option>
-                                            <option value="Personal Photo">A personal photo of the same size as the passport
-                                                photo
-                                            </option>
-                                            <option value="Research Proposal">Research Proposal</option>
-                                            <option value="Language Certificate">Language Certificate</option>
-                                            <option value="Recommendation Letter">Recommendation Letter</option>
+                                            <option value="MOTIVATION_LETTER">Motivation Letter</option>
+                                            <option value="TRANSCRIPT_RECORDS">Transcript of Records</option>
+                                            <option value="UNIVERSITY_CERTIFICATE">University Certificate</option>
+                                            <option value="PASSPORT_COPY">Copy of Passport</option>
+                                            <option value="PERSONAL_PHOTO">A personal photo of the same size as the passport photo</option>
+                                            <option value="PROPOSAL">Research Proposal</option>
+                                            <option value="RECOMMENDATION_LETTER">Recommendation Letter</option>
                                         </select>
                                     </div>
                                     <div class="form-group mt-3">

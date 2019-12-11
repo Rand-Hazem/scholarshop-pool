@@ -645,4 +645,6 @@ $(document).ready(function () {
     deleteEducationHistoryItemAction();
     setActionsForSaveCancleBtns();
 
+    universityAutoComplete($("input[name='university']"));
+
 });

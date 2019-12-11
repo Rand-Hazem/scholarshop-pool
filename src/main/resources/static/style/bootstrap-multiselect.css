@@ -64,6 +64,15 @@ span.multiselect-native-select select {
   list-style-type: none;
   margin: 0;
   padding: 0; }
+  .multiselect-container.dropdown-menu {
+    max-height: 50vh; }
+  .multiselect-container .multiselect-item.multiselect-group {
+    background: #1F3543B3;
+    margin-top: 1px; }
+    .multiselect-container .multiselect-item.multiselect-group label b {
+      color: white !important; }
+    .multiselect-container .multiselect-item.multiselect-group a:focus {
+      box-shadow: none; }
   .multiselect-container .list-group-item.active {
     background-color: #efefef !important;
     border-color: rgba(0, 0, 0, 0.125); }
@@ -76,14 +85,15 @@ span.multiselect-native-select select {
     list-style-type: none;
     margin-top: 54px;
     width: 100%;
-    max-height: calc(80vh - 60px);
+    max-height: calc(80vh - 85px);
     overflow-y: scroll;
     overflow-x: hidden; }
     .multiselect-container.expanded-multiselect .multiselect-filter {
       top: 50px;
       right: 0px;
       left: 0px;
-      display: block; }
+      display: block;
+      position: absolute; }
   .multiselect-container .input-group {
     margin: 5px; }
   .multiselect-container .multiselect-reset .input-group {

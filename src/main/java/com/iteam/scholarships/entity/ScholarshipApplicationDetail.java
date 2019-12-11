@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-public class ScholarshipApplicationInfo {
+public class ScholarshipApplicationDetail {
 
     @Id
     private int id;
@@ -78,6 +78,9 @@ public class ScholarshipApplicationInfo {
 
     public void setApplyThroughProviderWebsite(boolean applyThroughProviderWebsite) {
         this.applyThroughProviderWebsite = applyThroughProviderWebsite;
+        if(!applyThroughProviderWebsite){
+            setUrlProviderApplyForm("");
+        }
     }
 
     @URL
@@ -103,5 +106,20 @@ public class ScholarshipApplicationInfo {
 
     public void setScholarship(Scholarship scholarship) {
         this.scholarship = scholarship;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ScholarshipApplicationDetail{" +
+                "id=" + id +
+                ", requiredDocumentList=" + requiredDocumentList +
+                ", otherRequiredDoc='" + otherRequiredDoc + '\'' +
+                ", howToApply='" + howToApply + '\'' +
+                ", applyThroughProviderWebsite=" + applyThroughProviderWebsite +
+                ", urlProviderApplyForm='" + urlProviderApplyForm + '\'' +
+                ", illustrationFileName='" + illustrationFileName + '\'' +
+                ", scholarship=" + scholarship +
+                '}';
     }
 }

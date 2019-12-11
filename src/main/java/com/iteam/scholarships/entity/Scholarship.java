@@ -3,6 +3,7 @@ package com.iteam.scholarships.entity;
 import com.iteam.scholarships.convertor.ListStringConvertor;
 import com.iteam.scholarships.enums.Scholarshipi;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -34,26 +35,26 @@ public class Scholarship {
     @Column(nullable = false)
     private String city;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date applyDeadline;
 
-    @Column(nullable = false) @Temporal(TemporalType.DATE)
+    @Column(nullable = false) @Temporal(TemporalType.DATE)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date durationFrom;
 
-    @Column(nullable = false) @Temporal(TemporalType.DATE)
+    @Column(nullable = false) @Temporal(TemporalType.DATE) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date durationTo;
 
     @Column(nullable = false)
     private int seats;
 
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Scholarshipi.FundType fundType;
 
     @Column(nullable = false)
     private double fundAmount;
 
     @Convert(converter = ListStringConvertor.class)
-    private ArrayList<Scholarshipi.FundCover> fundCovers;
+    private ArrayList<Scholarshipi.FundCover> fundCover;
 
     private String officialWebsite;
 
@@ -67,32 +68,18 @@ public class Scholarship {
     @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Scholarshipi.Degree degree;
 
+    @Column(name = "advertiser_id", insertable = false, updatable = false)
+    private int advertiserId;
+
 
     /* ----------------------------------------------------------------- */
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private AcademicInformation academicInformation;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Advertiser advertiser;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Scholarship() {
+    }
 
     public int getId() {
         return id;
@@ -209,12 +196,12 @@ public class Scholarship {
     }
 
 
-    public ArrayList<Scholarshipi.FundCover> getFundCovers() {
-        return fundCovers;
+    public ArrayList<Scholarshipi.FundCover> getFundCover() {
+        return fundCover;
     }
 
-    public void setFundCovers(ArrayList<Scholarshipi.FundCover> fundCovers) {
-        this.fundCovers = fundCovers;
+    public void setFundCover(ArrayList<Scholarshipi.FundCover> fundCover) {
+        this.fundCover = fundCover;
     }
 
     @URL(message = "invalid url")
@@ -249,5 +236,47 @@ public class Scholarship {
 
     public void setSpecialProgram(String specialProgram) {
         this.specialProgram = specialProgram;
+    }
+
+    public Scholarshipi.Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Scholarshipi.Degree degree) {
+        this.degree = degree;
+    }
+
+    public int getAdvertiserId() {
+        return advertiserId;
+    }
+
+    public void setAdvertiserId(int advertiserId) {
+        this.advertiserId = advertiserId;
+    }
+
+    @Override
+    public String toString() {
+        return "Scholarship{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", applyDeadline=" + applyDeadline +
+                ", durationFrom=" + durationFrom +
+                ", durationTo=" + durationTo +
+                ", seats=" + seats +
+                ", fundType=" + fundType +
+                ", fundAmount=" + fundAmount +
+                ", fundCovers=" + fundCover +
+                ", officialWebsite='" + officialWebsite + '\'' +
+                ", privilege='" + privilege + '\'' +
+                ", providreOrg='" + providreOrg + '\'' +
+                ", specialProgram='" + specialProgram + '\'' +
+                ", degree=" + degree +
+                ", advertiserId=" + advertiserId +
+                ", advertiser=" + advertiser +
+                '}';
     }
 }

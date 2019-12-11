@@ -450,9 +450,9 @@
                 resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>',
             }
         },
-        
+
         constructor: Multiselect,
-        
+
         isExpanded: function (){
             return this.options.expanded;
         },
@@ -461,7 +461,7 @@
          * Builds the container of the multiselect.
          */
         buildContainer: function () {
-          
+
             this.$container = $(this.options.buttonContainer);
             this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
             this.$container.on('hide.bs.dropdown', this.options.onDropdownHide);
@@ -474,7 +474,7 @@
          */
         buildButton: function () {
             var btnExpanded = '<button type="button" class="multiselect"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>';
-           
+
             this.$button = this.options.expanded ? $(btnExpanded).addClass(this.options.buttonClass) :
                     $(this.options.templates.button).addClass(this.options.buttonClass);
             if (this.$select.attr('class') && this.options.inheritClass) {
@@ -954,7 +954,9 @@
             }
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                $('a', $li).append('<span class="caret-container"><b class="caret"></b></span>');
+                $('a', $li).append('<span class="caret-container">' +
+                    '<i class="fa fa-caret-down text-white" aria-hidden="true">' +
+                    '</i></span>');
             }
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {

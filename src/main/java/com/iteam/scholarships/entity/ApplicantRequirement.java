@@ -8,21 +8,20 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @MappedSuperclass
-public class ApplicationRequirement {
+public class ApplicantRequirement {
 
     @Id
     private int id;
 
     @Column(nullable = false)
-    @ElementCollection @CollectionTable(name = "sh_applicant_requiremt_nationality")
+    @ElementCollection @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<String> nationality;
 
-    @Column(nullable = false)
-    @ElementCollection @CollectionTable(name = "sh_applicant_requiremt_residenceIn")
-    private List<String> residenceIn;
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
+    private Scholarshipi.ApplicantResidentIn residenceIn;
 
     @Column(nullable = false)
-    @ElementCollection @CollectionTable(name = "sh_applicant_requiremt_major")
+    @ElementCollection @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<String> major;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
@@ -37,8 +36,10 @@ public class ApplicationRequirement {
     @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Scholarshipi.ApplicantDegreeRequired minDegree;
 
+    @Column(nullable = false)
     private double minSchoolGPA;
 
+    @Column(nullable = false)
     private double minUnivGPA;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
@@ -48,8 +49,6 @@ public class ApplicationRequirement {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     private Scholarship scholarship;
-
-
 
 
 
@@ -72,11 +71,11 @@ public class ApplicationRequirement {
     }
 
     @NotNull @NotEmpty
-    public List<String> getResidenceIn() {
+    public Scholarshipi.ApplicantResidentIn getResidenceIn() {
         return residenceIn;
     }
 
-    public void setResidenceIn(List<String> residenceIn) {
+    public void setResidenceIn(Scholarshipi.ApplicantResidentIn residenceIn) {
         this.residenceIn = residenceIn;
     }
 
@@ -154,5 +153,24 @@ public class ApplicationRequirement {
 
     public void setEnglishLevel(Scholarshipi.EnglishLevel englishLevel) {
         this.englishLevel = englishLevel;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ApplicantRequirement{" +
+                "id=" + id +
+                ", nationality=" + nationality +
+                ", residenceIn=" + residenceIn +
+                ", major=" + major +
+                ", gender=" + gender +
+                ", minAge=" + minAge +
+                ", maxAge=" + maxAge +
+                ", minDegree=" + minDegree +
+                ", minSchoolGPA=" + minSchoolGPA +
+                ", minUnivGPA=" + minUnivGPA +
+                ", englishLevel=" + englishLevel +
+                ", scholarship=" + scholarship +
+                '}';
     }
 }

@@ -44,7 +44,9 @@ public interface Scholarshipi {
 
     }
 
-
+    enum ApplicantResidentIn{
+        ANY, NATIONALITY_COUNTY;
+    }
 
 
 }

@@ -183,4 +183,24 @@ public class TrainingInformation {
     public void setScholarship(Scholarship scholarship) {
         this.scholarship = scholarship;
     }
+
+
+    @Override
+    public String toString() {
+        return "TrainingInformation{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", product='" + product + '\'' +
+                ", companyWebsite='" + companyWebsite + '\'' +
+                ", location='" + location + '\'' +
+                ", workEnvironment='" + workEnvironment + '\'' +
+                ", responsibility='" + responsibility + '\'' +
+                ", benefit='" + benefit + '\'' +
+                ", trainingLanguage=" + trainingLanguage +
+                ", weekOffered=" + weekOffered +
+                ", workDayPerWeek=" + workDayPerWeek +
+                ", workHourPerDay=" + workHourPerDay +
+                ", scholarship=" + scholarship +
+                '}';
+    }
 }

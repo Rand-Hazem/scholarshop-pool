@@ -94,7 +94,7 @@ public class UserController {
         User user = userService.findCurrent();
         if (user.getType().equals(UserType.ADVERTISER)) {
             model.addAttribute("advertiser", user.getAdvertiser());
-            model.addAttribute("orgList", organizationService.getAllAcceptedOrgList());
+//            model.addAttribute("orgList", organizationService.getAllAcceptedOrgList());
         }
         user.getWorkHistoryList();
         user.getEducationHistoryList();

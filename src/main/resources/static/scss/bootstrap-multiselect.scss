@@ -42,129 +42,151 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-.multiselect.dropdown-toggle{
-    border: 1px solid #ced4da;
+.multiselect.dropdown-toggle {
+  border: 1px solid #ced4da;
 }
 
-span.multiselect-native-select{
-    position:relative
+span.multiselect-native-select {
+  position: relative
 }
 
-span.multiselect-native-select select{
-    border :0 !important;
-    clip: rect(0 0 0 0) !important;
-    height: 1px !important;
-    margin: -1px -1px -1px -3px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-    left: 50%;
-    top: 30px;
+span.multiselect-native-select select {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px -1px -1px -3px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  left: 50%;
+  top: 30px;
 }
 
 .multiselect-container {
 
-    position: absolute;
+  position: absolute;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  &.dropdown-menu {
+    max-height: 50vh;
+  }
+
+  .multiselect-item.multiselect-group {
+    background: #1F3543B3;
+    margin-top: 1px;
+
+    label b {
+      color: white !important;
+    }
+
+    a:focus{
+      box-shadow: none;
+    }
+  }
+
+  .list-group-item {
+    &.active {
+      background-color: #efefef !important;
+      border-color: rgba(0, 0, 0, .125);;
+    }
+
+    a {
+      color: #4776a7;
+
+      label {
+        width: 100%;
+      }
+    }
+  }
+
+  &.expanded-multiselect {
+    position: unset;
     list-style-type: none;
-    margin: 0;
+    margin-top: 54px;
+    width: 100%;
+    max-height: calc(80vh - 85px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .multiselect-filter {
+      top: 50px;
+      right: 0px;
+      left: 0px;
+      display: block;
+      position: absolute;
+    }
+  }
+
+  .input-group {
+    margin: 5px;
+  }
+
+  .multiselect-reset {
+    .input-group {
+      width: 93%;
+    }
+  }
+
+
+  > li {
     padding: 0;
 
-    .list-group-item{
-        &.active{
-            background-color: #efefef !important;
-            border-color: rgba(0,0,0,.125);;
-        }
-        a{
-            color: #4776a7;
-            label{width: 100%;}
-        }
+    > a.multiselect-all label {
+      font-weight: bold;
     }
 
-    &.expanded-multiselect{
-        position: unset;
-        list-style-type: none;
-        margin-top: 54px;
-        width: 100%;
-        max-height: calc(80vh - 60px);
-        overflow-y: scroll;
-        overflow-x: hidden;
-
-        .multiselect-filter{
-            top: 50px;
-            right: 0px;
-            left: 0px;
-            display: block;
-        }
+    &.multiselect-group label {
+      margin: 0;
+      padding: 3px 20px 3px 20px;
+      height: 100%;
+      font-weight: bold;
     }
 
-    .input-group {
-        margin: 5px;
+    &.multiselect-group-clickable label {
+      cursor: pointer;
     }
 
-    .multiselect-reset {
-        .input-group {
-            width: 93%;
+    > a {
+      padding: 0;
+
+      > label {
+        margin: 0;
+        height: 100%;
+        cursor: pointer;
+        font-weight: normal;
+        padding: 3px 20px 3px 40px;
+
+        &.radio, &.checkbox {
+          margin: 0;
         }
+
+        > input[type="checkbox"] {
+          margin-bottom: 5px;
+        }
+      }
     }
-
-
-    > li {
-        padding: 0;
-
-        > a.multiselect-all label {
-            font-weight: bold;
-        }
-
-        &.multiselect-group label {
-            margin: 0;
-            padding: 3px 20px 3px 20px;
-            height: 100%;
-            font-weight: bold;
-        }
-
-        &.multiselect-group-clickable label {
-            cursor: pointer;
-        }
-
-        > a {
-            padding: 0;
-
-            > label {
-                margin: 0;
-                height: 100%;
-                cursor: pointer;
-                font-weight: normal;
-                padding: 3px 20px 3px 40px;
-
-                &.radio, &.checkbox {
-                    margin: 0;
-                }
-
-                > input[type="checkbox"] {
-                    margin-bottom:5px;
-                }
-            }
-        }
-    }
+  }
 }
 
 .btn-group > .btn-group:nth-child(2) > .multiselect.btn {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
-.form-inline .multiselect-container{
+.form-inline .multiselect-container {
 
-    label.checkbox, label.radio{
-        padding: 3px 20px 3px 40px;
+  label.checkbox, label.radio {
+    padding: 3px 20px 3px 40px;
+  }
+
+  li a label {
+
+    &.checkbox input[type="checkbox"], &.radio input[type="radio"] {
+      margin-left: -20px;
+      margin-right: 0;
     }
-
-    li a label{
-
-        &.checkbox input[type="checkbox"], &.radio input[type="radio"]{
-            margin-left: -20px;
-            margin-right: 0;
-        }
-    }
+  }
 }

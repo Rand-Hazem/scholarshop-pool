@@ -101,13 +101,4 @@ public class Organization {
 
     }
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", state=" + state +
-                ", location='" + location + '\'' +
-                '}';
-    }
 }

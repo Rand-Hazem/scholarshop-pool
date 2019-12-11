@@ -52,7 +52,7 @@
             <!----- Story country & city ----->
             <div class="country-city text-muted">
                 <i class="fa fa-map-marker " aria-hidden="true"></i>
-                <span id="country">${story.hostCountry}</span>
+                <span id="country" data-country="${story.hostCountry}">${story.hostCountry}</span>
                 <span id="city" style="margin-left: -3px">${story.city}</span>
             </div>
 
@@ -76,7 +76,7 @@
 
                 <div class="carousel-inner">
                     <c:forEach var="item" items="${story.imgList}" varStatus="state">
-                        <div class="carousel-item ${state.index eq 0 ? 'active' : ''}">
+                        <div class="carousel-item ${state.index eq 0 ? 'active' : ''}" style="height: 60vh;">
                             <img src="${contextPath}${storyImgPath}${item}" alt="${story.city}">
                         </div>
                     </c:forEach>
@@ -93,9 +93,9 @@
 
             <!---------- Story tags ---------->
             <div class="tags">
-                <p>#${story.hostCountry}</p>
-                <p>#${story.field}</p>
-                <p>#${story.providerOrganization}</p>
+                <p data-country="${story.hostCountry}">#${story.hostCountry}</p>
+                <p data-major="${story.field}">#${story.field}</p>
+                <p>${story.providerOrganization}</p>
             </div>
 
             <!---------- Story meta ---------->
@@ -124,61 +124,87 @@
                     <span id="field">${story.field}</span>.
                 </p>
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-graduation-cap mt-4" aria-hidden="true"></i>
-                    About Opportunity
-                </h4>
-                <p id="about" data-aos="fade-up">${story.aboutOpportunity}</p>
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-file-text mt-4" aria-hidden="true"></i>
-                    Required documents
-                </h4>
-                <p id="documents" data-aos="fade-up">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Praesentium nam quas inventore, ut iure iste modi eos
-                    adipisci ad ea itaque labore earum autem nobis et numquam,
-                    minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.
-                </p>
+                <c:if test="${not empty story.aboutOpportunity}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-graduation-cap mt-4" aria-hidden="true"></i>
+                        About Opportunity
+                    </h4>
+                    <p id="about" data-aos="fade-up">${story.aboutOpportunity}</p>
+                </c:if>
 
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-university mt-4" aria-hidden="true"></i>
-                    About Institution
-                </h4>
-                <p id="system" data-aos="fade-up">${story.aboutInstitution}</p>
+                <%--                <h4 data-aos="fade-up">--%>
+                <%--                    <i class="fa fa-file-text mt-4" aria-hidden="true"></i>--%>
+                <%--                    Required documents--%>
+                <%--                </h4>--%>
+                <%--                <p id="documents" data-aos="fade-up">--%>
+                <%--                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.--%>
+                <%--                    Praesentium nam quas inventore, ut iure iste modi eos--%>
+                <%--                    adipisci ad ea itaque labore earum autem nobis et numquam,--%>
+                <%--                    minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.--%>
+                <%--                </p>--%>
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-home mt-4" aria-hidden="true"></i>
-                    Accommodation
-                </h4>
-                <p id="accommodation" data-aos="fade-up">${story.aboutAccommodation}</p>
+                <c:if test="${not empty story.aboutInstitution}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-university mt-4" aria-hidden="true"></i>
+                        About Institution
+                    </h4>
+                    <p id="system" data-aos="fade-up">${story.aboutInstitution}</p>
+                </c:if>
+
+                <c:if test="${not empty story.aboutAccommodation}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-home mt-4" aria-hidden="true"></i>
+                        Accommodation
+                    </h4>
+                    <p id="accommodation" data-aos="fade-up">${story.aboutAccommodation}</p>
+                </c:if>
 
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-pagelines mt-4" aria-hidden="true"></i>
-                    Life in
-                    <span id="city"> ${story.city}</span>
-                </h4>
-                <p id="life" data-aos="fade-up">${story.aboutCityLiving}</p>
-
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-subway mt-4" aria-hidden="true"></i>
-                    Transportation
-                </h4>
-                <p id="transportation" data-aos="fade-up">${story.aboutTransportation}</p>
+                <c:if test="${not empty story.aboutCityLiving}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-pagelines mt-4" aria-hidden="true"></i>
+                        Life in
+                        <span id="city"> ${story.city}</span>
+                    </h4>
+                    <p id="life" data-aos="fade-up">${story.aboutCityLiving}</p>
+                </c:if>
 
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-handshake-o mt-4" aria-hidden="true"></i>
-                    Culture & Tradition
-                </h4>
-                <p id="culture" data-aos="fade-up">${story.aboutTradition}</p>
+                <c:if test="${not empty story.aboutTransportation}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-subway mt-4" aria-hidden="true"></i>
+                        Transportation
+                    </h4>
+                    <p id="transportation" data-aos="fade-up">${story.aboutTransportation}</p>
+                </c:if>
 
-                <h4 data-aos="fade-up">
-                    <i class="fa fa-check-circle mt-4" aria-hidden="true"></i>
-                    Recommendation & Advice
-                </h4>
-                <p id="recommendation" data-aos="fade-up">${story.recommendationAndAdvice}</p>
+
+                <c:if test="${not empty story.aboutTransportation}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-subway mt-4" aria-hidden="true"></i>
+                        Transportation
+                    </h4>
+                    <p id="transportation" data-aos="fade-up">${story.aboutTransportation}</p>
+                </c:if>
+
+
+                <c:if test="${not empty story.aboutTradition}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-handshake-o mt-4" aria-hidden="true"></i>
+                        Culture & Tradition
+                    </h4>
+                    <p id="culture" data-aos="fade-up">${story.aboutTradition}</p>
+                </c:if>
+
+
+                <c:if test="${not empty story.recommendationAndAdvice}">
+                    <h4 data-aos="fade-up">
+                        <i class="fa fa-check-circle mt-4" aria-hidden="true"></i>
+                        Recommendation & Advice
+                    </h4>
+                    <p id="recommendation" data-aos="fade-up">${story.recommendationAndAdvice}</p>
+                </c:if>
 
             </div>
 
@@ -253,39 +279,40 @@
     </div>
 
     <!-------- Report modal --------->
-    <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="reportModalLabel" class="modal-title">Report Story</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="reportResponseMsgDiv" class="alert d-none"></div>
-                    <form id="reportForm">
-                        <div class="form-group" name="storyReport">
-                            <label for="recipient-name" class="col-form-label">Select Why do you want to report?</label>
-                            <select name="reportContentType" class="form-control custom-select">
-                                <%@include file="parts/report-content-type.html" %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="messageText" class="col-form-label">Message:</label>
-                            <textarea id="messageText" name="message" class="form-control"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnClose" type="button" class="btn" data-dismiss="modal">Close</button>
-                    <button id="btnSave" type="button" class="btn">Send</button>
+    <sec:authorize access="isAuthenticated()">
+        <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="reportModalLabel" class="modal-title">Report Story</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="reportResponseMsgDiv" class="alert d-none"></div>
+                        <form id="reportForm">
+                            <div class="form-group" name="storyReport">
+                                <label for="recipient-name" class="col-form-label">Select Why do you want to report?</label>
+                                <select name="reportContentType" class="form-control custom-select">
+                                    <%@include file="parts/report-content-type.html" %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="messageText" class="col-form-label">Message:</label>
+                                <textarea id="messageText" name="message" class="form-control"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnClose" type="button" class="btn" data-dismiss="modal">Close</button>
+                        <button id="btnSave" type="button" class="btn">Send</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </sec:authorize>
 
 </section>
 <%@include file="parts/footer.html" %>

@@ -18,8 +18,7 @@
 
     <div id="regContainer" class="container d-flex justify-content-center">
         <div class="stepper">
-            <form:form id="regForm" action="/register" method="post" role="form" data-toggle="validator"
-                       modelAttribute="user">
+            <form:form id="regForm" action="/register" method="post" role="form" data-toggle="validator" modelAttribute="user">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <!-- SmartWizard html -->
                 <div id="smartwizard" class="sw-main sw-theme-circles">
@@ -148,16 +147,11 @@
                                     <div class="d-inline-block w-100 w-md-50  align-top mb-3">
                                         <label for="organizationsList">Organization*</label>
                                         <form:select id="organizationsList" path="advertiser.organization.name"
-                                                     class="custom-select">
-                                            <option value="European Union">European Union</option>
-                                            <option value="University Di Parm">University Di Parma</option>
-                                            <option >...</option>
-                                            <option id="organizattionOtherOption" value="other">Other</option>
+                                                     class="custom-select" data-organization="true">
                                         </form:select>
                                     </div>
                                     <div class="d-inline-block w-100 w-md-50 align-bottom mb-3">
                                         <input id="otherOrganizationInput" name="otherOrganization" class="form-control"
-                                               
                                                type="text" placeholder="Other.."/>
                                     </div>
                                     <form:errors path="advertiser.organization.name" class="error"/>

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 public class Advertiser {
@@ -25,6 +26,8 @@ public class Advertiser {
     @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 
+    @OneToMany(mappedBy = "advertiser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Scholarship> scholarshipList;
 
     public Advertiser() {
     }

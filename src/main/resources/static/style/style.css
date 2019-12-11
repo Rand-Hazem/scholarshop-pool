@@ -2205,7 +2205,7 @@ footer {
 
 /* ---------------------------------------- --------     Share scholarship page  ------------------------------------------------------- */
 .share-scholarship.page-header:after {
-  content: "ADD AN OPPORTUNITY";
+  content: "";
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/share-scholarship-header.jpg");
   opacity: 0.9;
   height: 100vh;
@@ -2281,6 +2281,61 @@ footer {
     color: #1F3543;
     font-weight: bold; }
 
+/* ------------------------------------------- View Opportunity ----------------------------------------- */
+.view-opportunity .view-opportunity-box {
+  width: 70%;
+  background: #fff;
+  box-shadow: 0 4px 8px 0px #e1d9d9;
+  position: relative;
+  margin-top: -50px;
+  margin-bottom: 70px;
+  padding: 40px;
+  z-index: 1;
+  border-top: 12px solid #1F3543; }
+  .view-opportunity .view-opportunity-box h2, .view-opportunity .view-opportunity-box h4 {
+    color: #1F3543; }
+  .view-opportunity .view-opportunity-box .opportunity-meta {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #b3b3b3; }
+    .view-opportunity .view-opportunity-box .opportunity-meta .advertiser img {
+      width: 30px;
+      border-radius: 50%;
+      display: inline-block; }
+  .view-opportunity .view-opportunity-box a {
+    color: #1F3543; }
+  .view-opportunity .view-opportunity-box .opportunity-fund {
+    width: 100%;
+    background-color: #FFE89D;
+    padding: 10px 10px;
+    text-align: center;
+    margin: 7px 0; }
+    .view-opportunity .view-opportunity-box .opportunity-fund:focus {
+      box-shadow: none; }
+  .view-opportunity .view-opportunity-box .opportunity-deadline {
+    width: 100%;
+    background-color: #A6B6CC;
+    padding: 10px 10px;
+    text-align: center;
+    margin: 7px 0; }
+    .view-opportunity .view-opportunity-box .opportunity-deadline:focus {
+      box-shadow: none; }
+  .view-opportunity .view-opportunity-box .save-opportunity {
+    width: 100%;
+    background-color: #1F3543;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center; }
+    .view-opportunity .view-opportunity-box .save-opportunity:focus {
+      box-shadow: none; }
+  .view-opportunity .view-opportunity-box .save-opportunity-red i {
+    color: red; }
+.view-opportunity .opportunity-background-img {
+  background-size: cover;
+  width: 100%;
+  height: 400px; }
+
 /* ---------------------------------------- --------      Media  ------------------------------------------------------- */
 @media screen and (max-width: 575px) {
   /*    .w-xs-100{
@@ -2342,7 +2397,10 @@ footer {
     .profile.profile-div .profile-info-name {
       width: 80px; }
     .profile.profile-div .profile-picture-div {
-      margin-bottom: 20px; } }
+      margin-bottom: 20px; }
+
+  .view-opportunity {
+    width: 90% !important; } }
 @media screen and (max-width: 768px) {
   .search-scholarship .wrapper.sidebar-toggle:after {
     content: " ";

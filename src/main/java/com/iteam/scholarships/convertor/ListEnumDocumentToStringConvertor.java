@@ -16,11 +16,15 @@ public class ListEnumDocumentToStringConvertor implements AttributeConverter<Lis
         if (attribute == null || attribute.size() == 0) {
             return null;
         }
-        String [] arr = new String[attribute.size()];
-        for(int i=0 ; i<arr.length ; i++){
-            arr[i] = attribute.get(i).name();
+        String result = "";
+
+        for(int i=0 ; i<attribute.size() ; i++){
+            result += attribute.get(i).name();
+            if(i+1 < attribute.size()){
+                result+=DELIMITER;
+            }
         }
-        return String.join(DELIMITER, arr);
+        return result;
     }
 
     @Override

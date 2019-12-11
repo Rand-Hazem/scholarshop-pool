@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class TranningApplicationRequirment extends ApplicationRequirement{
+public class TranningApplicantRequirment extends ApplicantRequirement {
 
     @Column(nullable = false)
     private String knowledgeAndExperience;
@@ -27,5 +27,14 @@ public class TranningApplicationRequirment extends ApplicationRequirement{
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+
+    @Override
+    public String toString() {
+        return "TranningApplicantRequirment{" +
+                "knowledgeAndExperience='" + knowledgeAndExperience + '\'' +
+                ", other='" + other + '\'' +
+                '}';
     }
 }

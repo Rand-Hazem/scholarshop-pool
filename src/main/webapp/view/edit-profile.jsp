@@ -316,8 +316,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="organizationsList">Organization *</label>
-                                        <select id="organizationsList" name="organizationList" class="form-control custom-select" aria-invalid="false">
-                                            <jsp:include page="parts/organization-list.jsp"/>
+                                        <select id="organizationsList" name="organizationList" class="form-control custom-select" data-organization="true" aria-invalid="false">
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 mt-auto">

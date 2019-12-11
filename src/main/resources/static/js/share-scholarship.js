@@ -1,4 +1,3 @@
-
 function oppTypeListListener() {
     var val = $("#opportunityTypeList").val();
 
@@ -60,7 +59,7 @@ function fundTypeListListener() {
 }
 
 /**
- * show input-other-org field if selected organization is other, 
+ * show input-other-org field if selected organization is other,
  * and move the value of selected org to hiddend input
  */
 function organizationListListener() {
@@ -93,7 +92,7 @@ function organizationOtherListener() {
 
 
 /**
- * show input-other-program field if selected program is other, 
+ * show input-other-program field if selected program is other,
  * and move the value of selected prog to hiddend input
  */
 function specialProgramListListener() {
@@ -135,9 +134,9 @@ function applyThroughRadioBtnCheckListener() {
     if ($('#throughProvider').is(':checked')) {
         $('.oppLink').removeClass("d-none").addClass("d-block");
     }
-    $("input[name='applyingThrough']").on("change", function () {
+    $("input[name='detail.applyThroughProviderWebsite']").on("change", function () {
 
-        if ($(this).val() == 'ourWeb') {
+        if ($(this).val() == 'false') {
             $('.oppLink').removeClass("d-block").addClass("d-none");
         } else {
             $('.oppLink').removeClass("d-none").addClass("d-block");
@@ -150,48 +149,61 @@ function applyThroughRadioBtnCheckListener() {
 
 function multiselectList() {
 
-    $("#requiredDocumentList, #applicantResidentList, #applicantNationalityList").multiselect(
-            {
-                columns: 1,
-                placeholder: 'Select',
-                maxHeight: "50vh",
-                numberDisplayed: 5,
-//                includeResetOption: true,
-                enableCaseInsensitiveFiltering: true,
-                enableFiltering: true,
-                expanded: false,
-                buttonWidth: "100%",
-                onChange: function (option, checked, select) {
-                    if (checked) {
-                        $(option).attr("selected", "selected");
-                    } else {
-                        $(option).removeAttr("selected");
-                    }
-                }
-            });
+    $("#opportunityMajorList, #majorsRequiredList")
+        .find("option[value='']").remove();
 
-    $(" #opportunityMajorList, #majorsRequiredList").multiselect(
-            {
-                columns: 1,
-                placeholder: 'Select',
-                maxHeight: "50vh",
-                numberDisplayed: 5,
+    $("#requiredDocumentList, #applicantNationalityList").multiselect({
+        columns: 1,
+        placeholder: 'Select',
+        maxHeight: "50vh",
+        numberDisplayed: 5,
 //                includeResetOption: true,
-                enableCaseInsensitiveFiltering: true,
-                enableFiltering: true,
-                expanded: true,
-                buttonContainer: '<div class="position-relative" />',
-                buttonWidth: "100%",
-                onChange: function (option, checked, select) {
-                    if (checked) {
-                        $(option).attr("selected", "selected");
-                    } else {
-                        $(option).removeAttr("selected");
-                    }
-                }
-            });
+        enableCaseInsensitiveFiltering: true,
+        enableFiltering: true,
+        expanded: false,
+        buttonWidth: "100%",
+        onChange: function (option, checked, select) {
+            if (checked) {
+                $(option).attr("selected", "selected");
+            } else {
+                $(option).removeAttr("selected");
+            }
+        }
+    });
 
-    $(".expanded-multiselect .multiselect-filter").addClass("position-absolute");
+    var setMultiselectForExpandedList = function (list) {
+        $(list).multiselect({
+            columns: 1,
+            placeholder: 'Select',
+            maxHeight: "50vh",
+            numberDisplayed: 2,
+//                includeResetOption: true,
+            enableCaseInsensitiveFiltering: true,
+            enableCollapsibleOptGroups: true,
+            enableFiltering: true,
+            expanded: true,
+            buttonContainer: '<div class="position-relative" />',
+            buttonWidth: "100%",
+            onChange: function (option, checked) {
+                console.log($(this));
+                if (checked) {
+                    if ($(option).val() == "any") {
+                        $(list).find("option:selected").removeAttr("selected");
+                        $(list).val("any");
+                    } else {
+                        $(list).find("option[value='any']").removeAttr("selected");
+                    }
+                    $(option).attr("selected", "selected");
+                    $(list).multiselect('refresh');
+                } else {
+                    $(option).removeAttr("selected");
+                }
+            }
+        });
+    };
+
+    setMultiselectForExpandedList("#majorsRequiredList");
+    setMultiselectForExpandedList("#opportunityMajorList");
 }
 
 
@@ -233,14 +245,14 @@ function addCertificatesBtnEvent() {
         var node = $('<div class="certificate mb-2"></div>');
 
         var cretificateName = $('<div class="d-inline-block col-5 mb-1 align-top p-0"></div>')
-                .append($('<input id="certificate1" name="certificate1" type="text" class="form-control" data-rule-required="true" placeholder="certificate" required>'));
+            .append($('<input id="certificate1" name="certificate1" type="text" class="form-control" data-rule-required="true" placeholder="certificate" required>'));
 
         var score = $('<div class="d-inline-block col-5 mb-1 ml-1 align-top p-0"></div>')
-                .append($('<input id="score1" name="score1" type="number" class="form-control d-inline-block score" ' +
-                        'data-rule-max="10" data-rule-min="1" placeholder="Score 1-10" required>'));
+            .append($('<input id="score1" name="score1" type="number" class="form-control d-inline-block score" ' +
+                'data-rule-max="10" data-rule-min="1" placeholder="Score 1-10" required>'));
 
         var deleteBtn = $('<div class="d-inline-block col-1 p-0">')
-                .append($('<button class="btn delete-current" type="button"><i class="fa fa-times-circle" aria-hidden="true"></i></button>'));
+            .append($('<button class="btn delete-current" type="button"><i class="fa fa-times-circle" aria-hidden="true"></i></button>'));
 
         node.append(cretificateName, score, deleteBtn);
         $(".certificate-div").append(node);
@@ -253,39 +265,40 @@ function deleteCertifiateBtnEvent() {
     });
 }
 
+//
+// function hostUniversityListListener() {
+//     $("#hostUniversityList").on("change", function () {
+//         if ($(this).val() == 'other') {
+//             $('#otherHostUniversityDiv').addClass("d-block");
+//             $("#hostUniversity").val($("#otherHostUniversityDiv").val());
+//         } else {
+//             $('#otherHostUniversityDiv').removeClass("d-block");
+//             $("#hostUniversity").val($(this).val());
+//         }
+//     });
+// }
 
-function  hostUniversityListListener() {
-    $("#hostUniversityList").on("change", function () {
-        if ($(this).val() == 'other') {
-            $('#otherHostUniversityDiv').addClass("d-block");
-            $("#hostUniversity").val($("#otherHostUniversityDiv").val());
-        } else {
-            $('#otherHostUniversityDiv').removeClass("d-block");
-            $("#hostUniversity").val($(this).val());
-        }
-    });
-}
-function hostUniversityOtherListener() {
-    // for the first uploade of page
-    var listVal = $("#hostUniversityList").val();
-    if (listVal == null || listVal == "undefined" || listVal == "other") {
-        $('#otherHostUniversityDiv').addClass("d-block");
-    } else {
-        $('#otherHostUniversityDiv').removeClass("d-block");
-    }
-    // set input listener, move the text to providerOrg-hidden-field
-    $("#otherHostUniversity").on("focusout", function () {
-        $("#hostUniversity").val($(this).val());
-    });
-}
+// function hostUniversityOtherListener() {
+//     // for the first uploade of page
+//     var listVal = $("#hostUniversityList").val();
+//     if (listVal == null || listVal == "undefined" || listVal == "other") {
+//         $('#otherHostUniversityDiv').addClass("d-block");
+//     } else {
+//         $('#otherHostUniversityDiv').removeClass("d-block");
+//     }
+//     // set input listener, move the text to providerOrg-hidden-field
+//     $("#otherHostUniversity").on("focusout", function () {
+//         $("#hostUniversity").val($(this).val());
+//     });
+// }
 
 /* -------------------------------------------------------------------------------------------------- */
 
 
 /**
  * custom smartwizard button toolbar
- * if setVisible true it will show toolbar, otherwise hide 
- * @param {boolean} setVisible 
+ * if setVisible true it will show toolbar, otherwise hide
+ * @param {boolean} setVisible
  */
 function swButtonToolbarVisibility(setVisible) {
     if (setVisible) {
@@ -297,7 +310,7 @@ function swButtonToolbarVisibility(setVisible) {
 
 /**
  * show sweet aleart, if user confirm delete, move to ain page
- * if user click canle, sweetaleart will be closed, and this 
+ * if user click canle, sweetaleart will be closed, and this
  * already implemente in swal
  */
 function cancelBtnClickEvent() {
@@ -336,17 +349,6 @@ function formValidator() {
     jQuery.validator.addMethod("specialProgOther", function (value, element) {
         var selectedFromList = $("#specialProgramList").val();
 
-        if (selectedFromList != 'undefined' && selectedFromList != "other") {
-            return true;
-        } else if (value == 'undefined' || $.trim(value).length < 3) {
-            return false;
-        }
-        return true;
-    }, "this field is required");
-
-
-    jQuery.validator.addMethod("otherHostUniversity", function (value, element) {
-        var selectedFromList = $("#hostUniversityList").val();
         if (selectedFromList != 'undefined' && selectedFromList != "other") {
             return true;
         } else if (value == 'undefined' || $.trim(value).length < 3) {
@@ -422,8 +424,7 @@ function formValidator() {
             employerWebsite: {url: true},
             opportunityWebsite: {url: true},
             oppLocation: "required",
-            hostUniversityList: "required",
-            otherHostUniversity: {otherHostUniversity: true},
+            hostUniversity: "required",
             opportunityDegree: "required",
             opportunityMajor: {required: true, multiple: true},
             teachingLanguageList: "required",
@@ -447,7 +448,7 @@ function formValidator() {
             universityGPA: {min: 0, max: 4},
             howToApplySteps: "required",
             opportunityRequiredDocuments: "required",
-            applyingThrough: "required",
+            "detail.applyThroughProviderWebsite": "required",
             applicationLink: "applicationLink"
 
         },
@@ -485,32 +486,33 @@ function swInit() {
 
 // Toolbar extra buttons
     var btnAdd = $('<button type="submit"></button>').text('Share Opportunity')
-            .addClass('btn btn-add d-none')
-            .on('click', function () {
-               $("#shareShForm")[0].submit(); 
-            });
+        .addClass('btn btn-add d-none')
+        .on('click', function () {
+            $("#shareShForm")[0].submit();
+        });
     var btnCancel = $('<button></button>').text('Cancel')
-            .attr({type: "button", "data-toggle": "modal", "data-target": "#cancleRegModle"})
-            .addClass('btn btn-cancel mr-auto')
-            .on("click", function () {
-                cancelBtnClickEvent();
-            })
-            .hover(
-                    function () {
-                        $(this).css({"color": "#ff0000"});
-                    },
-                    function () {
-                        $(this).css({"color": "#000"});
-                    }
-            )
-            ;
+        .attr({type: "button", "data-toggle": "modal", "data-target": "#cancleRegModle"})
+        .addClass('btn btn-cancel mr-auto')
+        .on("click", function () {
+            cancelBtnClickEvent();
+        })
+        .hover(
+            function () {
+                $(this).css({"color": "#ff0000"});
+            },
+            function () {
+                $(this).css({"color": "#000"});
+            }
+        )
+    ;
     // Smart Wizard
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'circles',
         transitionEffect: 'fade',
         autoAdjustHeight: false,
-        toolbarSettings: {toolbarPosition: 'bottom'
+        toolbarSettings: {
+            toolbarPosition: 'bottom'
         },
         anchorSettings: {
             markDoneStep: true, // add done css
@@ -528,7 +530,7 @@ function swInit() {
 function swOnLeavStepEvent() {
     $('#smartwizard').on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
         if (stepDirection == "forward" && !$("#shareShForm").valid()) {
-            return false;
+            //   return false;
         }
         return true;
     });
@@ -568,11 +570,10 @@ $(document).ready(function () {
     uploadeFile();
     addCertificatesBtnEvent();
     deleteCertifiateBtnEvent();
-    hostUniversityListListener();
-    hostUniversityOtherListener();
-
 
     formValidator();
+
+    universityAutoComplete($("#hostUniversity"));
 
 });
 

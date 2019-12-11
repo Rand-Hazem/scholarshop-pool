@@ -87,7 +87,7 @@ public class StoryController {
 
 
     @GetMapping({"{id}", "{id}/{title}"})
-    public String viewStory(@PathVariable("id") int id, @PathVariable(name = "title", required = false) String title, Model model, HttpServletRequest request) {
+    public String viewStory(@PathVariable("id") int id, Model model) {
         Story story = storyService.findStoryForView(id);
 
         if(story == null ){

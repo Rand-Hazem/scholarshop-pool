@@ -20,7 +20,8 @@ public class AcademicInformation {
     @Enumerated(EnumType.STRING)
     private Scholarshipi.TeachingLanguage teachingLanguage;
 
-    @ElementCollection @CollectionTable(name = "sh_academic_info_major")
+    @ElementCollection
+    @CollectionTable(name="scholarship_Academic_information_major", joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<String> major;
 
 
@@ -71,5 +72,17 @@ public class AcademicInformation {
 
     public void setScholarship(Scholarship scholarship) {
         this.scholarship = scholarship;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AcademicInformation{" +
+                "id=" + id +
+                ", hostUniversity='" + hostUniversity + '\'' +
+                ", teachingLanguage=" + teachingLanguage +
+                ", major=" + major +
+                ", scholarship=" + scholarship +
+                '}';
     }
 }

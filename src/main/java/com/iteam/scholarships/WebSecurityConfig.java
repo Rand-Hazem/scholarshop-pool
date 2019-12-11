@@ -31,7 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/upload/**", "/", "/main", "/register").permitAll()
                 .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
                 .antMatchers("/story/{\\d+}/**", "/story/all").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/story/share").hasAuthority("student")
+                .antMatchers("/scholarship/adverted-scholarship").hasAuthority("advertiser")
                 .anyRequest().authenticated()
 
                 .and()

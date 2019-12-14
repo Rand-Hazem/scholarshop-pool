@@ -1,7 +1,7 @@
 package com.iteam.scholarships.repository;
 
-import com.iteam.scholarships.entity.Story;
-import com.iteam.scholarships.entity.StoryRate;
+import com.iteam.scholarships.entity.storydb.Story;
+import com.iteam.scholarships.entity.storydb.StoryRate;
 import com.iteam.scholarships.entity.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

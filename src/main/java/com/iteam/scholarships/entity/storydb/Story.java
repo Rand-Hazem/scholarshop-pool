@@ -1,9 +1,9 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.storydb;
 
 import com.iteam.scholarships.convertor.ListStringConvertor;
+import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.enums.StoryType;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.JoinFormula;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

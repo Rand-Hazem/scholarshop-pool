@@ -1,20 +1,16 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.storydb;
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.JoinFormula;
+import com.iteam.scholarships.entity.User;
+import com.iteam.scholarships.entity.storydb.Story;
 
 import javax.persistence.*;
 
 @Entity
-@DynamicUpdate
-public class StoryRate {
+public class StoryLike {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(nullable = false)
-    private int value;
 
     @Column(name = "user_id", insertable = false, updatable = false)
     private int userId;
@@ -22,13 +18,13 @@ public class StoryRate {
     @Column(name = "story_id", insertable = false, updatable = false)
     private int storyId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "story_id")
-    private  Story story;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Story story;
 
-    public StoryRate() {
+    public StoryLike() {
     }
 
     public int getId() {
@@ -37,14 +33,6 @@ public class StoryRate {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public int getUserId() {
@@ -79,3 +67,4 @@ public class StoryRate {
         this.story = story;
     }
 }
+

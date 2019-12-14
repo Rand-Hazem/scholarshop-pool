@@ -1,6 +1,10 @@
 package com.iteam.scholarships.service;
 
 import com.iteam.scholarships.entity.*;
+import com.iteam.scholarships.entity.storydb.Story;
+import com.iteam.scholarships.entity.storydb.StoryLike;
+import com.iteam.scholarships.entity.storydb.StoryRate;
+import com.iteam.scholarships.entity.storydb.StoryReport;
 import com.iteam.scholarships.enums.NotificationType;
 import com.iteam.scholarships.repository.StoryRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;

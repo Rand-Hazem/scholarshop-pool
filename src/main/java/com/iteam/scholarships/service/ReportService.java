@@ -1,6 +1,6 @@
 package com.iteam.scholarships.service;
 
-import com.iteam.scholarships.entity.StoryReport;
+import com.iteam.scholarships.entity.storydb.StoryReport;
 import com.iteam.scholarships.repository.StoryReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

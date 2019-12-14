@@ -2,7 +2,7 @@ package com.iteam.scholarships.controller;
 
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.component.UplodeFille;
-import com.iteam.scholarships.entity.Story;
+import com.iteam.scholarships.entity.storydb.Story;
 import com.iteam.scholarships.service.StoryLikeService;
 import com.iteam.scholarships.service.StoryRateService;
 import com.iteam.scholarships.service.StoryService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -50,7 +49,7 @@ public class StoryController {
     @PreAuthorize("hasAuthority('student')")
     public String shareStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
                              @RequestParam(value = "img", required = false) MultipartFile[] imglist,
-                             Model model, RedirectAttributes redirectAttributes) {
+                             Model model) {
 
         boolean success = false;
         if (!bindingResult.hasErrors()) {
@@ -58,7 +57,6 @@ public class StoryController {
             success = storyService.save(story);
         }
         if (success) {
-            redirectAttributes.addFlashAttribute("story", story);
             return "redirect:" + story.getId() + "/" + story.getTitle().replaceAll(" ", "-");
         }
         uplodeFille.deleteAllStoryImg(story.getImgList());

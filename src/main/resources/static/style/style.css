@@ -2280,6 +2280,15 @@ footer {
   .share-scholarship .container #fundCover input[type=checkbox]:checked + label {
     color: #1F3543;
     font-weight: bold; }
+.share-scholarship .error {
+  display: block; }
+  .share-scholarship .error.flex-bases-100 {
+    flex-basis: 100%; }
+  .share-scholarship .error br {
+    content: " ";
+    display: none; }
+  .share-scholarship .error br:after {
+    content: "\00a0"; }
 
 /* ------------------------------------------- View Opportunity ----------------------------------------- */
 .view-opportunity .view-opportunity-box {

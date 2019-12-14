@@ -1,6 +1,6 @@
 package com.iteam.scholarships.repository;
 
-import com.iteam.scholarships.entity.TrainingInformation;
+import com.iteam.scholarships.entity.scholarshipdb.TrainingInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

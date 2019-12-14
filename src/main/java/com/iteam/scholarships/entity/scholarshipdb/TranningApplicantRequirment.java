@@ -1,7 +1,10 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
+
+import com.iteam.scholarships.entity.scholarshipdb.ApplicantRequirement;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class TranningApplicantRequirment extends ApplicantRequirement {
@@ -13,6 +16,7 @@ public class TranningApplicantRequirment extends ApplicantRequirement {
     private String other;
 
 
+    @NotBlank
     public String getKnowledgeAndExperience() {
         return knowledgeAndExperience;
     }

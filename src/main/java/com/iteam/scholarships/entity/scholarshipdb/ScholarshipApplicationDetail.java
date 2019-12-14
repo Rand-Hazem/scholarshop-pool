@@ -1,7 +1,7 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.convertor.ListEnumDocumentToStringConvertor;
-import com.iteam.scholarships.enums.Scholarshipi;
+import com.iteam.scholarships.convertor.EnumListDocumentToStringConvertor;
+import com.iteam.scholarships.enums.ScholarshipE;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -17,8 +17,8 @@ public class ScholarshipApplicationDetail {
     private int id;
 
     @Column(nullable = false)
-    @Convert(converter = ListEnumDocumentToStringConvertor.class)
-    private List<Scholarshipi.RequiredDocument> requiredDocumentList;
+    @Convert(converter = EnumListDocumentToStringConvertor.class)
+    private List<ScholarshipE.RequiredDocument> requiredDocumentList;
 
     private String otherRequiredDoc;
 
@@ -46,11 +46,11 @@ public class ScholarshipApplicationDetail {
     }
 
     @NotNull @NotEmpty
-    public List<Scholarshipi.RequiredDocument> getRequiredDocumentList() {
+    public List<ScholarshipE.RequiredDocument> getRequiredDocumentList() {
         return requiredDocumentList;
     }
 
-    public void setRequiredDocumentList(List<Scholarshipi.RequiredDocument> requiredDocumentList) {
+    public void setRequiredDocumentList(List<ScholarshipE.RequiredDocument> requiredDocumentList) {
         this.requiredDocumentList = requiredDocumentList;
     }
 

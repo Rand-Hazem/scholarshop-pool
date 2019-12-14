@@ -1,8 +1,11 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.enums.Scholarshipi;
+import com.iteam.scholarships.enums.ScholarshipE;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -14,18 +17,18 @@ public class ApplicantRequirement {
     private int id;
 
     @Column(nullable = false)
-    @ElementCollection @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
+    @ElementCollection(fetch = FetchType.LAZY) @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<String> nationality;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.ApplicantResidentIn residenceIn;
+    private ScholarshipE.ApplicantResidentIn residenceIn;
 
     @Column(nullable = false)
-    @ElementCollection @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
+    @ElementCollection(fetch = FetchType.LAZY) @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<String> major;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.Gender gender;
+    private ScholarshipE.Gender gender;
 
     @Column(nullable = false)
     private int minAge;
@@ -34,7 +37,7 @@ public class ApplicantRequirement {
     private int maxAge;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.ApplicantDegreeRequired minDegree;
+    private ScholarshipE.ApplicantDegreeRequired minDegree;
 
     @Column(nullable = false)
     private double minSchoolGPA;
@@ -43,7 +46,10 @@ public class ApplicantRequirement {
     private double minUnivGPA;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.EnglishLevel englishLevel;
+    private ScholarshipE.EnglishLevel englishLevel;
+
+    @ElementCollection(fetch = FetchType.LAZY) @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
+    private List<SpecialCertificateScore> specialCertificateScoreList;
 
 
     @MapsId
@@ -70,15 +76,16 @@ public class ApplicantRequirement {
         this.nationality = nationality;
     }
 
-    @NotNull @NotEmpty
-    public Scholarshipi.ApplicantResidentIn getResidenceIn() {
+    @NotNull
+    public ScholarshipE.ApplicantResidentIn getResidenceIn() {
         return residenceIn;
     }
 
-    public void setResidenceIn(Scholarshipi.ApplicantResidentIn residenceIn) {
+    public void setResidenceIn(ScholarshipE.ApplicantResidentIn residenceIn) {
         this.residenceIn = residenceIn;
     }
 
+    @NotNull @NotEmpty
     public List<String> getMajor() {
         return major;
     }
@@ -88,15 +95,15 @@ public class ApplicantRequirement {
     }
 
     @NotNull
-    public Scholarshipi.Gender getGender() {
+    public ScholarshipE.Gender getGender() {
         return gender;
     }
 
-    public void setGender(Scholarshipi.Gender gender) {
+    public void setGender(ScholarshipE.Gender gender) {
         this.gender = gender;
     }
 
-    @NotNull
+    @NotNull @Min(value = 10, message = "age grater than 10 year")
     public int getMinAge() {
         return minAge;
     }
@@ -105,7 +112,7 @@ public class ApplicantRequirement {
         this.minAge = minAge;
     }
 
-    @NotNull
+    @NotNull @Min(value = 10, message = "age grater than 10 year")
     public int getMaxAge() {
         return maxAge;
     }
@@ -115,12 +122,48 @@ public class ApplicantRequirement {
     }
 
     @NotNull
-    public Scholarshipi.ApplicantDegreeRequired getMinDegree() {
+    public ScholarshipE.ApplicantDegreeRequired getMinDegree() {
         return minDegree;
     }
 
-    public void setMinDegree(Scholarshipi.ApplicantDegreeRequired minDegree) {
+    public void setMinDegree(ScholarshipE.ApplicantDegreeRequired minDegree) {
         this.minDegree = minDegree;
+    }
+
+    @Min(0) @Max(4)
+    public double getMinSchoolGPA() {
+        return minSchoolGPA;
+    }
+
+    public void setMinSchoolGPA(double minSchoolGPA) {
+        this.minSchoolGPA = minSchoolGPA;
+    }
+
+    @Min(0) @Max(4)
+    public double getMinUnivGPA() {
+        return minUnivGPA;
+    }
+
+    public void setMinUnivGPA(double minUnivGPA) {
+        this.minUnivGPA = minUnivGPA;
+    }
+
+    @NotNull
+    public ScholarshipE.EnglishLevel getEnglishLevel() {
+        return englishLevel;
+    }
+
+    public void setEnglishLevel(ScholarshipE.EnglishLevel englishLevel) {
+        this.englishLevel = englishLevel;
+    }
+
+    @Valid
+    public List<SpecialCertificateScore> getSpecialCertificateScoreList() {
+        return specialCertificateScoreList;
+    }
+
+    public void setSpecialCertificateScoreList(List<SpecialCertificateScore> specialCertificateScoreList) {
+        this.specialCertificateScoreList = specialCertificateScoreList;
     }
 
     public Scholarship getScholarship() {
@@ -130,31 +173,6 @@ public class ApplicantRequirement {
     public void setScholarship(Scholarship scholarship) {
         this.scholarship = scholarship;
     }
-
-    public double getMinSchoolGPA() {
-        return minSchoolGPA;
-    }
-
-    public void setMinSchoolGPA(double minSchoolGPA) {
-        this.minSchoolGPA = minSchoolGPA;
-    }
-
-    public double getMinUnivGPA() {
-        return minUnivGPA;
-    }
-
-    public void setMinUnivGPA(double minUnivGPA) {
-        this.minUnivGPA = minUnivGPA;
-    }
-
-    public Scholarshipi.EnglishLevel getEnglishLevel() {
-        return englishLevel;
-    }
-
-    public void setEnglishLevel(Scholarshipi.EnglishLevel englishLevel) {
-        this.englishLevel = englishLevel;
-    }
-
 
     @Override
     public String toString() {
@@ -171,6 +189,7 @@ public class ApplicantRequirement {
                 ", minUnivGPA=" + minUnivGPA +
                 ", englishLevel=" + englishLevel +
                 ", scholarship=" + scholarship +
+                ", certificate=" + specialCertificateScoreList +
                 '}';
     }
 }

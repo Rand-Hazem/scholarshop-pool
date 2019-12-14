@@ -189,6 +189,7 @@ function multiselectList() {
                 if (checked) {
                     if ($(option).val() == "any") {
                         $(list).find("option:selected").removeAttr("selected");
+                        $(list).val("");
                         $(list).val("any");
                     } else {
                         $(list).find("option[value='any']").removeAttr("selected");
@@ -212,17 +213,15 @@ function multiselectList() {
  */
 function fileValidation() {
     var fileInput = $('#illustrationFile');
-//    var filePath = fileInput.type;
     var fileType = $(fileInput)[0].files[0].type;
-//    var allowedExtensions = /(\.pdf)$/i;
     if (fileType != "application/pdf") {
         $('#fileError').text("Please upload pdf file.");
         $(fileInput).val("");
-        console.log("not valid")
+        //   console.log("not valid");
         return false;
     } else {
         $('#fileError').text("");
-        console.log("valid*")
+        //   console.log("valid*");
         return true;
     }
 }
@@ -245,10 +244,10 @@ function addCertificatesBtnEvent() {
         var node = $('<div class="certificate mb-2"></div>');
 
         var cretificateName = $('<div class="d-inline-block col-5 mb-1 align-top p-0"></div>')
-            .append($('<input id="certificate1" name="certificate1" type="text" class="form-control" data-rule-required="true" placeholder="certificate" required>'));
+            .append($('<input id="certificate1" name="certificate" type="text" class="form-control" data-rule-required="true" placeholder="certificate" required>'));
 
         var score = $('<div class="d-inline-block col-5 mb-1 ml-1 align-top p-0"></div>')
-            .append($('<input id="score1" name="score1" type="number" class="form-control d-inline-block score" ' +
+            .append($('<input id="score" name="score" type="number" class="form-control d-inline-block score" ' +
                 'data-rule-max="10" data-rule-min="1" placeholder="Score 1-10" required>'));
 
         var deleteBtn = $('<div class="d-inline-block col-1 p-0">')
@@ -265,32 +264,26 @@ function deleteCertifiateBtnEvent() {
     });
 }
 
-//
-// function hostUniversityListListener() {
-//     $("#hostUniversityList").on("change", function () {
-//         if ($(this).val() == 'other') {
-//             $('#otherHostUniversityDiv').addClass("d-block");
-//             $("#hostUniversity").val($("#otherHostUniversityDiv").val());
-//         } else {
-//             $('#otherHostUniversityDiv').removeClass("d-block");
-//             $("#hostUniversity").val($(this).val());
-//         }
-//     });
-// }
+// this function will take each certificate and create a hidden input and insert it to form
+function insertHiddenCertificate() {
+    var div = $(".certificate-div");
 
-// function hostUniversityOtherListener() {
-//     // for the first uploade of page
-//     var listVal = $("#hostUniversityList").val();
-//     if (listVal == null || listVal == "undefined" || listVal == "other") {
-//         $('#otherHostUniversityDiv').addClass("d-block");
-//     } else {
-//         $('#otherHostUniversityDiv').removeClass("d-block");
-//     }
-//     // set input listener, move the text to providerOrg-hidden-field
-//     $("#otherHostUniversity").on("focusout", function () {
-//         $("#hostUniversity").val($(this).val());
-//     });
-// }
+    $(".certificate").each(function (index) {
+        var inputName = "applicantRequirement.specialCertificateScoreList[" + index + "].certificate";
+        var inputValue = $(this).find("input[name='certificate']:first").val();
+
+        var scoreName = "applicantRequirement.specialCertificateScoreList[" + index + "].score";
+        var scoreValue = $(this).find("input[name='score']:first").val();
+
+        var name = $("<input type='hidden' name='" + inputName + "' value='" + inputValue + "'/>");
+        var score = $("<input type='hidden' name='" + scoreName + "' value='" + scoreValue + "'/>");
+
+        if(inputName != '' && inputValue!=''){
+            $(div).append(name);
+            $(div).append(score);
+        }
+    });
+}
 
 /* -------------------------------------------------------------------------------------------------- */
 
@@ -406,14 +399,14 @@ function formValidator() {
         rules: {
             opportunityTitle: {required: true, minlength: 10},
             opportunityTypeList: "required",
-            opportunityDescription: {required: true, minlength: 20},
+            opportunityDescription: {required: true, minlength: 10},
             opportunityCountry: "required",
             opportunityCity: "required",
             opportunityDurationFrom: {required: true, future: true},
             opportunityDurationTo: {required: true, future: true},
             opportunityFund: "required",
-            amount: {required: true, min: 0, fundAmount: true},
-            opportunitySeats: {required: true, min: 1},
+            amount: {number: true, required: true, min: 0, fundAmount: true},
+            opportunitySeats: {number: true, required: true, min: 1},
 
             providerOrgList: "required",
             otherProviderOrg: {required: true},
@@ -431,15 +424,15 @@ function formValidator() {
             trainingLanguageList: "required",
             opportunityEnvironment: "required",
             opportunityResponsibilities: "required",
-            opportunityWeaks: {required: true, min: 1},
-            opportunityDays: {required: true, min: 1, max: 6},
-            opportunityHours: {required: true, min: 1, max: 12},
+            opportunityWeaks: {number: true, required: true, min: 1},
+            opportunityDays: {number: true, required: true, min: 1, max: 6},
+            opportunityHours: {number: true, required: true, min: 1, max: 12},
 
             applicantNationalityList: {required: true, multiple: true},
             applicantResidentList: {required: true, multiple: true},
             applicantGenderList: "required",
-            applicantAgeFrom: {required: true, min: 10, lessThan: "#applicantAgeTo"},
-            applicantAgeTo: {required: true, greaterThan: "#applicantAgeFrom"},
+            applicantAgeFrom: {number: true, required: true, min: 10, lessThan: "#applicantAgeTo"},
+            applicantAgeTo: {number: true, required: true, greaterThan: "#applicantAgeFrom"},
             applicantMinimumDegreeHeld: "required",
             majorsRequiredList: {required: true, multiple: true},
             applicantExperience: "required",
@@ -457,7 +450,7 @@ function formValidator() {
                 minlength: "Please entar a valid title with at least 10 charaters"
             },
             opportunityDescription: {
-                minlength: "Please entar a valid description with at least 20 charaters"
+                minlength: "Please entar a valid description with at least 10 charaters"
             }
         }
     });
@@ -488,6 +481,8 @@ function swInit() {
     var btnAdd = $('<button type="submit"></button>').text('Share Opportunity')
         .addClass('btn btn-add d-none')
         .on('click', function () {
+            // make hidden input with certificate
+            insertHiddenCertificate();
             $("#shareShForm")[0].submit();
         });
     var btnCancel = $('<button></button>').text('Cancel')

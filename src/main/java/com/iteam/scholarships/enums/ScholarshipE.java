@@ -1,6 +1,6 @@
 package com.iteam.scholarships.enums;
 
-public interface Scholarshipi {
+public interface ScholarshipE {
     enum Type{
          INTERNSHIP, SCHOLARSHIP, EXCHANGE
     }

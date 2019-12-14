@@ -1,4 +1,5 @@
 package com.iteam.scholarships.entity;
+import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
 import com.iteam.scholarships.validate.MobileNumber;
 import javax.persistence.*;
 import javax.validation.Valid;

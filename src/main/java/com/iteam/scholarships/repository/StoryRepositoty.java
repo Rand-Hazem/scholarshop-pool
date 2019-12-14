@@ -1,6 +1,6 @@
 package com.iteam.scholarships.repository;
 
-import com.iteam.scholarships.entity.Story;
+import com.iteam.scholarships.entity.storydb.Story;
 import com.iteam.scholarships.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

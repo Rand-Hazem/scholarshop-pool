@@ -1,13 +1,11 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.enums.Scholarshipi;
+import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
+import com.iteam.scholarships.enums.ScholarshipE;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Entity
 public class TrainingInformation {
@@ -36,7 +34,7 @@ public class TrainingInformation {
     private String benefit;
 
     @Column(nullable = false)  @Enumerated(EnumType.STRING)
-    private Scholarshipi.TrainingLanguage trainingLanguage;
+    private ScholarshipE.TrainingLanguage trainingLanguage;
 
     @Column(nullable = false)
     private int weekOffered;
@@ -76,7 +74,7 @@ public class TrainingInformation {
         this.id = id;
     }
 
-    @NotBlank(message = "required")
+    @NotBlank @Size(min = 3)
     public String getCompanyName() {
         return companyName;
     }
@@ -85,7 +83,7 @@ public class TrainingInformation {
         this.companyName = companyName;
     }
 
-    @NotBlank(message = "required")
+    @NotBlank(message = "required") @Size(min = 3)
     public String getProduct() {
         return product;
     }
@@ -94,7 +92,7 @@ public class TrainingInformation {
         this.product = product;
     }
 
-    @URL(message = "invalid url")
+    @NotNull @URL(message = "invalid url")
     public String getCompanyWebsite() {
         return companyWebsite;
     }
@@ -103,7 +101,7 @@ public class TrainingInformation {
         this.companyWebsite = companyWebsite;
     }
 
-    @NotBlank(message = "required")
+    @NotBlank(message = "required") @Size(min = 5, message = "very short")
     public String getLocation() {
         return location;
     }
@@ -112,7 +110,7 @@ public class TrainingInformation {
         this.location = location;
     }
 
-    @NotBlank(message = "required")
+    @NotBlank(message = "required") @Size(min = 5, message = "very short")
     public String getWorkEnvironment() {
         return workEnvironment;
     }
@@ -121,7 +119,7 @@ public class TrainingInformation {
         this.workEnvironment = workEnvironment;
     }
 
-    @NotBlank(message = "required")
+    @NotBlank(message = "required") @Size(min = 5, message = "very short")
     public String getResponsibility() {
         return responsibility;
     }
@@ -139,11 +137,11 @@ public class TrainingInformation {
     }
 
     @NotNull(message = "required")
-    public Scholarshipi.TrainingLanguage getTrainingLanguage() {
+    public ScholarshipE.TrainingLanguage getTrainingLanguage() {
         return trainingLanguage;
     }
 
-    public void setTrainingLanguage(Scholarshipi.TrainingLanguage trainingLanguage) {
+    public void setTrainingLanguage(ScholarshipE.TrainingLanguage trainingLanguage) {
         this.trainingLanguage = trainingLanguage;
     }
 
@@ -166,8 +164,7 @@ public class TrainingInformation {
         this.workDayPerWeek = workDayPerWeek;
     }
 
-    @Min(1)
-    @Max(value = 12, message = "max is 12")
+    @Min(1) @Max(value = 12, message = "max is 12")
     public int getWorkHourPerDay() {
         return workHourPerDay;
     }

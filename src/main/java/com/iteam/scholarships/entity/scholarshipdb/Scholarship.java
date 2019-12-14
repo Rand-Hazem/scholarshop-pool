@@ -1,15 +1,13 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.convertor.ListStringConvertor;
-import com.iteam.scholarships.enums.Scholarshipi;
+import com.iteam.scholarships.convertor.EnumFundCoverListToStringConvertor;
+import com.iteam.scholarships.entity.Advertiser;
+import com.iteam.scholarships.enums.ScholarshipE;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,7 +22,7 @@ public class Scholarship {
     private String title;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.Type type;
+    private ScholarshipE.Type type;
 
     @Column(nullable = false)
     private String description;
@@ -48,13 +46,13 @@ public class Scholarship {
     private int seats;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.FundType fundType;
+    private ScholarshipE.FundType fundType;
 
     @Column(nullable = false)
     private double fundAmount;
 
-    @Convert(converter = ListStringConvertor.class)
-    private ArrayList<Scholarshipi.FundCover> fundCover;
+    @Convert(converter = EnumFundCoverListToStringConvertor.class)
+    private ArrayList<ScholarshipE.FundCover> fundCover;
 
     private String officialWebsite;
 
@@ -66,7 +64,7 @@ public class Scholarship {
     private String specialProgram;
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    private Scholarshipi.Degree degree;
+    private ScholarshipE.Degree degree;
 
     @Column(name = "advertiser_id", insertable = false, updatable = false)
     private int advertiserId;
@@ -98,16 +96,16 @@ public class Scholarship {
         this.title = title;
     }
 
-    @NotBlank
-    public Scholarshipi.Type getType() {
+    @NotNull
+    public ScholarshipE.Type getType() {
         return type;
     }
 
-    public void setType(Scholarshipi.Type type) {
+    public void setType(ScholarshipE.Type type) {
         this.type = type;
     }
 
-    @NotBlank
+    @NotBlank @Size(min = 10, message = "at least 10 character")
     public String getDescription() {
         return description;
     }
@@ -116,7 +114,7 @@ public class Scholarship {
         this.description = description;
     }
 
-    @NotBlank
+    @NotBlank @Size(min = 2, max = 2, message = "invalid country")
     public String getCountry() {
         return country;
     }
@@ -134,6 +132,7 @@ public class Scholarship {
         this.city = city;
     }
 
+    @Future
     public Date getApplyDeadline() {
         return applyDeadline;
     }
@@ -142,8 +141,7 @@ public class Scholarship {
         this.applyDeadline = applyDeadline;
     }
 
-    @NotNull(message = "required")
-    @Future(message = "must be in future")
+    @NotNull @Future(message = "must be in future")
     public Date getDurationFrom() {
         return durationFrom;
     }
@@ -152,8 +150,7 @@ public class Scholarship {
         this.durationFrom = durationFrom;
     }
 
-    @NotNull(message = "required")
-    @Future(message = "must be in future")
+    @NotNull @Future(message = "must be in future")
     public Date getDurationTo() {
         return durationTo;
     }
@@ -162,8 +159,7 @@ public class Scholarship {
         this.durationTo = durationTo;
     }
 
-    @NotNull(message = "required")
-    @Min(1)
+    @NotNull @Min(1)
     public int getSeats() {
         return seats;
     }
@@ -172,22 +168,22 @@ public class Scholarship {
         this.seats = seats;
     }
 
-    @NotBlank
-    public Scholarshipi.FundType getFundType() {
+    @NotNull
+    public ScholarshipE.FundType getFundType() {
         return fundType;
     }
 
-    public void setFundType(Scholarshipi.FundType fundType) {
+    public void setFundType(ScholarshipE.FundType fundType) {
         this.fundType = fundType;
     }
 
-    @NotNull
+    @NotNull @Min(0)
     public double getFundAmount() {
         return fundAmount;
     }
 
     public void setFundAmount(double fundAmount) {
-        if (Scholarshipi.FundType.NO.equals(getFundType())) {
+        if (ScholarshipE.FundType.NO.equals(getFundType())) {
             this.fundAmount = 0;
         } else {
             this.fundAmount = fundAmount;
@@ -195,12 +191,11 @@ public class Scholarship {
         }
     }
 
-
-    public ArrayList<Scholarshipi.FundCover> getFundCover() {
+    public ArrayList<ScholarshipE.FundCover> getFundCover() {
         return fundCover;
     }
 
-    public void setFundCover(ArrayList<Scholarshipi.FundCover> fundCover) {
+    public void setFundCover(ArrayList<ScholarshipE.FundCover> fundCover) {
         this.fundCover = fundCover;
     }
 
@@ -221,7 +216,7 @@ public class Scholarship {
         this.privilege = privilege;
     }
 
-    @NotNull(message = "required")
+    @NotBlank(message = "required")
     public String getProvidreOrg() {
         return providreOrg;
     }
@@ -238,11 +233,12 @@ public class Scholarship {
         this.specialProgram = specialProgram;
     }
 
-    public Scholarshipi.Degree getDegree() {
+    @NotNull
+    public ScholarshipE.Degree getDegree() {
         return degree;
     }
 
-    public void setDegree(Scholarshipi.Degree degree) {
+    public void setDegree(ScholarshipE.Degree degree) {
         this.degree = degree;
     }
 
@@ -252,6 +248,14 @@ public class Scholarship {
 
     public void setAdvertiserId(int advertiserId) {
         this.advertiserId = advertiserId;
+    }
+
+    public Advertiser getAdvertiser() {
+        return advertiser;
+    }
+
+    public void setAdvertiser(Advertiser advertiser) {
+        this.advertiser = advertiser;
     }
 
     @Override

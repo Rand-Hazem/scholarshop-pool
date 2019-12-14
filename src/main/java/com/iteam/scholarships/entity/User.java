@@ -1,13 +1,11 @@
 package com.iteam.scholarships.entity;
 
+import com.iteam.scholarships.entity.storydb.Story;
+import com.iteam.scholarships.entity.storydb.StoryRate;
 import com.iteam.scholarships.enums.AccountState;
 import com.iteam.scholarships.enums.UserType;
 import com.iteam.scholarships.validate.FieldMatch;
 import com.iteam.scholarships.validate.Gender;
-import org.hibernate.annotations.LazyGroup;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

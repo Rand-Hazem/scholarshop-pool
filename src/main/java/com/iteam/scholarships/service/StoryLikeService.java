@@ -1,8 +1,8 @@
 package com.iteam.scholarships.service;
 
 import com.iteam.scholarships.component.CurrentUser;
-import com.iteam.scholarships.entity.Story;
-import com.iteam.scholarships.entity.StoryLike;
+import com.iteam.scholarships.entity.storydb.Story;
+import com.iteam.scholarships.entity.storydb.StoryLike;
 import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.repository.StoryLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2448,7 +2448,17 @@ footer {
     }
 
   }
-
+  .error{
+    display: block;
+    &.flex-bases-100{
+      flex-basis: 100%;
+    }
+    br {
+      content: " ";
+      display: none;
+    }
+    br:after {content: "\00a0"}
+  }
 }
 /* ------------------------------------------- View Opportunity ----------------------------------------- */
 .view-opportunity{

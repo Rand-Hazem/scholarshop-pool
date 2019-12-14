@@ -1,5 +1,7 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.storydb;
 
+import com.iteam.scholarships.entity.User;
+import com.iteam.scholarships.entity.storydb.Story;
 import com.iteam.scholarships.enums.ReportContentType;
 
 import javax.persistence.*;

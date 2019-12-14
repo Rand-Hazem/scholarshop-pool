@@ -1,15 +1,17 @@
 package com.iteam.scholarships.component;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,9 +26,13 @@ public class UplodeFille {
 
 
     private boolean validImage(String fileName) {
-        return "jpg jpeg png".contains(getFileExtention(fileName));
+        String ex = getFileExtention(fileName);
+        return "jpg".equals(ex) || "jpeg".equals(ex) || "png".equals(ex);
     }
 
+    public boolean validPDF(String fileName) {
+        return "pdf".equals(getFileExtention(fileName));
+    }
 
     private boolean delete(String path) {
         try {
@@ -42,12 +48,12 @@ public class UplodeFille {
     }
 
     public void deleteAll(String path, List<String> list) {
-        for (String img : list) {
-            delete(path + img);
+        for (String file : list) {
+            delete(path + file);
         }
     }
 
-    private boolean save(String path, MultipartFile multipartFile){
+    private boolean saveImage(String path, MultipartFile multipartFile) {
         try {
             File fileOutput = new File(path);
             if (!fileOutput.exists()) {
@@ -77,7 +83,7 @@ public class UplodeFille {
 
             String fileName = (oldImg != null ? oldImg : UUID.randomUUID().toString() + ".jpg");
 
-            return save("src/main/upload/profile/" + fileName, img) ? fileName : null;
+            return saveImage("src/main/upload/profile/" + fileName, img) ? fileName : null;
         } catch (Exception e) {
             System.out.println("\n\n" + e.getMessage() + "\n\n");
             return null;
@@ -94,14 +100,14 @@ public class UplodeFille {
         ArrayList<String> newImgPath = new ArrayList<>(3);
         try {
             for (int i = 0; i < arrImg.length; i++) {
-                String fileName = (oldImg != null && oldImg.size() >= i ? oldImg.get(i) : "" + UUID.randomUUID().toString() + ".jpg");
+                String fileName = (oldImg != null && oldImg.size() >= i ? oldImg.get(i) : UUID.randomUUID().toString() + ".jpg");
 
                 // delete image
                 if (arrImg[i] == null || arrImg[i].isEmpty()) {
                     delete("src/main/upload/story/" + fileName);
                     continue;
                 }
-                if (validImage(arrImg[i].getOriginalFilename()) && save("src/main/upload/story/" + fileName, arrImg[i])) {
+                if (validImage(arrImg[i].getOriginalFilename()) && saveImage("src/main/upload/story/" + fileName, arrImg[i])) {
                     newImgPath.add(fileName);
                 }
             }
@@ -119,6 +125,36 @@ public class UplodeFille {
 
     public void deleteAllStoryImg(List<String> list) {
         deleteAll("src/main/upload/story/", list);
+    }
+
+
+    private boolean savePDF(String path, MultipartFile file) {
+        try {
+            File fileOutput = new File(path);
+            if (!fileOutput.exists()) {
+                fileOutput.createNewFile();
+            }
+
+            Files.copy(file.getInputStream(), Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+    }
+
+    public String uploadScholarshipIllustrationFile(@NonNull MultipartFile file) {
+        try {
+            String fileName = UUID.randomUUID().toString() + ".pdf";
+
+            if (validPDF(file.getOriginalFilename()) && savePDF("src/main/upload/scholarshipIllustrationFile/" + fileName, file)) {
+                return fileName;
+            }
+        } catch (Exception e) {
+            System.out.println(e.fillInStackTrace());
+            return null;
+        }
+        return null;
     }
 
 }

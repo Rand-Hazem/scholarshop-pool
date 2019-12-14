@@ -1,10 +1,10 @@
-package com.iteam.scholarships.entity;
+package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.enums.Scholarshipi;
+import com.iteam.scholarships.enums.ScholarshipE;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class AcademicInformation {
     private String hostUniversity;
 
     @Enumerated(EnumType.STRING)
-    private Scholarshipi.TeachingLanguage teachingLanguage;
+    private ScholarshipE.TeachingLanguage teachingLanguage;
 
     @ElementCollection
     @CollectionTable(name="scholarship_Academic_information_major", joinColumns = @JoinColumn(name = "scholarship_id"))
@@ -49,15 +49,15 @@ public class AcademicInformation {
     }
 
     @NotNull(message = "required")
-    public Scholarshipi.TeachingLanguage getTeachingLanguage() {
+    public ScholarshipE.TeachingLanguage getTeachingLanguage() {
         return teachingLanguage;
     }
 
-    public void setTeachingLanguage(Scholarshipi.TeachingLanguage teachingLanguage) {
+    public void setTeachingLanguage(ScholarshipE.TeachingLanguage teachingLanguage) {
         this.teachingLanguage = teachingLanguage;
     }
 
-    @NotNull(message = "required") @Min(value = 1)
+    @NotNull(message = "required")@NotEmpty
     public List<String> getMajor() {
         return major;
     }

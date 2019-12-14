@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -31,7 +32,8 @@
         <div class="row d-flex justify-content-center">
             <!-- Stepper -->
             <div class="stepper">
-                <form:form action="/scholarship/share" method="post" id="shareShForm" name="shareShForm" role="form" data-toggle="validator" modelAttribute="wrapper">
+                <form:form action="/scholarship/share" method="post" id="shareShForm" name="shareShForm" role="form" data-toggle="validator"
+                           modelAttribute="wrapper" enctype="multipart/form-data">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <!-- Smart Wizard html -->
                     <div id="smartwizard" class="sw-main sw-theme-circles">
@@ -80,6 +82,7 @@
                                             <form:input id="opportunityTitle" path="scholarship.title" type="text"
                                                         class="form-control overflow-hidden"
                                                         placeholder="opportunity Title" required="true"/>
+                                            <form:errors path="scholarship.title" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50  align-top">
                                             <label>Opportunity Type</label><b> *</b>
@@ -89,6 +92,7 @@
                                                 <option value="EXCHANGE">Residences and Exchange Programs</option>
                                                 <option value="INTERNSHIP">Internships</option>
                                             </form:select>
+                                            <form:errors path="scholarship.type" class="error"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -102,12 +106,14 @@
                                                 <option value="MASTER_DOCTORAL">Master, Doctoral</option>
                                                 <option value="DOCTORAL">Doctoral</option>
                                             </form:select>
+                                            <form:errors path="scholarship.degree" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50 align-top">
                                             <label>Available Seats<b> *</b></label>
                                             <form:input id="opportunitySeats" path="scholarship.seats" type="number" min="1"
                                                         class="form-control overflow-hidden" value="1"
                                                         placeholder="Available Seats" required="true"/>
+                                            <form:errors path="scholarship.seats" class="error"/>
                                         </div>
                                     </div>
 
@@ -117,6 +123,7 @@
                                                        path="scholarship.description"
                                                        placeholder="Please provide a descriptive summary of your opportunity."
                                                        required="true"></form:textarea>
+                                        <form:errors path="scholarship.description" class="error"/>
                                     </div>
                                     <div class="form-group">
                                         <div class="d-inline-block w-100 w-md-50 align-top">
@@ -125,12 +132,14 @@
                                                          class="form-control custom-select" required="true">
                                                 <%@include file="parts/countries.html" %>
                                             </form:select>
+                                            <form:errors path="scholarship.country" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50 align-top">
                                             <label>City</label><b> *</b>
                                             <form:input id="opportunityCity" path="scholarship.city" type="text"
                                                         class="form-control overflow-hidden"
                                                         placeholder="Opportunity City" required="true"/>
+                                            <form:errors path="scholarship.city" class="error"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -138,6 +147,7 @@
                                         <div id="deadlineDiv">
                                             <form:input id="opportunityDeadline" path="scholarship.applyDeadline" type="date"
                                                         class="form-control" onkeydown="return false"/>
+                                            <form:errors path="scholarship.applyDeadline" class="error"/>
                                         </div>
                                         <div>
                                             <input id="deadlineCheckbox" name="deadlineCheckbox" type="checkbox"/>
@@ -159,6 +169,7 @@
                                                     </div>
                                                     <form:input id="opportunityDurationFrom" path="scholarship.durationFrom"
                                                                 type="date" class="form-control" required="true"/>
+                                                    <form:errors path="scholarship.durationFrom" class="error flex-bases-100"/>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -168,6 +179,7 @@
                                                     </div>
                                                     <form:input id="opportunityDurationTo" path="scholarship.durationTo" type="date"
                                                                 class="form-control" required="true"/>
+                                                    <form:errors path="scholarship.durationTo" class="error flex-bases-100"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,10 +199,12 @@
                                                     <option value="SALARY">Monthly Salary</option>
                                                     <option value="NO">No Funding</option>
                                                 </form:select>
+                                                <form:errors path="scholarship.fundType" class="error"/>
                                             </div>
                                             <div class="w-md-50 d-inline-block align-top">
                                                 <form:input id="amount" path="scholarship.fundAmount" type="number" placeholder="amount in $"
                                                             class="form-control align-top" value="0" required="true"/>
+                                                <form:errors path="scholarship.fundAmount" class="error"/>
                                             </div>
                                         </div>
                                         <div id="fundCovering" class="w-100 align-top full partial">
@@ -232,6 +246,7 @@
                                         <form:input id="opportunityWebsite" path="scholarship.officialWebsite" type="url"
                                                     class="form-control overflow-hidden"
                                                     placeholder="Does the opportunity have a webpage offering more information?"/>
+                                        <form:errors path="scholarship.officialWebsite" class="error"/>
                                     </div>
                                     <div class="form-group">
                                         <label>What does the successful applicant gain from your
@@ -239,6 +254,7 @@
                                             <span style="color: #223D4E;"> Opportunity privileges</span></label>
                                         <form:textarea id="opportunityPrivileges" path="scholarship.privilege"
                                                        class="form-control noresize"></form:textarea>
+                                        <form:errors path="scholarship.privilege" class="error"/>
                                     </div>
                                 </div>
                             </div>
@@ -256,9 +272,11 @@
                                         <form:input type="hidden" id="providerOrg" path="scholarship.providreOrg"/>
                                         <label class="d-block">Provider Organization<b> *</b></label>
                                         <div class="d-inline-block w-md-50 align-top">
-                                            <select id="providerOrgList" name="providerOrgList" class="custom-select" data-organization="true" required>
+                                            <select id="providerOrgList" name="providerOrgList" class="custom-select" data-organization="true" required="true"
+                                                    data-selected="${wrapper.scholarship.providreOrg!=null ? wrapper.scholarship.providreOrg : ''}">
                                                 <option selected disabled> -- Select Type --</option>
                                             </select>
+                                            <form:errors path="scholarship.providreOrg" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-md-50 align-top">
                                             <input id="otherProviderOrg" name="otherProviderOrg" type="text" class="form-control"
@@ -269,13 +287,15 @@
                                         <label class="d-block">Special Program</label>
                                         <form:input type="hidden" id="specialProgram" path="scholarship.specialProgram"/>
                                         <div class="d-inline-block w-md-50 align-top">
-                                            <select id="specialProgramList" name="specialProgramList" class="custom-select">
+                                            <select id="specialProgramList" name="specialProgramList" class="custom-select"
+                                                    data-selected="${wrapper.scholarship.providreOrg!=null ? wrapper.scholarship.specialProgram : ''}">
                                                 <option selected disabled> -- Select Type --</option>
                                                 <option value="prog1">prog 1</option>
                                                 <option value="prog2">prog 2</option>
                                                 <option value="prog3">...</option>
                                                 <option value="other">Other</option>
                                             </select>
+                                            <form:errors path="scholarship.specialProgram" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-md-50 align-top">
                                             <input id="otherSpecialProgram" name="otherSpecialProgram" type="text" class="form-control"
@@ -289,23 +309,27 @@
                                                 <form:input id="opportunityEmployerName" path="trainingInformation.companyName"
                                                             type="text" class="form-control overflow-hidden"
                                                             placeholder="Employer Name" required="true"/>
+                                                <form:errors path="trainingInformation.companyName" class="error"/>
                                             </div>
                                             <div class="d-inline-block w-md-50 align-top">
                                                 <label>Business or Products</label><b> *</b>
                                                 <form:input id="opportunityBusiness" path="trainingInformation.product" type="text"
                                                             class="form-control overflow-hidden"
                                                             placeholder="Business or Products" required="true"/>
+                                                <form:errors path="trainingInformation.product" class="error"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Employer Website</label>
                                             <form:input id="employerWebsite" path="trainingInformation.companyWebsite"
                                                         type="url" class="form-control overflow-hidden" value="https://"/>
+                                            <form:errors path="trainingInformation.companyWebsite" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Location of Placement</label><b> *</b>
                                             <form:input id="oppLocation" path="trainingInformation.location" type="text" class="form-control"
                                                         placeholder="Full Location of Placement" required="true"/>
+                                            <form:errors path="trainingInformation.location" class="error"/>
                                         </div>
                                     </div>
 
@@ -316,12 +340,14 @@
                                             <label>Host University/Institution<b> *</b></label>
                                             <form:input id="hostUniversity" path="academicInformation.hostUniversity" type="text" class="form-control"
                                                         placeholder="Host University/Institution"/>
+                                            <form:errors path="academicInformation.hostUniversity" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Select Major</label><b> *</b>
                                             <button type="button" class="btnModal btn btn-block" data-toggle="modal"
                                                     data-target="#offeredMajorsModal">Major
                                             </button>
+                                            <form:errors path="academicInformation.major" class="error"/>
                                         </div>
                                         <div class="modal fade" id="offeredMajorsModal" tabindex="-1" role="dialog">
                                             <div class="modal-dialog" role="document">
@@ -352,6 +378,7 @@
                                                 <option value="BOTH">Both</option>
                                                 <option value="UNDEFINED">undefined</option>
                                             </form:select>
+                                            <form:errors path="academicInformation.teachingLanguage" class="error"/>
                                         </div>
                                     </div>
                                     <div class="opportunity-training">
@@ -365,22 +392,26 @@
                                                 <option value="BOTH">Both</option>
                                                 <option value="UNDEFINED">undefined</option>
                                             </form:select>
+                                            <form:errors path="trainingInformation.trainingLanguage" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Working Environment</label><b> *</b>
                                             <form:textarea id="opportunityEnvironment" path="trainingInformation.workEnvironment"
                                                            class="form-control noresize" placeholder="position or traning field" required="true"></form:textarea>
+                                            <form:errors path="trainingInformation.workEnvironment" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Responsibilities</label><b> *</b>
                                             <form:textarea id="opportunityResponsibilities" path="trainingInformation.responsibility"
                                                            class="form-control noresize" required="true"></form:textarea>
+                                            <form:errors path="trainingInformation.responsibility" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Expected to Gain/Benefits</label>
                                             <form:textarea id="opportunityBenefits" path="trainingInformation.benefit"
                                                            class="form-control noresize"
                                                            placeholder="When an applicant gets the opportunity, what are their benefits?"/>
+                                            <form:errors path="trainingInformation.benefit" class="error"/>
 
                                         </div>
                                         <div class="form-group row">
@@ -388,18 +419,21 @@
                                                 <label>Number of Weeks Offered</label><b> *</b>
                                                 <form:input id="opportunityWeaks" path="trainingInformation.weekOffered" type="number" min="1"
                                                             class="form-control overflow-hidden" value="4" required="true"/>
+                                                <form:errors path="trainingInformation.weekOffered" class="error"/>
                                             </div>
                                             <div class="col-lg-4 align-top">
                                                 <label>Working days per Weak</label><b> *</b>
                                                 <form:input id="opportunityDays" path="trainingInformation.workDayPerWeek" type="number"
                                                             class="form-control overflow-hidden" value="5" required="true"
                                                             placeholder="Working days per Weak"/>
+                                                <form:errors path="trainingInformation.workDayPerWeek" class="error"/>
                                             </div>
                                             <div class="col-lg-4 align-top">
                                                 <label>Daily Working Hours</label><b> *</b>
                                                 <form:input id="opportunityHours" path="trainingInformation.workHourPerDay" type="number"
                                                             class="form-control overflow-hidden"
                                                             placeholder="Daily Working Hours" value="8" required="true"/>
+                                                <form:errors path="trainingInformation.workHourPerDay" class="error"/>
                                             </div>
                                         </div>
                                     </div>
@@ -413,6 +447,7 @@
                                     <div class="form-group">
                                         <div class="d-inline-block w-100 w-md-50 align-bottom position-relative">
                                             <label>Nationality<b> *</b></label>
+                                            <form:errors path="applicantRequirement.nationality" class="error"/>
                                             <form:select id="applicantNationalityList" path="applicantRequirement.nationality" data-live-search="true"
                                                          class="form-control selectpicker" multiple="true" required="true">
                                                 <%@include file="parts/countries.html" %>
@@ -420,6 +455,7 @@
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50 align-bottom position-relative">
                                             <label>Resident in<b> *</b></label>
+                                            <form:errors path="applicantRequirement.residenceIn" class="error"/>
                                             <form:select id="applicantResidentList" path="applicantRequirement.residenceIn" class="form-control custom-select"
                                                          data-live-search="true" title="Country of Residence" required="true">
                                                 <option value="ANY">Any Country</option>
@@ -436,6 +472,7 @@
                                                 <option value="FEMALE">Female</option>
                                                 <option value="BOTH" selected>Both</option>
                                             </form:select>
+                                            <form:errors path="applicantRequirement.gender" class="error"/>
                                         </div>
                                     </div>
                                     <div class="d-block">
@@ -449,6 +486,7 @@
                                                 </div>
                                                 <form:input id="applicantAgeFrom" path="applicantRequirement.minAge" type="number" min="1"
                                                             class="form-control overflow-hidden"/>
+                                                <form:errors path="applicantRequirement.minAge" class="error flex-bases-100"/>
                                             </div>
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50 align-top mb-1">
@@ -458,6 +496,7 @@
                                                 </div>
                                                 <form:input id="applicantAgeTo" path="applicantRequirement.maxAge" type="number" min="1"
                                                             class="form-control overflow-hidden"/>
+                                                <form:errors path="applicantRequirement.maxAge" class="error flex-bases-100"/>
                                             </div>
                                         </div>
                                     </div>
@@ -474,6 +513,7 @@
                                                 <option value="DOCTORAL">Ph.D</option>
                                                 <option value="NO_CONSTRAINT">No constraint</option>
                                             </form:select>
+                                            <form:errors path="applicantRequirement.minDegree" class="error"/>
                                         </div>
                                     </div>
 
@@ -482,6 +522,7 @@
                                         <button type="button" class="btnModal btn btn-block" data-toggle="modal"
                                                 data-target="#majorsRequiredModal">Major
                                         </button>
+                                        <form:errors path="applicantRequirement.major" class="error"/>
                                     </div>
                                     <div class="modal fade" id="majorsRequiredModal" tabindex="-1" role="dialog">
                                         <div class="modal-dialog" role="document">
@@ -507,12 +548,14 @@
                                         <div class="form-group">
                                             <label>Required Knowledge and Experience<b> *</b></label>
                                             <form:textarea class="form-control noresize" id="applicantExperience"
-                                                      path="tranningApplReq.knowledgeAndExperience" required="true" />
+                                                           path="tranningApplReq.knowledgeAndExperience" required="true"/>
+                                            <form:errors path="tranningApplReq.knowledgeAndExperience" class="error"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Other Requirements</label>
                                             <form:textarea class="form-control noresize" id="applicantOtherRequirements"
-                                                      path="tranningApplReq.other"/>
+                                                           path="tranningApplReq.other"/>
+                                            <form:errors path="tranningApplReq.other" class="error"/>
                                         </div>
                                     </div>
 
@@ -525,15 +568,15 @@
                                             <label>Minimum (School) GPA<small> a scale of 4.0</small></label>
                                             <form:input id="schoolGPA" path="applicantRequirement.minSchoolGPA" type="number" min="0" max="4"
                                                         class="form-control overflow-hidden" placeholder="3.5"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="School GPA out of 100"/>
+                                                        data-toggle="tooltip" data-placement="bottom" title="School GPA out of 100"/>
+                                            <form:errors path="applicantRequirement.minSchoolGPA" class="error"/>
                                         </div>
                                         <div class="d-inline-block w-100 w-md-50 align-top">
                                             <label>Minimum (University) GPA<small> a scale of 4.0</small></label>
                                             <form:input id="universityGPA" path="applicantRequirement.minUnivGPA" type="number" min="0" max="4"
                                                         class="form-control overflow-hidden" placeholder="3.5"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="University GPA out of 4"/>
+                                                        data-toggle="tooltip" data-placement="bottom" title="University GPA out of 4"/>
+                                            <form:errors path="applicantRequirement.minUnivGPA" class="error"/>
                                         </div>
                                     </div>
                                     <div class="form-group mr-2">
@@ -547,23 +590,50 @@
                                             <option value="C2">C2 (Proficiency English)</option>
                                             <option value="NS">Not specific</option>
                                         </form:select>
+                                        <form:errors path="applicantRequirement.englishLevel" class="error"/>
                                     </div>
 
                                     <h6>Special Certificate/s</h6>
                                     <div class="form-group certificate-div" id="ccc">
-                                        <div class="certificate mb-2">
-                                            <div class="d-inline-block col-5 mb-1 align-top p-0">
-                                                <input id="certificate1" name="certificate1" type="text" class="form-control" placeholder="IELTS" data-rule-required="true">
-                                            </div>
-                                            <div class="d-inline-block col-5 mb-1 align-top p-0">
-                                                <input id="score1" name="score1" type="number" class="form-control d-inline-block score" placeholder="Score 1-10"
-                                                       data-rule-max="10" data-rule-min="1">
-                                            </div>
-                                            <div class="d-inline-block col-1 p-0">
-                                                <button class="btn delete-current">
-                                                    <i class="fa fa-times-circle" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${not empty wrapper.applicantRequirement.specialCertificateScoreList}">
+                                                <c:forEach var="item" items="${wrapper.applicantRequirement.specialCertificateScoreList}" varStatus="loop">
+                                                    <div class="certificate mb-2">
+                                                        <div class="d-inline-block col-5 mb-1 align-top p-0">
+                                                            <input name="certificate" type="text" class="form-control" value="${item.certificate}" data-rule-required="true">
+                                                            <form:errors path="applicantRequirement.specialCertificateScoreList[${loop.index}].certificate" class="error"/>
+                                                        </div>
+                                                        <div class="d-inline-block col-5 mb-1 align-top p-0">
+                                                            <input name="score" type="number" class="form-control d-inline-block score" value="${item.score}"
+                                                                   data-rule-max="10" data-rule-min="1">
+                                                            <form:errors path="applicantRequirement.specialCertificateScoreList[${loop.index}].score" class="error"/>
+                                                        </div>
+                                                        <div class="d-inline-block col-1 p-0">
+                                                            <button class="btn delete-current">
+                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <div class="certificate mb-2">
+                                                    <div class="d-inline-block col-5 mb-1 align-top p-0">
+                                                        <input name="certificate" type="text" class="form-control" placeholder="IELTS" data-rule-required="true">
+                                                    </div>
+                                                    <div class="d-inline-block col-5 mb-1 align-top p-0">
+                                                        <input name="score" type="number" class="form-control d-inline-block score" placeholder="Score 1-10"
+                                                               data-rule-max="10" data-rule-min="1">
+                                                    </div>
+                                                    <div class="d-inline-block col-1 p-0">
+                                                        <button class="btn delete-current">
+                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
 
                                     <div>
@@ -591,15 +661,18 @@
                                             <option value="PROPOSAL">Research Proposal</option>
                                             <option value="RECOMMENDATION_LETTER">Recommendation Letter</option>
                                         </form:select>
+                                        <form:errors path="detail.requiredDocumentList" class="error"/>
                                     </div>
                                     <div class="form-group mt-3">
                                         <label>Other Required Documents</label>
                                         <form:textarea class="form-control noresize" id="otherRequiredDocuments" path="detail.otherRequiredDoc"></form:textarea>
+                                        <form:errors path="detail.otherRequiredDoc" class="error"/>
                                     </div>
                                     <div class="form-group">
                                         <label>How to apply for the opportunity?<b> *</b></label>
                                         <form:textarea class="form-control noresize" id="howToApplySteps" path="detail.howToApply" required="true"
                                                        placeholder="Please provide a descriptive summary about all steps required from applicants to complete their applications successfully."/>
+                                        <form:errors path="detail.howToApply" class="error"/>
 
                                     </div>
                                     <div class="form-group">
@@ -609,7 +682,7 @@
                                                 <form:radiobutton id="throughOur" path="detail.applyThroughProviderWebsite" value="false"
                                                                   class="custom-control-input" checked="true"/>
                                                 <label for="throughOur" class="custom-control-label  cursor-pointer"> Our Website</label>
-
+                                                <form:errors path="detail.applyThroughProviderWebsite" class="error"/>
                                             </div>
                                         </div>
                                         <div class="d-inline-block w-md-50">
@@ -617,7 +690,7 @@
                                                 <form:radiobutton id="throughProvider" path="detail.applyThroughProviderWebsite" value="true"
                                                                   class="custom-control-input"/>
                                                 <label for="throughProvider" class="custom-control-label cursor-pointer"> Provider Website</label>
-
+                                                <form:errors path="detail.applyThroughProviderWebsite" class="error"/>
                                             </div>
                                         </div>
                                     </div>
@@ -625,13 +698,14 @@
                                         <label>Applying Link for Opportunity<b> *</b></label>
                                         <form:input id="applicationLink" path="detail.urlProviderApplyForm" type="url"
                                                     class="form-control overflow-hidden" required="true"/>
+                                        <form:errors path="detail.urlProviderApplyForm" class="error"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Illustration File of The Opportunity</label>
                                         <div class="custom-file">
-                                            <input type="file" id="illustrationFile" path="illustrationFileName" accept="application/pdf"/>
+                                            <input type="file" id="illustrationFile" name="illustrationFile" accept="application/pdf"/>
                                             <label for="illustrationFile" class="custom-file-label cursor-pointer">Choose pdf file</label>
-                                            <div><span id="fileError" class="text-danger"></span></div>
+                                            <div><span id="fileError" class="text-danger">${fileErrorMsg}</span></div>
                                         </div>
                                     </div>
                                 </div>

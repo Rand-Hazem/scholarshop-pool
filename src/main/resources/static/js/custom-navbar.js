@@ -1,6 +1,6 @@
 
 function dropdownMoreItemDifferentView() {
-    selector = $(".student-navbar #dropdownMoreItem");
+    selector = $(".custom-navbar #dropdownMoreItem");
     // add bootsrtap dropdown list class
     if ($(window).width() >= 992) {
         $(selector).addClass("dropdown-menu dropdown-menu-right");

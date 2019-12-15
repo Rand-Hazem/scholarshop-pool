@@ -27,13 +27,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/scholarship/share").permitAll()
+//                .antMatchers("/").permitAll()
                 .antMatchers("/resources/**", "/upload/**", "/", "/main", "/register").permitAll()
+
                 .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
+
                 .antMatchers("/story/{\\d+}/**", "/story/all").permitAll()
-                .antMatchers("/api/**").permitAll()
                 .antMatchers("/story/share").hasAuthority("student")
-                .antMatchers("/scholarship/adverted-scholarship").hasAuthority("advertiser")
+
+                .antMatchers("/api/**").permitAll()
+
+                .antMatchers("advertiser/scholarship/**").hasAuthority("advertiser")
+                .antMatchers("student/scholarship/**").hasAuthority("student")
+                .antMatchers("user/scholarship/").permitAll() // view-scholarship
+
                 .anyRequest().authenticated()
 
                 .and()

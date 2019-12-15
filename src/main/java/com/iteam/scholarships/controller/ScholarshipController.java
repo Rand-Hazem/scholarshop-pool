@@ -1,6 +1,4 @@
 package com.iteam.scholarships.controller;
-
-
 import com.iteam.scholarships.component.UplodeFille;
 import com.iteam.scholarships.service.ScholarshipService;
 import com.iteam.scholarships.wrapper.ShareScholarshipWrapper;
@@ -14,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
-@RequestMapping("/scholarship/")
 public class ScholarshipController {
 
     @Autowired
@@ -25,14 +22,14 @@ public class ScholarshipController {
     private ScholarshipService scholarshipService;
 
 
-    @GetMapping("share")
+    @GetMapping("advertiser/scholarship/share")
     public String share(Model model) {
         model.addAttribute("wrapper", new ShareScholarshipWrapper());
         return "share-scholarship";
     }
 
 
-    @PostMapping("share")
+    @PostMapping("advertiser/scholarship/share")
     public String share(@ModelAttribute("wrapper") ShareScholarshipWrapper wrapper, BindingResult bindingResult,
                         @RequestParam(value = "illustrationFile", required = false) MultipartFile file, Model model) {
         String line = "\n\n";
@@ -69,13 +66,16 @@ public class ScholarshipController {
     }
 
 
-    @GetMapping("adverted-scholarship")
-    public String viewAdvertedScholarship(Model model) {
+
+
+    @GetMapping("advertiser/scholarship")
+    public String viewAdvertedScholarship(Model model){
+        model.addAttribute("scholarships", scholarshipService.getAllScholarships());
         return "adverted-scholarships";
     }
 
 
-    @GetMapping({"{id}", "{id}/{title}"})
+    @GetMapping({"user/scholarship/{id}", "user/scholarship/{id}/{title}"})
     public String viewScholarship(@PathVariable("id") int id, Model model) {
 
         // put data into model

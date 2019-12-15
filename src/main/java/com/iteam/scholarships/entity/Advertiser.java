@@ -33,6 +33,10 @@ public class Advertiser {
     public Advertiser() {
     }
 
+    public Advertiser(int id) {
+        this.id=id;
+    }
+
     public Advertiser(String workEmail, String mobileNum) {
         this.workEmail = workEmail;
         this.mobileNum = mobileNum;

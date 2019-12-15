@@ -133,7 +133,7 @@
 
 // Large and less
 @media (max-width: 992px) {
-    .student-navbar{
+    .custom-navbar{
         #searchField{
             width: 200px;
             padding: 0 8px;
@@ -307,7 +307,7 @@
     }
 
 
-    .student-navbar{
+    .custom-navbar{
         .more-item-box .animate {
             animation-duration: 0.3s;
             -webkit-animation-duration: 0.3s;

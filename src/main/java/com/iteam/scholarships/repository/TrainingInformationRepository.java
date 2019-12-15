@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainingInformationRepository extends JpaRepository<TrainingInformation, Integer> {
+
+//    int deleteById(int id);
+
+
 }

@@ -7,7 +7,7 @@
 </sec:authorize>
 
 <sec:authorize access="hasAuthority('advertiser')">
-    <jsp:include page="student-navbar.jsp"/>
+    <jsp:include page="advertiser-navbar.jsp"/>
 </sec:authorize>
 
 

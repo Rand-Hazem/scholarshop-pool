@@ -2,6 +2,7 @@ package com.iteam.scholarships.service;
 
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.entity.Advertiser;
+import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
 import com.iteam.scholarships.enums.ScholarshipE;
 import com.iteam.scholarships.repository.*;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -34,8 +36,14 @@ public class ScholarshipService {
     public boolean share(ShareScholarshipWrapper wrapper) {
         Scholarship stored;
 
+//        Advertiser advertiser = new Advertiser();
+//        advertiser.setUser(new User(currentUser.getId()));
+//        wrapper.getScholarship().setAdvertiser(advertiser);
+
         // set advertiser
-        wrapper.getScholarship().setAdvertiserId(4);
+        Advertiser advertiser = new Advertiser(currentUser.getId());
+        wrapper.getScholarship().setAdvertiser(advertiser);
+
         try {
             stored = scholarshipRepository.save(wrapper.getScholarship());
             wrapper.getDetail().setScholarship(stored);
@@ -63,5 +71,33 @@ public class ScholarshipService {
         return stored.getId() > 0;
     }
 
+
+
+    public boolean delete(int id){
+        Scholarship scholarship = scholarshipRepository.findById(id).orElse(null);
+        // sh not exists, or denaid access
+        if(scholarship == null || scholarship.getAdvertiserId() != currentUser.getId()){
+            return false;
+        }
+
+        if(scholarship.getType().equals(ScholarshipE.Type.INTERNSHIP)){
+            trainingInformationRepository.deleteById(id);
+            tranningApplicantRequirmentRepository.deleteById(id);
+        }else{
+            academicInformationRepository.deleteById(id);
+            scholarshipApplicantRequirementRepository.deleteById(id);
+        }
+
+        scholarshipApplicationDetailRepository.deleteById(id);
+        scholarshipRepository.deleteById(id);
+
+        return true;
+    }
+
+
+
+    public List<Scholarship> getAllScholarships(){
+        return scholarshipRepository.findAllByAdvertiser(new Advertiser(currentUser.getId()));
+    }
 
 }

@@ -9,69 +9,9 @@
     <script src="${contextPath}/resources/static/js/view-scholarship.js"></script>
 </head>
 <body>
-<!-------------------------- Start of Navbar -------------------------->
-<nav class="navbar navbar-expand-lg  fixed-top  student-navbar">
-    <div class="container-fluid">
 
-        <a href="#" class="navbar-brand">
-            <img class='logo' src="${contextPath}/resources/static/img/scholarship-graduaed-icon.svg" alt="LOGO">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studentNav">
-            <i class="fa fa-bars" aria-hidden="true" style="color: #ededed;"></i>
-        </button>
 
-        <div class="collapse navbar-collapse" id="studentNav">
-            <ul class="nav navbar-nav">
-                <li>
-                    <div id='searchBox' class='d-inline-block'>
-                        <i id='searchIcon' class="fa fa-search"></i>
-                        <input id='searchField' type="text" name="username" placeholder="Type to search"/>
-                    </div>
-                </li>
-                <li class="nav-item navbar-left">
-                    <a href="#" class="nav-link" >Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Scholarships matches</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Applied scholarships</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Stories</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class='nav-link notification'>
-                        <p class='d-lg-none d-inline-block mb-0'>Notification &nbsp;</p>
-                        <i class="fa fa-bell"></i>
-                        <span class="badge badge-light">4</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul id="moreItemList" class="nav navbar-nav ml-auto">
-                <li class="list-item">
-                    <a id="anchorDropDownBtn" class="dropdown-toggle d-lg-inline-block" data-toggle="dropdown" data-target="dropdownMoreItem">
-                        <span class="caret"></span>
-                    </a>
-                    <ul id='dropdownMoreItem' class="dropdown-menu dropdown-menu-right animate slide-in" >
-                        <li><a href="#" class="dropdown-item">Edit profile</a></li>
-                        <li><a href="#" class="dropdown-item">Desired scholarships </a></li>
-                        <li><a href="#" class="dropdown-item">Wish list</a></li>
-                        <li><a href="#" class="dropdown-item">New story</a></li>
-                        <li><a href="#" class="dropdown-item">Saved stories</a></li>
-                        <li><a href="#" class="dropdown-item">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!--------------------------End of Navbar -------------------------->
-
+<jsp:include page="parts/navbar.jsp"/>
 
 <section class="view-opportunity">
     <div>

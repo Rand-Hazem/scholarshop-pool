@@ -648,7 +648,7 @@ footer {
 
 
 /* ---------------------------------------------- Student Navbae --------------------------------------- */
-.student-navbar {
+.custom-navbar {
   background-color: $primary-color;
   color: $primary-color;
   padding: 0px 1rem !important;
@@ -662,7 +662,7 @@ footer {
     filter: invert(100%);
   }
 
-  #studentNav ul {
+  #studentNav ul,  #advertiserNav ul {
     li:not(:first-child):not(:last-child) {
       border-right: 1px solid #545454;
     }
@@ -723,7 +723,7 @@ footer {
 }
 
 /* ---------------------------------------------- Advertiser Navbae --------------------------------------- */
-
+/*
 .advertiser-navbar {
   .navbar {
     background-color: $advertiser-nav-color !important;
@@ -846,7 +846,7 @@ footer {
 
 
 }
-
+*/
 
 /* ---------------------------------------------- Share Story Page --------------------------------------- */
 .share-story {

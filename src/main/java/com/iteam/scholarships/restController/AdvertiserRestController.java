@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/advertiser/")
-public class AdvertiserResetController {
+public class AdvertiserRestController {
 
 
     @Autowired

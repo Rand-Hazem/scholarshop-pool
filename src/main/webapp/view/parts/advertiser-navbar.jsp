@@ -4,11 +4,11 @@
         <a href="#" class="navbar-brand">
             <img class='logo' src="${contextPath}/resources/static/img/scholarship-graduaed-icon.svg" alt="LOGO">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studentNav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#advertiserNav">
             <i class="fa fa-bars" aria-hidden="true" style="color: #ededed;"></i>
         </button>
 
-        <div class="collapse navbar-collapse" id="studentNav">
+        <div class="collapse navbar-collapse" id="advertiserNav">
             <ul class="nav navbar-nav">
                 <li>
                     <div id='searchBox' class='d-inline-block'>
@@ -20,7 +20,7 @@
                     <a href="${contextPath}/search-scholarship" class="nav-link">Explore</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Scholarships matches</a>
+                    <a href="${contextPath}/advertiser/scholarship/share" class="nav-link">New advert</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Applied scholarships</a>
@@ -48,10 +48,7 @@
                     </a>
                     <ul id='dropdownMoreItem' class="dropdown-menu dropdown-menu-right animate slide-in">
                         <li><a href="${contextPath}/edit-profile" class="dropdown-item">Edit profile</a></li>
-                        <li><a href="#" class="dropdown-item">Desired scholarships </a></li>
-                        <li><a href="${contextPath}/wished-scholarships" class="dropdown-item">Wish list</a></li>
-                        <li><a href="${contextPath}/story/share" class="dropdown-item">New story</a></li>
-                        <li><a href="#" class="dropdown-item">Saved stories</a></li>
+                        <li><a href="${contextPath}/advertiser/scholarship" class="dropdown-item">Adverted scholarship</a></li>
                         <li><a href="${contextPath}/logout"  class="dropdown-item">Logout</a></li>
                     </ul>
                 </li>

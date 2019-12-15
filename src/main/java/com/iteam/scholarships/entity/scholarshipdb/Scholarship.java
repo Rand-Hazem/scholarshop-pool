@@ -1,6 +1,6 @@
 package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.convertor.EnumFundCoverListToStringConvertor;
+import com.iteam.scholarships.convertor.EnumListFundCoverToStringConvertor;
 import com.iteam.scholarships.entity.Advertiser;
 import com.iteam.scholarships.enums.ScholarshipE;
 import org.hibernate.validator.constraints.URL;
@@ -51,7 +51,7 @@ public class Scholarship {
     @Column(nullable = false)
     private double fundAmount;
 
-    @Convert(converter = EnumFundCoverListToStringConvertor.class)
+    @Convert(converter = EnumListFundCoverToStringConvertor.class)
     private ArrayList<ScholarshipE.FundCover> fundCover;
 
     private String officialWebsite;
@@ -71,7 +71,7 @@ public class Scholarship {
 
 
     /* ----------------------------------------------------------------- */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "advertiser_id")
     private Advertiser advertiser;
 
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/story/")
-public class StoryResetController {
+public class StoryRestController {
 
     @Autowired
     private StoryService storyService;

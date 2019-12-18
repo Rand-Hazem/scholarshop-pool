@@ -96,26 +96,26 @@ public class TestDBController {
 
     @GetMapping("test-u")
     public void test(){
-        User user = new User( "Rand", "Hazem", "email", new Date(), AccountState.PENDING_APPROVAL, UserType.ADVERTISER
-        , "123456a", "", 'F');
+//        User user = new User( "Rand", "Hazem", "email", new Date(), AccountState.PENDING_APPROVAL, UserType.ADVERTISER
+//        , "123456a", "", 'F');
+//
+//        Advertiser advertiser = new Advertiser("rantWeok@email", "+972 05957925");
+//        Organization organization = new Organization("org name", OrganizationState.PENDING_APPROVAL, "or location");
+//        advertiser.setOrganization(organization);
+//        user.setAdvertiser(advertiser);
+//
+//        System.out.println("***************** User \n");
+//        System.out.println(user+"\n\n");
+//
+//
+//        advertiser.setUser(user);
+//        user.setAdvertiser(null);
+//        System.out.println("******************* advertiser \n");
+//        System.out.println(advertiser.getUser()+"\n\n");
 
-        Advertiser advertiser = new Advertiser("rantWeok@email", "+972 05957925");
-        Organization organization = new Organization("org name", OrganizationState.PENDING_APPROVAL, "or location");
-        advertiser.setOrganization(organization);
-        user.setAdvertiser(advertiser);
-
-        System.out.println("***************** User \n");
-        System.out.println(user+"\n\n");
 
 
-        advertiser.setUser(user);
-        user.setAdvertiser(null);
-        System.out.println("******************* advertiser \n");
-        System.out.println(advertiser.getUser()+"\n\n");
-
-
-
-        System.out.println(user.getAdvertiser());
+//        System.out.println(user.getAdvertiser());
     }
 
 

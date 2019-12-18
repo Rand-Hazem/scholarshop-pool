@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,8 +19,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select new com.iteam.scholarships.entity.User(u.id, u.type, u.email, u.password) " +
             "from User u where u.email=:email")
     User findByEmail(String email);
-
-
 
 
 
@@ -34,6 +33,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u.password from User u where u.id=:id")
     String findPasswordById(@Param("id") int id);
+
+    /** Use for autocomplete search box in navbar **/
+    @Query("select new com.iteam.scholarships.entity.User(u.id, u.firstName, u.lastName) " +
+            "from User u " +
+            "where u.firstName like %:fName% or u.lastName like %:lName% " +
+            "order by u.firstName, u.lastName")
+    List<User> searchByUserName(@Param("fName")String fname, @Param("lName")String lName);
 
 
     @Modifying

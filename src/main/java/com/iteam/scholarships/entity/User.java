@@ -7,7 +7,6 @@ import com.iteam.scholarships.enums.UserType;
 import com.iteam.scholarships.validate.FieldMatch;
 import com.iteam.scholarships.validate.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -17,8 +16,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@FieldMatch(first = "password", secound = "confirmPass", message = "passwoed and confrim password must match")
 @Entity
+@Table(indexes = {
+        @Index(name = "user_first_name_index", columnList = "firstName", unique = false),
+        @Index(name = "user_last_name_index", columnList = "lastName", unique = false)
+})
+@FieldMatch(first = "password", secound = "confirmPass", message = "password and confrim password must match")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,19 +93,6 @@ public class User {
         this.id =id;
     }
 
-    public User(String firstName, String lastName, String email, Date birthday, AccountState state, UserType type,
-                String password, String confirmPass, Character gender) {
-        this.state = state;
-        this.type = type;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.birthday = birthday;
-        this.password = password;
-        this.confirmPass = confirmPass;
-        this.gender = gender;
-    }
-
     public User(int id, UserType type, String email, String password) { // use in user-repository
         this.id = id;
         this.type = type;
@@ -110,13 +100,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String email) { // use in user-repository
+    public User(int id, String firstName, String lastName) { // use in user-repository
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
     }
 
-    public User(int id, UserType type, String firstName, String lastName, String imgUrl) {
+    public User(int id, UserType type, String firstName, String lastName, String imgUrl) { // use in user-repository
         this.id=id;
         this.type = type;
         this.firstName = firstName;
@@ -326,19 +316,19 @@ public class User {
         return dataChangedFromCopy;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", state=" + state +
-                ", type=" + type +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday=" + birthday +
-                ", password='" + password + '\'' +
-                ", confirmPass='" + confirmPass + '\'' +
-                ", gender=" + gender +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", state=" + state +
+//                ", type=" + type +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", birthday=" + birthday +
+//                ", password='" + password + '\'' +
+//                ", confirmPass='" + confirmPass + '\'' +
+//                ", gender=" + gender +
+//                '}';
+//    }
 }

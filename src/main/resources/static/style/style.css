@@ -1761,7 +1761,7 @@ footer {
 
 /* ---------------------------------------      view profile page  ------------------------------------------------------- */
 .profile.profile-div {
-  background: #1F3543;
+  background: #9C9C9C1A;
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 190px; }
@@ -1770,7 +1770,7 @@ footer {
   .profile.profile-div .align-center, .profile.profile-div .center {
     text-align: center !important; }
   .profile.profile-div .profile-picture {
-    border: 1px solid #000;
+    border: 1px solid #cbcbcb;
     height: 280px;
     width: 300px;
     max-width: 100%;
@@ -1787,7 +1787,7 @@ footer {
   .profile.profile-div .profile-info-value {
     display: table-cell;
     border-bottom: 1px solid #D1D1D133;
-    color: #fff; }
+    color: #575757; }
   .profile.profile-div .profile-info-name {
     text-align: left;
     padding: 6px 10px 6px 4px;
@@ -2340,8 +2340,8 @@ footer {
   padding: 40px;
   z-index: 1;
   border-top: 12px solid #1F3543; }
-  .view-opportunity .view-opportunity-box h2, .view-opportunity .view-opportunity-box h4 {
-    color: #1F3543; }
+  .view-opportunity .view-opportunity-box h1, .view-opportunity .view-opportunity-box h2, .view-opportunity .view-opportunity-box h3, .view-opportunity .view-opportunity-box h4, .view-opportunity .view-opportunity-box h5, .view-opportunity .view-opportunity-box h6 {
+    color: #D1924C; }
   .view-opportunity .view-opportunity-box .opportunity-meta {
     margin-bottom: 20px;
     font-size: 14px;
@@ -2381,8 +2381,9 @@ footer {
     color: red; }
 .view-opportunity .opportunity-background-img {
   background-size: cover;
-  width: 100%;
-  height: 400px; }
+  width: 100vw;
+  height: 400px;
+  object-fit: cover; }
 
 /* ---------------------------------------- --------      Media  ------------------------------------------------------- */
 @media screen and (max-width: 575px) {

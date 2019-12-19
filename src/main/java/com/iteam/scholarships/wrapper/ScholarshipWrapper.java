@@ -6,7 +6,7 @@ import com.iteam.scholarships.enums.ScholarshipE;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class ShareScholarshipWrapper {
+public class ScholarshipWrapper {
 
     private Scholarship scholarship;
     private AcademicInformation academicInformation;
@@ -19,7 +19,7 @@ public class ShareScholarshipWrapper {
     private TranningApplicantRequirment tranningApplReq;
 
 
-    public ShareScholarshipWrapper() {
+    public ScholarshipWrapper() {
     }
 
     @Valid @NotNull
@@ -86,6 +86,9 @@ public class ShareScholarshipWrapper {
     }
 
 
+    /**
+     * This only use when share or update scholarship
+     */
     public void copyApplicantRequirement(){
 
         ApplicantRequirement concreat;
@@ -106,8 +109,11 @@ public class ShareScholarshipWrapper {
         concreat.setMinUnivGPA(applicantRequirement.getMinUnivGPA());
         concreat.setNationality(applicantRequirement.getNationality());
         concreat.setResidenceIn(applicantRequirement.getResidenceIn());
+        concreat.setSpecialCertificateScoreList(applicantRequirement.getSpecialCertificateScoreList());
     }
-
+    /**
+     * This only use when share or update scholarship
+     */
     public void filterData(){
 
         if(scholarship != null && ScholarshipE.Type.INTERNSHIP.equals(scholarship.getType())){
@@ -118,18 +124,5 @@ public class ShareScholarshipWrapper {
             setTranningApplReq(null);
         }
 
-    }
-
-    @Override
-    public String toString() {
-        return "ShareScholarshipWrapper{" +
-                "scholarship=" + scholarship +
-//                ", academicInformation=" + academicInformation +
-//                ", trainingInformation=" + trainingInformation +
-//                ", detail=" + detail +
-//                ", applicantRequirement=" + applicantRequirement +
-//                ", scholarshipAppReq=" + scholarshipAppReq +
-//                ", tranningApplReq=" + tranningApplReq +
-                '}';
     }
 }

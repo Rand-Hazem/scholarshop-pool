@@ -37,9 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/api/**").permitAll()
 
-                .antMatchers("advertiser/scholarship/**").hasAuthority("advertiser")
-                .antMatchers("student/scholarship/**").hasAuthority("student")
-                .antMatchers("user/scholarship/").permitAll() // view-scholarship
+                .antMatchers("/advertiser/scholarship/**").hasAuthority("advertiser")
+                .antMatchers("/student/scholarship/**").hasAuthority("student")
+                .antMatchers("/user/scholarship/**").permitAll() // view-scholarship
 
                 .anyRequest().authenticated()
 

@@ -397,59 +397,59 @@ function formValidator() {
     $("#shareShForm").validate({
         debug: true,
         rules: {
-            opportunityTitle: {required: true, minlength: 10},
-            opportunityTypeList: "required",
-            opportunityDescription: {required: true, minlength: 10},
-            opportunityCountry: "required",
-            opportunityCity: "required",
-            opportunityDurationFrom: {required: true, future: true},
-            opportunityDurationTo: {required: true, future: true},
-            opportunityFund: "required",
-            amount: {number: true, required: true, min: 0, fundAmount: true},
-            opportunitySeats: {number: true, required: true, min: 1},
+            "scholarship.title": {required: true, minlength: 10},
+            "scholarship.type": "required",
+            "scholarship.description": {required: true, minlength: 10},
+            "scholarship.country": "required",
+            "scholarship.city": "required",
+            "scholarship.durationFrom": {required: true, future: true},
+            "scholarship.durationTo": {required: true, future: true},
+            "scholarship.fundType": "required",
+            "scholarship.fundAmount": {number: true, required: true, min: 0, fundAmount: true},
+            "scholarship.seats": {number: true, required: true, min: 1},
 
             providerOrgList: "required",
             otherProviderOrg: {required: true},
             specialProgramList: "required",
             otherSpecialProgram: {specialProgOther: true},
-            opportunityEmployerName: "required",
-            opportunityBusiness: "required",
-            employerWebsite: {url: true},
-            opportunityWebsite: {url: true},
-            oppLocation: "required",
-            hostUniversity: "required",
-            opportunityDegree: "required",
-            opportunityMajor: {required: true, multiple: true},
-            teachingLanguageList: "required",
-            trainingLanguageList: "required",
-            opportunityEnvironment: "required",
-            opportunityResponsibilities: "required",
-            opportunityWeaks: {number: true, required: true, min: 1},
-            opportunityDays: {number: true, required: true, min: 1, max: 6},
-            opportunityHours: {number: true, required: true, min: 1, max: 12},
+            "trainingInformation.companyName": "required",
+            "trainingInformation.product": "required",
+            "trainingInformation.companyWebsite": {url: true},
+            "scholarship.officialWebsite": {url: true},
+         //   oppLocation: "required",
+            "academicInformation.hostUniversity": "required",
+            "scholarship.degree": "required",
+            "academicInformation.major": {required: true, multiple: true},
+            "academicInformation.teachingLanguage": "required",
+            "trainingInformation.trainingLanguage": "required",
+            "trainingInformation.workEnvironment": "required",
+            "trainingInformation.responsibility": "required",
+            "trainingInformation.weekOffered": {number: true, required: true, min: 1},
+            "trainingInformation.workDayPerWeek": {number: true, required: true, min: 1, max: 6},
+            "trainingInformation.workHourPerDay": {number: true, required: true, min: 1, max: 12},
 
-            applicantNationalityList: {required: true, multiple: true},
-            applicantResidentList: {required: true, multiple: true},
-            applicantGenderList: "required",
-            applicantAgeFrom: {number: true, required: true, min: 10, lessThan: "#applicantAgeTo"},
-            applicantAgeTo: {number: true, required: true, greaterThan: "#applicantAgeFrom"},
-            applicantMinimumDegreeHeld: "required",
-            majorsRequiredList: {required: true, multiple: true},
-            applicantExperience: "required",
-            englishLevel: "required",
-            schoolGPA: {min: 0, max: 4},
-            universityGPA: {min: 0, max: 4},
-            howToApplySteps: "required",
-            opportunityRequiredDocuments: "required",
+            "applicantRequirement.nationality": {required: true},
+            "applicantRequirement.residenceIn": {required: true},
+            "applicantRequirement.gender": "required",
+            "applicantRequirement.minAge": {number: true, required: true, min: 10, lessThan: "#applicantAgeTo"},
+            "applicantRequirement.maxAge": {number: true, required: true, greaterThan: "#applicantAgeFrom"},
+            "applicantRequirement.minDegree": "required",
+            "applicantRequirement.major": {required: true, multiple: true},
+            "tranningApplReq.knowledgeAndExperience": "required",
+            "applicantRequirement.englishLevel": "required",
+            "applicantRequirement.minSchoolGPA": {min: 0, max: 4},
+            "applicantRequirement.minUnivGPA": {min: 0, max: 4},
+            "detail.howToApply": "required",
+            "detail.requiredDocumentList": "required",
             "detail.applyThroughProviderWebsite": "required",
-            applicationLink: "applicationLink"
+            "detail.urlProviderApplyForm": "applicationLink"
 
         },
         messages: {
-            opportunityTitle: {
+            "scholarship.title": {
                 minlength: "Please entar a valid title with at least 10 charaters"
             },
-            opportunityDescription: {
+            "scholarship.description": {
                 minlength: "Please entar a valid description with at least 10 charaters"
             }
         }
@@ -525,7 +525,7 @@ function swInit() {
 function swOnLeavStepEvent() {
     $('#smartwizard').on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
         if (stepDirection == "forward" && !$("#shareShForm").valid()) {
-            //   return false;
+              return false;
         }
         return true;
     });

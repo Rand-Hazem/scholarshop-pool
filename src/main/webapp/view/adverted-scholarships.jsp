@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
     <title>Adverted Scholarships</title>
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
+    <script src="${contextPath}/resources/static/js/scholarship-node-ajax.js"></script>
     <script src="${contextPath}/resources/static/js/adverted-scholarship.js"></script>
 </head>
 <body>
@@ -17,7 +20,7 @@
                 <%@include file="parts/no-content-div.html" %>
             </c:if>
             <c:forEach items="${scholarships}" var="scholarship">
-                <div class="col-md-4 col-sm-6 col-lg-3 adverted-scholarship-node fade-scale" data-id="${scholarship.id}">
+                <div class="col-md-4 col-sm-6 col-lg-3 adverted-scholarship-node fade-scale">
                     <div class="position-relative">
                         <img src="${contextPath}/resources/static/img/countries/${scholarship.country}.jpg"
                              class="country-background-img"
@@ -29,9 +32,9 @@
                                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="user/scholarship/${scholarship.id}"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                    <a class="dropdown-item" href="#" methods=""><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
+                                    <a class="dropdown-item" href="${contextPath}/user/scholarship/${scholarship.id}"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a class="dropdown-item" href="${contextPath}/advertiser/scholarship/${scholarship.id}/update" methods=""><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+                                    <a class="dropdown-item delete-sh" data-id="${scholarship.id}"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
                                 </div>
                             </div>
                         </div>

@@ -15,8 +15,6 @@ function wishRemoveBtnAction() {
 }
 
 
-
-
 function addScholarshipToWishList(btnElement) {
     $(btnElement).prop("disabled", true);
     // Do send resonse
@@ -62,7 +60,40 @@ function removeScholarshipNodeFromView(btnElement) {
 }
 
 
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+
+/**
+ *
+ * @param btnElement
+ */
+function deleteScholarshipAction(btnSelector, id, sucessCallback) {
+    $.ajax({
+            method: "DELETE",
+            url: "/advertiser/scholarship/",
+            data: {"id": id},
+            beforeSend: function (jqXHR, settings) {
+                jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                disableButton(btnSelector);
+            },
+            success: function () {
+                sucessCallback(btnSelector);
+            },
+            complete: function (jqXHR, textStatus) {
+                enableButton(btnSelector);
+            }
+        }
+    );
+
+}
+
+
 $(document).ready(function () {
-    wishRemoveBtnAction();
+
 
 });

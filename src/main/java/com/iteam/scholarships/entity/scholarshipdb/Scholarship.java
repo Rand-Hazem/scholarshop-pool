@@ -79,6 +79,12 @@ public class Scholarship {
     public Scholarship() {
     }
 
+    public Scholarship(int id) {
+        this.id = id;
+    }
+
+
+
     public int getId() {
         return id;
     }

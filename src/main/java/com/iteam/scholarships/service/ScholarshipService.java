@@ -3,10 +3,11 @@ package com.iteam.scholarships.service;
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.entity.Advertiser;
 import com.iteam.scholarships.entity.User;
+import com.iteam.scholarships.entity.scholarshipdb.SavedScholarship;
 import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
 import com.iteam.scholarships.enums.ScholarshipE;
 import com.iteam.scholarships.repository.*;
-import com.iteam.scholarships.wrapper.ShareScholarshipWrapper;
+import com.iteam.scholarships.wrapper.ScholarshipWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +31,13 @@ public class ScholarshipService {
     @Autowired
     private TranningApplicantRequirmentRepository tranningApplicantRequirmentRepository;
     @Autowired
+    private SavedScholarshipRepository savedScholarshipRepository;
+    @Autowired
     private CurrentUser currentUser;
 
 
-    public boolean share(ShareScholarshipWrapper wrapper) {
+    public boolean share(ScholarshipWrapper wrapper) {
         Scholarship stored;
-
-//        Advertiser advertiser = new Advertiser();
-//        advertiser.setUser(new User(currentUser.getId()));
-//        wrapper.getScholarship().setAdvertiser(advertiser);
-
         // set advertiser
         Advertiser advertiser = new Advertiser(currentUser.getId());
         wrapper.getScholarship().setAdvertiser(advertiser);
@@ -72,18 +70,17 @@ public class ScholarshipService {
     }
 
 
-
-    public boolean delete(int id){
+    public boolean delete(int id) {
         Scholarship scholarship = scholarshipRepository.findById(id).orElse(null);
         // sh not exists, or denaid access
-        if(scholarship == null || scholarship.getAdvertiserId() != currentUser.getId()){
+        if (scholarship == null || scholarship.getAdvertiserId() != currentUser.getId()) {
             return false;
         }
 
-        if(scholarship.getType().equals(ScholarshipE.Type.INTERNSHIP)){
+        if (scholarship.getType().equals(ScholarshipE.Type.INTERNSHIP)) {
             trainingInformationRepository.deleteById(id);
             tranningApplicantRequirmentRepository.deleteById(id);
-        }else{
+        } else {
             academicInformationRepository.deleteById(id);
             scholarshipApplicantRequirementRepository.deleteById(id);
         }
@@ -95,9 +92,47 @@ public class ScholarshipService {
     }
 
 
-
-    public List<Scholarship> getAllScholarships(){
+    public List<Scholarship> getAllScholarships() {
         return scholarshipRepository.findAllByAdvertiser(new Advertiser(currentUser.getId()));
     }
+
+
+    public void findForView(int id, ScholarshipWrapper scholarshipWrapper) {
+        Scholarship scholarship = scholarshipRepository.findById(id).orElse(null);
+        if (scholarship == null) {
+            return;
+        }
+
+        scholarshipWrapper.setScholarship(scholarship);
+        scholarshipWrapper.setDetail(scholarshipApplicationDetailRepository.findById(id).orElse(null));
+
+        if (scholarship.getType().equals(ScholarshipE.Type.INTERNSHIP)) {
+            scholarshipWrapper.setTrainingInformation(trainingInformationRepository.findById(id).orElse(null));
+            scholarshipWrapper.setTranningApplReq(tranningApplicantRequirmentRepository.findById(id).orElse(null));
+        } else {
+            scholarshipWrapper.setAcademicInformation(academicInformationRepository.findById(id).orElse(null));
+            scholarshipWrapper.setScholarshipAppReq(scholarshipApplicantRequirementRepository.findById(id).orElse(null));
+        }
+    }
+
+
+
+    public boolean save(int scholarshipId){
+        SavedScholarship saved = savedScholarshipRepository.findByScholarshipAndUser(new Scholarship(scholarshipId),
+                new User(currentUser.getId()));
+
+        if(saved != null){
+           return true;
+        }
+
+        SavedScholarship savedScholarship = new SavedScholarship();
+        saved.setScholarshipId(scholarshipId);
+        saved.setUserId(currentUser.getId());
+
+        savedScholarshipRepository.save(savedScholarship);
+
+        return savedScholarship != null && savedScholarship.getId() >0;
+    }
+
 
 }

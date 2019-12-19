@@ -1654,7 +1654,7 @@ footer {
 
 /* ---------------------------------------      view profile page  ------------------------------------------------------- */
 .profile.profile-div {
-  background: $primary-color;
+  background: #9C9C9C1A;
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 190px;
@@ -1668,7 +1668,7 @@ footer {
   }
 
   .profile-picture {
-    border: 1px solid #000;
+    border: 1px solid #cbcbcb;
     height: 280px;
     width: 300px;
     max-width: 100%;
@@ -1691,7 +1691,7 @@ footer {
   .profile-info-value {
     display: table-cell;
     border-bottom: 1px solid #D1D1D133;
-    color: #fff;
+    color: #575757;
   }
 
   .profile-info-name {
@@ -2473,7 +2473,7 @@ footer {
     z-index: 1;
     border-top: 12px solid $primary-color;
 
-    h2, h4{color: $primary-color;}
+    h1, h2, h3, h4, h5, h6{color: #D1924C;}
 
     .opportunity-meta {
       margin-bottom: 20px;
@@ -2530,9 +2530,9 @@ footer {
 
   .opportunity-background-img{
     background-size: cover;
-    width: 100%;
+    width: 100vw;
     height: 400px;
-
+    object-fit: cover;
   }
 
 }

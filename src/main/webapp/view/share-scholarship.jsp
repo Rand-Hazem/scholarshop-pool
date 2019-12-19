@@ -32,7 +32,7 @@
         <div class="row d-flex justify-content-center">
             <!-- Stepper -->
             <div class="stepper">
-                <form:form action="/scholarship/share" method="post" id="shareShForm" name="shareShForm" role="form" data-toggle="validator"
+                <form:form action="/advertiser/scholarship/share" method="post" id="shareShForm" name="shareShForm" role="form" data-toggle="validator"
                            modelAttribute="wrapper" enctype="multipart/form-data">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <!-- Smart Wizard html -->
@@ -68,7 +68,7 @@
                                 Upon submission, we will review the scholarship information to make sure it reflects our
                                 standards.
                                 <div class="mt-2">
-                                    <img src="${contextPath}/resources/static/img/meeting.png" class="img-fluid">
+                                    <img src="${contextPath}/resources/static/img/meeting.png" class="img-fluid d-block mx-auto">
                                 </div>
                             </div>
 

@@ -161,8 +161,8 @@ function formValidator() {
     $("#regForm").validate({
         debug: true,
         rules: {
-            fName: {required: true, minlength: 3},
-            lName: {required: true, minlength: 3, notEqual: "#fName"},
+            firstName: {required: true, minlength: 3},
+            lastName: {required: true, minlength: 3, notEqual: "#fName"},
             email: {required: true, email: true},
             password: {required: true, minlength: 6},
             confirmPass: {required: true, minlength: 6, equalTo: "#password"},

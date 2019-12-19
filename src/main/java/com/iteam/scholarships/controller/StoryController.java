@@ -40,16 +40,16 @@ public class StoryController {
 
 
     @GetMapping("share")
-    public String shareStory(Model model) {
+    public String share(Model model) {
         model.addAttribute("story", new Story());
         return "share-story";
     }
 
     @PostMapping("share")
     @PreAuthorize("hasAuthority('student')")
-    public String shareStory(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
-                             @RequestParam(value = "img", required = false) MultipartFile[] imglist,
-                             Model model) {
+    public String share(@Valid @ModelAttribute("story") Story story, BindingResult bindingResult,
+                        @RequestParam(value = "img", required = false) MultipartFile[] imglist,
+                        Model model) {
 
         boolean success = false;
         if (!bindingResult.hasErrors()) {
@@ -85,7 +85,7 @@ public class StoryController {
 
 
     @GetMapping({"{id}", "{id}/{title}"})
-    public String viewStory(@PathVariable("id") int id, Model model) {
+    public String view(@PathVariable("id") int id, Model model) {
         Story story = storyService.findStoryForView(id);
 
         if(story == null ){

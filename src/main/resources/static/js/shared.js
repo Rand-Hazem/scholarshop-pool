@@ -247,6 +247,7 @@ var countryMap = {
 
 
 var majorsMap = {
+    "any": "Any",
     "AG": "Agriculture, General",
     "ARGOP": "Agribusiness Operations",
     "ARGBM": "Agricultural Business & Management",

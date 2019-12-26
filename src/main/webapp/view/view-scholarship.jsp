@@ -1,13 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.apache.commons.text.WordUtils" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${scholarship.title}</title>
+    <title>${WordUtils.capitalizeFully(scholarship.title)}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
+    <%@include file="parts/uploadStaticPath.jsp" %>
     <script src="${contextPath}/resources/static/js/view-scholarship.js"></script>
 </head>
 <body>
@@ -35,27 +39,23 @@
                             <img src="${contextPath}/resources/static/img/user-icon.png" alt="author" class="mr-2">
                         </c:if>
                         <c:if test="${user.imgUrl!=null}">
-                            <img src="${contextPath}/resources/static/img/${user.imgUrl}" alt="author" class="mr-2">
+                            <img src="${contextPath}${profileImgPath}${user.imgUrl}" class="mr-2">
                         </c:if>
                         ${user.firstName}  ${user.lastName}
                     </span>
                     <span class="provider-organization mr-2">${scholarship.providreOrg}</span>
                 </div>
 
-                <b><a href="">Sign Up to Start Applying</a></b>
+                <sec:authorize access="isAnonymous()">
+                    <b><a href="${contextPath}/login">Sign in to Start Applying</a></b>
+                </sec:authorize>
+
             </div>
             <div class="col-md-4 col-12">
                 <div class="opportunity-fund">
-                    <!--It will take one of the following values:
-                        Full Funding, Partial Funding, Monthly Salary, No Funding
-                        If its Full Funding     => "Full Funding"  will be written
-                        If its Partial Funding  => "Partial Funding"  will be written
-                        If its monthly salary   => salary amount will be written
-                        If its no funding       => "No Funding"  will be written
-                    -->
                     <i class="fa fa-money"></i>
                     <b>
-                        ${scholarship.fundAmount!=0 ? '$'.concat(scholarship.fundAmount) : ""},
+                        ${scholarship.fundAmount!=0 ? '$'.concat(scholarship.fundAmount) : ""}&nbsp;
                         ${scholarship.fundType} FUNDING
                     </b>
                 </div>
@@ -64,7 +64,9 @@
                     ${scholarship.applyDeadline==null ? 'Open Deadline' : scholarship.applyDeadline}
                 </div>
                 <sec:authorize access="isAuthenticated()">
-                    <button type="button" class="btn save-opportunity"><i class="fa fa-heart"></i>Save opportunity</button>
+                    <button type="button" class="btn save-opportunity" data-scholarship-id="${scholarship.id}">
+                        <i class="fa fa-heart"></i>Save opportunity
+                    </button>
                 </sec:authorize>
             </div>
         </div>
@@ -75,7 +77,7 @@
         <h4><i class="fa fa-info-circle"></i> General Information</h4><br><br>
 
         <h5>Opportunity Type</h5>
-        <p id="opportunity-type">${scholarship.type}</p><br>
+        <p id="opportunity-type">${WordUtils.capitalizeFully(scholarship.type)}</p><br>
 
         <h5>Available Seats:</h5>
         <p id="opportunity-seats">${scholarship.seats}</p><br>
@@ -85,7 +87,7 @@
         <span id="opportunity-country-city">, ${scholarship.city}</span><br><br><br>
 
         <h5>Duration</h5>
-        From <span id="opportunity-duration-from">${scholarship.durationFrom}</span> ,To
+        From <span id="opportunity-duration-from">${scholarship.durationFrom}</span> , To
         <span id="opportunity-duration-to">${scholarship.durationTo}</span>
         <br><br><br>
 
@@ -94,7 +96,7 @@
         <c:if test="${scholarship.fundCover != null}">
             <p><b>Funding covers:&nbsp;</b></p>
             <c:forEach var="item" items="${scholarship.fundCover}">
-                <span>${fn:replace(item, "_", " ").toLowerCase()}</span>
+                <span>${WordUtils.capitalizeFully(fn:replace(item, "_", " "))}</span>
                 |&nbsp;
             </c:forEach>
         </c:if><br><br>

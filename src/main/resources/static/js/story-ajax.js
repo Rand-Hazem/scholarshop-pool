@@ -134,7 +134,7 @@ function reportStoryAction(btnSendSelector, formId, errorCallBack, successCallBa
 }
 
 
-function likeStoryAction(btnSelector, storyId, sucessCallBack, errorCallBack){
+function likeStoryAction(btnSelector, storyId, sucessCallBack){
     var isLiked = $(btnSelector).hasClass("liked");
     var ajaxUrl = isLiked ? "/story/unlike" : "/story/like";
     $.ajax({

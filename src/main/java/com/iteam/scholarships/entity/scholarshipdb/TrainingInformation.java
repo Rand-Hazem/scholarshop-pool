@@ -1,6 +1,5 @@
 package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
 import com.iteam.scholarships.enums.ScholarshipE;
 import org.hibernate.validator.constraints.URL;
 
@@ -34,7 +33,7 @@ public class TrainingInformation {
     private String benefit;
 
     @Column(nullable = false)  @Enumerated(EnumType.STRING)
-    private ScholarshipE.TrainingLanguage trainingLanguage;
+    private ScholarshipE.Language trainingLanguage;
 
     @Column(nullable = false)
     private int weekOffered;
@@ -47,24 +46,6 @@ public class TrainingInformation {
 
     @MapsId @OneToOne(fetch = FetchType.LAZY)
     private Scholarship scholarship;
-
-/* ------------------------------------------------------------------------------ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public int getId() {
         return id;
@@ -137,11 +118,11 @@ public class TrainingInformation {
     }
 
     @NotNull(message = "required")
-    public ScholarshipE.TrainingLanguage getTrainingLanguage() {
+    public ScholarshipE.Language getTrainingLanguage() {
         return trainingLanguage;
     }
 
-    public void setTrainingLanguage(ScholarshipE.TrainingLanguage trainingLanguage) {
+    public void setTrainingLanguage(ScholarshipE.Language trainingLanguage) {
         this.trainingLanguage = trainingLanguage;
     }
 

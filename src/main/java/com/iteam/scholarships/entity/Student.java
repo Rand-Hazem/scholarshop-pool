@@ -4,21 +4,24 @@ import javax.persistence.*;
 
 @Entity
 public class Student{
-
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-    @MapsId
+    @MapsId @OneToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "university_id")
+    @ManyToOne(cascade = CascadeType.PERSIST) @JoinColumn(name = "university_id")
     private University university;
 
     public Student() {
+    }
+
+    public Student(int id) {
+        this.id = id;
+    }
+
+    public Student(User user) {
+        this.user = user;
     }
 
     public Student(User user, University university) {
@@ -30,7 +33,7 @@ public class Student{
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,10 +53,4 @@ public class Student{
         this.university = university;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                ", university=" + university +
-                '}';
-    }
 }

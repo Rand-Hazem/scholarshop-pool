@@ -80,7 +80,7 @@ public class UserRestController {
     /**
      * this will /delete work-history in about-tab > edit profile page
      */
-    @PutMapping("delete-workhistory")
+    @DeleteMapping("delete-workhistory")
     public ResponseEntity deleteWorkHistory(@RequestParam("id") int id) {
         if (!userService.deleteWorkhistory(id)) {
             return ResponseEntity.badRequest().body("invalid data");
@@ -104,7 +104,7 @@ public class UserRestController {
     /**
      * this will /delete Education-history in about-tab > edit profile page
      */
-    @PutMapping("delete-education")
+    @DeleteMapping("delete-education")
     public ResponseEntity deleteEducation(@RequestParam("id") int id) {
         if (!userService.deleteEducationhistory(id)) {
             return ResponseEntity.badRequest().body("invalid data");
@@ -126,13 +126,13 @@ public class UserRestController {
     }
 
     /**
-     * this will update/insert/delete Education-history in personal-tab > edit profile page
-     * infor included : user image, firstname, lastname, gender, birthday, nationality, living-place, email and mobile number
+     * this will update/insert/delete in personal-tab > edit profile page
+     * info included :  firstname, lastname, gender, birthday, nationality, living-place, email and mobile number
      */
     @PutMapping("update-personal")
     public ResponseEntity updatePersonal(User user, @RequestParam HashMap<String, String> data) {
         ArrayList<String> errorFields = new ArrayList<>();
-        System.out.println(user);
+        // update optional info
         userValidatePart.updateOptionalPersonalInfoValidate(data, errorFields);
         userService.updateOptionUserPersonalInfo(data);
 

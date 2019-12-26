@@ -103,7 +103,12 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
 
-
+<!--        this use in jstl to format string -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
+        </dependency>
     </dependencies>
 
     <build>

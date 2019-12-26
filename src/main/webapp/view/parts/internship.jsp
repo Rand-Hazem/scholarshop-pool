@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="org.apache.commons.text.WordUtils" %>
 <div class="internship ">
 
     <!---------------------- Provider Information & Academic Information ----------------------->
@@ -13,7 +14,9 @@
         <p><b>Location of Placement: </b> <span id="location">${trainingInformation.location}</span></p><br><br>
 
         <h4>Training Opportunity Details</h4>
-        <p><b>Training Language: </b><span id="training-language">${trainingInformation.trainingLanguage}</span></p>
+        <p><b>Training Language: </b>
+            <span id="training-language">${WordUtils.capitalizeFull(fn:replace(trainingInformation.trainingLanguage,"_" ," " ))}</span>
+        </p>
 
         <p><b>Working Environment</b></p>
         <p id="working-environment">
@@ -44,7 +47,9 @@
         <c:forEach items="${tranningApplicantRequirment.nationality}" var="nationality">
             <p data-country="${nationality}">${nationality}</p>
         </c:forEach>
-        <p><b>Resident in: </b> <span id="resident-country">${tranningApplicantRequirment.residenceIn} </span></p>
+        <p><b>Resident in: </b> <span id="resident-country">
+            ${WordUtils.capitalizeFully(fn:replace(tranningApplicantRequirment.residenceIn,"_" ," " ))}
+        </span></p>
         <p><b>Applicant Gender: </b> <span id="gender">${tranningApplicantRequirment.gender} </span></p>
         <p><b>Fluent In: </b> <span id="fluent"> fluent!!!!</span></p>
         <p><b>Applicant Age Limit: </b> From <span id="age-from">${tranningApplicantRequirment.minAge}</span>
@@ -91,7 +96,7 @@
         <c:if test="${empty scholarshipApplicationDetail.requiredDocumentList}">
             <h3>Required Documents </h3>
             <c:forEach items="${scholarshipApplicationDetail.requiredDocumentList}" var="item">
-                <p>${fn:replace(item, "_", " ").toLowerCase()}</p>
+                <p>${WordUtils.capitalizeFully(fn:replace(item, "_", " ").toLowerCase())}</p>
             </c:forEach>
             <br>
         </c:if>
@@ -111,9 +116,9 @@
             Click Here To Apply</a>
         <br><br><br>
 
-        <c:if test="${empty scholarshipApplicationDetail.illustrationFileName}">
+        <c:if test="${not empty scholarshipApplicationDetail.illustrationFileName}">
             <h3>Illustration File of The Opportunity</h3>
-            <a id="file" href="">${scholarshipApplicationDetail.illustrationFileName}</a>
+            <a id="file" href="${contextPath}${scholarshipIllustrationFilePath}${scholarshipApplicationDetail.illustrationFileName}">File</a>
         </c:if>
     </div>
 </div>

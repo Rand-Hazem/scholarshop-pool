@@ -25,7 +25,17 @@ public class ScholarshipRestController {
 
     @PutMapping("/student/scholarship/save")
     public ResponseEntity save(@RequestParam(required = false) int id) {
-        if (id > 0 && scholarshipService.delete(id)) {
+        if (id > 0 && scholarshipService.save(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+
+
+    @PutMapping("/student/scholarship/unsave")
+    public ResponseEntity unsave(@RequestParam(required = false) int id) {
+        if (id > 0 && scholarshipService.unsave(id)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();

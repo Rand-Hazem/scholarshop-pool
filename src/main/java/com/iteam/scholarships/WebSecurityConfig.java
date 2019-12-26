@@ -30,15 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/").permitAll()
                 .antMatchers("/resources/**", "/upload/**", "/", "/main", "/register").permitAll()
 
-                .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
+//                .antMatchers("/user/account/accept", "/user/account/forgot-password", "/user/account/reset-password").permitAll()
+                .antMatchers("/user/account/**", "user/{\\d+}/profile/**").permitAll()
 
                 .antMatchers("/story/{\\d+}/**", "/story/all").permitAll()
                 .antMatchers("/story/share").hasAuthority("student")
 
                 .antMatchers("/api/**").permitAll()
 
-                .antMatchers("/advertiser/scholarship/**").hasAuthority("advertiser")
-                .antMatchers("/student/scholarship/**").hasAuthority("student")
+                .antMatchers("/advertiser/**").hasAuthority("advertiser")
+                .antMatchers("/student/**").hasAuthority("student")
                 .antMatchers("/user/scholarship/**").permitAll() // view-scholarship
 
                 .anyRequest().authenticated()

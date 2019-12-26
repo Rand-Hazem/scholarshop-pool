@@ -69,12 +69,4 @@ public class University {
         this.students = students;
     }
 
-    @Override
-    public String toString() {
-        return "\nUniversity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                '}';
-    }
 }

@@ -234,22 +234,27 @@ function formValidator() {
             }
         }
     });
+
+    $("#interestForm").validate({
+        debug: true,
+        rules: {
+            "scholarshipType": "required",
+            "major": "required",
+            "country": "required",
+            "degree": "required",
+            "language": "required",
+            "fundType": "required",
+        }
+    });
 }
 
-function setActionsForSaveCancleBtns() {
+function setActionsForSaveBtns() {
     $("#personalTab #save").on("click", savePersonalTab);
     $("#aboutTab #save").on("click", saveAboutTab);
     $("#linksTab #save").on("click", saveLinksTab);
     $("#accountTab #save").on("click", saveAccountTab);
     $("#passwordTab #save").on("click", savePasswordTab);
-
-    $("#personalTab .footer-btns .cancle-btn").on("click", savePersonalAjax);
-    $("#aboutTab .footer-btns .cancle-btn").on("click", saveAboutAjax);
-    $("#linksTab .footer-btns .cancle-btn").on("click", saveLinkAjax);
-    $("#accountTab .footer-btns .cancle-btn").on("click", saveAccountAjax);
-    $("#passwordTab .footer-btns .cancle-btn").on("click", savePasswordAjax);
-
-
+    $("#interestTab #save").on("click", saveInterestTab);
 }
 
 function showAlert(success, tabId, msg) {
@@ -283,12 +288,6 @@ function emptyFormData(formData) {
     return formData.get("isEmpty") == "true";
 }
 
-var savePersonalAjax;
-var saveAboutAjax;
-var saveLinkAjax;
-var saveAccountAjax;
-var savePasswordAjax;
-
 function cancelAjax(cancelBtn, ajax) {
     $(cancelBtn).on("click", function () {
         alert(ajax)
@@ -311,7 +310,7 @@ function deleteWorkHistoryItemAction() {
         var formData = new FormData();
         formData.append("id", id);
         $.ajax({
-                method: "put",
+                method: "delete",
                 url: "/user/delete-workhistory",
                 data: formData,
                 cashe: false, processData: false, contentType: false,
@@ -341,7 +340,7 @@ function deleteEducationHistoryItemAction() {
         var formData = new FormData();
         formData.append("id", id);
         $.ajax({
-                method: "put",
+                method: "delete",
                 url: "/user/delete-education",
                 data: formData,
                 cashe: false, processData: false, contentType: false,
@@ -597,7 +596,7 @@ function uploadeProfileImgAjax() {
     if ($(fileInput)[0].files.length === 0) {
         formData.append("profileImg", null);
         deleteImg = true;
-    }else {
+    } else {
         formData.append("profileImg", $(fileInput)[0].files[0]);
     }
     $.ajax({
@@ -606,7 +605,7 @@ function uploadeProfileImgAjax() {
             url: "/user/update-profileimg",
             data: formData,
             contentType: false,
-            processData:false, cache:false,
+            processData: false, cache: false,
             beforeSend: function (jqXHR, settings) {
                 jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken()); //uploade-opacity-anim
                 disableButton("#personalTa .upload-profile-pic .upload-button");
@@ -616,7 +615,7 @@ function uploadeProfileImgAjax() {
             success: function (data) {
                 $(".upload-profile-pic #profilePic").css("opacity", "1");
                 $(fileInput).val("");
-                if(deleteImg){
+                if (deleteImg) {
                     $("#profilePic").attr("src", "/resources/static/img/user-icon.png");
                 }
             },
@@ -627,6 +626,33 @@ function uploadeProfileImgAjax() {
                 enableButton("#personalTa .upload-profile-pic .upload-button");
                 enableButton("#personalTa .upload-profile-pic .delete-button");
                 $(".upload-profile-pic #profilePic").removeClass("uploade-opacity-anim")
+            }
+        }
+    );
+}
+
+
+function saveInterestTab() {
+    if (!$("#interestForm").valid()) {
+        return;
+    }
+    $.ajax({
+            method: "put",
+            url: "/student/update-interest",
+            data: $("#interestForm").serialize(),
+            cashe: false,
+            beforeSend: function (jqXHR, settings) {
+                jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                disableButton("#interestTab #save");
+            },
+            success: function (data) {
+                showAlert(true, "#interestTab", "updated successfully");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showAlert(false, "#interestTab", "fail to update, invalid data");
+            },
+            complete: function (jqXHR, textStatus) {
+                enableButton("#interestTab #save");
             }
         }
     );
@@ -643,7 +669,7 @@ $(document).ready(function () {
     saveEducationAction();
     deleteWorkHistoryItemAction();
     deleteEducationHistoryItemAction();
-    setActionsForSaveCancleBtns();
+    setActionsForSaveBtns();
 
     universityAutoComplete($("input[name='university']"));
 

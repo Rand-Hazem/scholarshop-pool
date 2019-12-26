@@ -12,4 +12,6 @@ public interface SavedScholarshipRepository extends CrudRepository<SavedScholars
 
     SavedScholarship findByScholarshipAndUser(Scholarship scholarship, User user);
 
+    int deleteByScholarshipAndUser(Scholarship scholarship, User user);
+
 }

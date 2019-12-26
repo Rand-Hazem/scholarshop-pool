@@ -72,6 +72,7 @@ public class ScholarshipController {
     @GetMapping("/advertiser/scholarship")
     public String viewAdverted(Model model) {
         model.addAttribute("scholarships", scholarshipService.getAllScholarships());
+
         return "adverted-scholarships";
     }
 

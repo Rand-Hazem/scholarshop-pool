@@ -132,7 +132,7 @@ public class UserValidatePart {
         }
         if(!validateProperityRemoveFromHashAndSetNullIfNotValid("birthday", user)){
            user.setBirthday((Date) null);
-           errorFields.add("birthdar");
+           errorFields.add("birthday");
         }
         if(!validateProperityRemoveFromHashAndSetNullIfNotValid("email", user)){
            user.setEmail(null);

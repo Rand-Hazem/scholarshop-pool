@@ -115,14 +115,16 @@ public class ScholarshipService {
         }
     }
 
+    /** Add scholarship to save-sh table 'favourite list'
+     */
+    public boolean save(int scholarshipId) {
+        SavedScholarship saved = savedScholarshipRepository.findByScholarshipAndUser(
+                new Scholarship(scholarshipId), new User(currentUser.getId()));
 
+        System.out.println(saved);
 
-    public boolean save(int scholarshipId){
-        SavedScholarship saved = savedScholarshipRepository.findByScholarshipAndUser(new Scholarship(scholarshipId),
-                new User(currentUser.getId()));
-
-        if(saved != null){
-           return true;
+        if (saved != null) {
+            return true;
         }
 
         SavedScholarship savedScholarship = new SavedScholarship();
@@ -131,7 +133,14 @@ public class ScholarshipService {
 
         savedScholarshipRepository.save(savedScholarship);
 
-        return savedScholarship != null && savedScholarship.getId() >0;
+        return savedScholarship != null && savedScholarship.getId() > 0;
+    }
+
+    /** delete  saved-sh row
+     */
+    public boolean unsave(int scholarshipId) {
+        int deletes = savedScholarshipRepository.deleteByScholarshipAndUser(new Scholarship(scholarshipId), new User(currentUser.getId()));
+        return deletes > 0;
     }
 
 

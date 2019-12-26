@@ -6,6 +6,7 @@ import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.entity.UserOptionalInfo;
 import com.iteam.scholarships.enums.UserType;
 import com.iteam.scholarships.service.OrganizationService;
+import com.iteam.scholarships.service.StudentService;
 import com.iteam.scholarships.service.UserService;
 import com.iteam.scholarships.validate.UserValidatePart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private StudentService studentService;
+    @Autowired
     private UserFactory userFactory;
     @Autowired
     private UserValidatePart userValidatePart;
@@ -33,6 +36,12 @@ public class UserController {
     @Autowired
     private OrganizationService organizationService;
 
+
+    @GetMapping("register")
+    public String register(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
 
     @PostMapping("register")
     public String register(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam Map<String, String> data, Model model) {
@@ -43,6 +52,7 @@ public class UserController {
         if (!studentReqister && !advertiserRegister) {
             return "register";
         }
+
         // fill other data that isn't mapped
         userFactory.FillMissingDataForUserRegistration(user, data);
         validator.validate(user, bindingResult);
@@ -61,9 +71,8 @@ public class UserController {
 
         // register user
         userService.registerUser(user);
-        return "profile";
+        return "redirect:/login";
     }
-
 
     @GetMapping({"/", "main"})
     public String main(Model model) {
@@ -73,19 +82,24 @@ public class UserController {
         return "main";
     }
 
-    @GetMapping("register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
 
     @GetMapping("login")
     public String login() {
         return "main?login=true";
     }
 
-    @GetMapping("profile")
-    public String profile(Model model) {
+    @GetMapping({"profile", "user/{id}/profile", "user/{id}/profile/{name}"})
+    public String profile(@PathVariable(required = false) Integer id, Model model) {
+        // if request was /profile
+        if (id == null || id <1) {
+            if (currentUser.isLogIn()) {
+                id = currentUser.getId();
+            } else {
+                return "error";
+            }
+        }
+
+        // put your data here
         return "profile";
     }
 
@@ -94,7 +108,8 @@ public class UserController {
         User user = userService.findCurrent();
         if (user.getType().equals(UserType.ADVERTISER)) {
             model.addAttribute("advertiser", user.getAdvertiser());
-//            model.addAttribute("orgList", organizationService.getAllAcceptedOrgList());
+        }else{
+            model.addAttribute("interest", studentService.getStudentInterest());
         }
         user.getWorkHistoryList();
         user.getEducationHistoryList();

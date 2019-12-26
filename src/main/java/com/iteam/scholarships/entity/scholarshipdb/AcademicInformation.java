@@ -18,7 +18,7 @@ public class AcademicInformation {
     private String hostUniversity;
 
     @Enumerated(EnumType.STRING)
-    private ScholarshipE.TeachingLanguage teachingLanguage;
+    private ScholarshipE.Language teachingLanguage;
 
     @ElementCollection
     @CollectionTable(name="scholarship_Academic_information_major", joinColumns = @JoinColumn(name = "scholarship_id"))
@@ -49,11 +49,11 @@ public class AcademicInformation {
     }
 
     @NotNull(message = "required")
-    public ScholarshipE.TeachingLanguage getTeachingLanguage() {
+    public ScholarshipE.Language getTeachingLanguage() {
         return teachingLanguage;
     }
 
-    public void setTeachingLanguage(ScholarshipE.TeachingLanguage teachingLanguage) {
+    public void setTeachingLanguage(ScholarshipE.Language teachingLanguage) {
         this.teachingLanguage = teachingLanguage;
     }
 

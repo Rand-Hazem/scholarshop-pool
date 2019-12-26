@@ -36,7 +36,7 @@ public class AccountController {
             model.addAttribute("message", "failed to verify email");
             return "error";
         }
-        return "profile";
+        return "redirect:/profile";
     }
 
     /**

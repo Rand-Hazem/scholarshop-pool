@@ -9,7 +9,7 @@
     <meta name="_csrf" content="${_csrf.token}">
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
-    <%@include file="parts/imgStaticPath.jsp" %>
+    <%@include file="parts/uploadStaticPath.jsp" %>
     <script src="${contextPath}/resources/static/js/story-ajax.js"></script>
     <script src="${contextPath}/resources/static/js/view-story.js"></script>
 </head>
@@ -245,7 +245,7 @@
         <div class="profile-section col-md-12 col-lg-4">
             <div class="profile-section-box mt-5">
                 <div class="profile text-center">
-                    <img src="${contextPath}${profileImgPath}${story.user.imgUrl == null ? 'user-icon.png' : user.imgUrl}" class="img-fluid" alt="username">
+                    <img src="${contextPath}${profileImgPath}${story.user.imgUrl == null ? 'user-icon.png' : story.user.imgUrl}" class="img-fluid" alt="username">
                     <div class="profile-body">
                         <h5>${story.user.firstName} ${story.user.lastName}</h5>
                         <c:forEach var="item" items="${story.user.userOptionalInfoList}">

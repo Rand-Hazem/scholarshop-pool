@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%@include file="parts/links.html" %>
-    <%@include file="parts/imgStaticPath.jsp" %>
-
     <script src="${contextPath}/resources/static/js/jquery.smartWizard.min.js"></script>
     <script src="${contextPath}/resources/static/js/share-scholarship.js"></script>
 </head>

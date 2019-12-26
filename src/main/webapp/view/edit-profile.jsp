@@ -10,7 +10,7 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <%@include file="parts/links.html" %>
-    <%@include file="parts/imgStaticPath.jsp" %>
+    <%@include file="parts/uploadStaticPath.jsp" %>
     <script src="${contextPath}/resources/static/js/edit-profile.js"></script>
 </head>
 <body>
@@ -49,6 +49,14 @@
                             </a>
                         </li>
                     </c:if>
+                    <c:if test="${user.type == 'STUDENT'}">
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#interestTab">
+                                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                <span class="d-none d-md-inline">Interest</span>
+                            </a>
+                        </li>
+                    </c:if>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#passwordTab">
                             <i class="fa fa-shield"></i>
@@ -65,7 +73,7 @@
                         <form id="personalForm" role="form" class="div-form" data-toggle="validator" method="post" enctype="multipart/form-data">
                             <div class="form-group col-sm-2 upload-profile-pic">
                                 <div class="img-shape">
-                                <button type="button" class="btn delete-button">&Chi;</button>
+                                    <button type="button" class="btn delete-button">&Chi;</button>
                                     <img id="profilePic" src="${contextPath}${profileImgPath}${user.imgUrl == null ? 'user-icon.png' : user.imgUrl}"
                                          alt="username">
                                 </div>
@@ -142,7 +150,6 @@
                             <hr>
                             <div class="footer-btns">
                                 <button type="button" id="save" class="btn save-btn ">Save</button>
-                                <button type="button" class="btn cancle-btn">Cancel</button>
                             </div>
                         </form>
 
@@ -256,7 +263,6 @@
                             <hr>
                             <div class="footer-btns">
                                 <button type="button" id="save" class="btn save-btn ">Save</button>
-                                <button type="button" class="btn cancle-btn">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -298,7 +304,6 @@
                             <hr>
                             <div class="footer-btns">
                                 <button type="button" id="save" class="btn save-btn">Save</button>
-                                <button type="button" class="btn cancle-btn">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -359,11 +364,78 @@
                                 <hr>
                                 <div class="footer-btns">
                                     <button type="button" id="save" class="btn save-btn ">Save</button>
-                                    <button type="button" class="btn cancle-btn">Cancel</button>
                                 </div>
                             </form>
                         </div>
                     </c:if>
+
+
+                    <c:if test="${user.type == 'STUDENT'}">
+                        <!-- Tab : Intrest -->
+                        <div id="interestTab" class="tab-pane ">
+                            <h5 class="title">Your Interests</h5>
+                            <div class="alert mx-3" role="alert" style="display: none"></div>
+                            <form id="interestForm" role="form" class="div-form">
+                                <div class="form-group col-md-8">
+                                    <label>Opportunity Type</label><b> *</b>
+                                    <select name="scholarshipType" class="form-control custom-select" data-selected="${interest.scholarshipType}">
+                                        <option value="SCHOLARSHIP" selected="selected">Scholarships</option>
+                                        <option value="EXCHANGE">Residences and Exchange Programs</option>
+                                        <option value="INTERNSHIP">Internships</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label>Major</label>
+                                    <select name="major" class="form-control custom-select" data-live-search="true" data-selected="${interest.major}">
+                                        <option value="any">Any</option>
+                                        <%@include file="parts/majors.html" %>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label>Country</label>
+                                    <select name="country" class="form-control custom-select" data-selected="${interest.country}">
+                                        <%@include file="parts/countries.html" %>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label>In Degree</label>
+                                    <select name="degree" class="form-control custom-select" data-selected="${interest.degree}">
+                                        <option value="BACHELOR">Bachelor</option>
+                                        <option value="MASTER">Master</option>
+                                        <option value="DOCTORAL">Doctoral</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label>Language</label>
+                                    <select name="language" class="custom-select form-control" data-selected="${interest.language}">
+                                        <option value="ENGLISH">English</option>
+                                        <option value="HOST_COUNTRY_LANG">Host Country Language</option>
+                                        <option value="BOTH">Both</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <div>Fund Type</div>
+                                    <label class="radio-inline mr-2">
+                                        <input type="radio" name="fundType" value="FULL" checked>
+                                        Full</label>
+                                    <label class="radio-inline mr-2">
+                                        <input type="radio" name="fundType" value="PARTIAL" ${interest.fundType == 'PARTIAL' ? 'checked' : ''}>
+                                        Partial</label>
+                                    <label class="radio-inline mr-2">
+                                        <input type="radio" name="fundType" value="SALARY" ${interest.fundType == 'SALARY' ? 'checked' : ''}>
+                                        Salary</label>
+                                    <label class="radio-inline mr-2">
+                                        <input type="radio" name="fundType" value="NO" ${interest.fundType == 'NO' ? 'checked' : ''}>
+                                        No funded</label>
+                                </div>
+                                <hr>
+                                <div class="footer-btns">
+                                    <button type="button" id="save" class="btn save-btn">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </c:if>
+
 
                     <!--  Tab : password  -->
                     <div id="passwordTab" class="tab-pane ">
@@ -385,11 +457,9 @@
                             <hr>
                             <div class="footer-btns">
                                 <button type="button" id="save" class="btn save-btn ">Save</button>
-                                <button type="button" id="cancel" class="btn cancle-btn">Cancel</button>
                             </div>
                         </form>
                     </div>
-
 
                 </div>
             </div>

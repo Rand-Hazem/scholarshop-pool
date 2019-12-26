@@ -14,11 +14,7 @@ public interface ScholarshipE {
         , HEALTH_INSURANCE
     }
 
-    enum TrainingLanguage{
-        ENGLISH, HOST_COUNTRY_LANG, BOTH ,UNDEFINED
-    }
-
-    enum TeachingLanguage{
+    enum Language {
         ENGLISH, HOST_COUNTRY_LANG, BOTH ,UNDEFINED
     }
 

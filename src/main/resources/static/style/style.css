@@ -1086,8 +1086,6 @@ footer {
   box-shadow: 0 0 10px 1px rgba(31, 53, 67, 0.8); }
   .custom-navbar *:hover {
     text-decoration: none; }
-  .custom-navbar .logo {
-    filter: invert(100%); }
   .custom-navbar #studentNav ul li:not(:first-child):not(:last-child), .custom-navbar #advertiserNav ul li:not(:first-child):not(:last-child) {
     border-right: 1px solid #545454; }
   .custom-navbar #studentNav ul .nav-link, .custom-navbar #advertiserNav ul .nav-link {
@@ -2412,6 +2410,9 @@ footer {
     animation-delay: 1s; }
   .submit-application.page-header .headerText *:last-child {
     animation-delay: 2s; }
+.submit-application .form-control:focus {
+  border-color: #b7cade;
+  box-shadow: 0 0 15px -1px rgba(87, 122, 143, 0.5) !important; }
 .submit-application .container {
   margin-top: 100vh !important;
   padding: 15px; }
@@ -2431,6 +2432,8 @@ footer {
   .submit-application .container .required-certificate-box input[type=checkbox]:checked + label {
     color: #1F3543;
     font-weight: bold; }
+.submit-application .error {
+  color: #9f0000; }
 
 /* ---------------------------------------- --------      Media  ------------------------------------------------------- */
 @media screen and (max-width: 575px) {

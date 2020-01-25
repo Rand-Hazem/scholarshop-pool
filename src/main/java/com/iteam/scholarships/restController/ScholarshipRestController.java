@@ -32,7 +32,6 @@ public class ScholarshipRestController {
     }
 
 
-
     @PutMapping("/student/scholarship/unsave")
     public ResponseEntity unsave(@RequestParam(required = false) int id) {
         if (id > 0 && scholarshipService.unsave(id)) {

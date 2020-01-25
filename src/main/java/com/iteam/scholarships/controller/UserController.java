@@ -4,10 +4,11 @@ import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.component.UserFactory;
 import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.entity.UserOptionalInfo;
+import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
+import com.iteam.scholarships.entity.storydb.Story;
+import com.iteam.scholarships.enums.UserOptionalInfoKey;
 import com.iteam.scholarships.enums.UserType;
-import com.iteam.scholarships.service.OrganizationService;
-import com.iteam.scholarships.service.StudentService;
-import com.iteam.scholarships.service.UserService;
+import com.iteam.scholarships.service.*;
 import com.iteam.scholarships.validate.UserValidatePart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +36,10 @@ public class UserController {
     private UserValidatePart userValidatePart;
     @Autowired
     private CurrentUser currentUser;
+    @Autowired
+    private ScholarshipService scholarshipService;
+    @Autowired
+    private StoryService storyService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -77,7 +84,7 @@ public class UserController {
     @GetMapping({"/", "main"})
     public String main(Model model) {
         if (currentUser.isLogIn()) {
-            return "forward:/profile";
+            return "redirect:/profile";
         }
         return "main";
     }
@@ -99,7 +106,29 @@ public class UserController {
             }
         }
 
-        // put your data here
+        User user = userService.find(id);
+        if(user == null){
+            return "error";
+        }
+
+        List<UserOptionalInfo> userOptionalInfoList =  user.getUserOptionalInfoList();
+        HashMap<UserOptionalInfoKey, String> keyDataMap = new HashMap();
+        for(UserOptionalInfo u: userOptionalInfoList){
+            keyDataMap.put(u.getKey(), u.getData());
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("keyDataMap", keyDataMap);
+        model.addAttribute("owner", currentUser.matchId(id));
+
+        if(user.getType().equals(UserType.ADVERTISER)){
+            List<Scholarship> scholarships = scholarshipService.getAllScholarshipsById(id);
+            model.addAttribute("scholarships",scholarships);
+        }else if(user.getType().equals(UserType.STUDENT)){
+            List<Story> stories = storyService.findAllByUserId(id);
+            model.addAttribute("stories", stories);
+        }
+
         return "profile";
     }
 

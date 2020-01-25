@@ -13,6 +13,5 @@ import java.util.List;
 @Repository
 public interface ScholarshipRepository extends JpaRepository<Scholarship, Integer> {
 
-
     List<Scholarship> findAllByAdvertiser(Advertiser adv);
 }

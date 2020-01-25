@@ -12,17 +12,17 @@ function oppTypeListListener() {
     };
 
     // for reloade, first uplade etc
-    if (val == 'Internships') {
+    if (val == 'INTERNSHIP') {
         showTraning();
     } else {
         showScolarship();
     }
 
     $("#opportunityTypeList").on("change", function () {
-        if ($(this).val() == 'Scholarships' || $(this).val() == 'Exchange') {
-            showScolarship();
-        } else {
+        if ($(this).val() == 'INTERNSHIP') {
             showTraning();
+        } else {
+            showScolarship();
         }
     });
 

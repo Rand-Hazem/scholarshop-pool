@@ -12,6 +12,7 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
     <%@include file="parts/uploadStaticPath.jsp" %>
+    <script src="${contextPath}/resources/static/js/scholarship-node-ajax.js"></script>
     <script src="${contextPath}/resources/static/js/view-scholarship.js"></script>
 </head>
 <body>
@@ -65,7 +66,7 @@
                 </div>
                 <sec:authorize access="isAuthenticated()">
                     <button type="button" class="btn save-opportunity" data-scholarship-id="${scholarship.id}">
-                        <i class="fa fa-heart"></i>Save opportunity
+                        <i class="fa fa-heart"></i>&nbsp;Save opportunity
                     </button>
                 </sec:authorize>
             </div>

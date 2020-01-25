@@ -3,7 +3,15 @@ package com.iteam.scholarships.entity.storydb;
 import com.iteam.scholarships.convertor.ListStringConvertor;
 import com.iteam.scholarships.entity.User;
 import com.iteam.scholarships.enums.StoryType;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.StopFilterFactory;
+import org.apache.lucene.analysis.ngram.NGramFilterFactory;
+import org.apache.lucene.analysis.standard.StandardFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.Formula;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,13 +24,26 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Indexed
+@AnalyzerDef(name = "ngram",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class ),
+        filters = {
+                @TokenFilterDef(factory = StandardFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = StopFilterFactory.class),
+                @TokenFilterDef(factory = NGramFilterFactory.class,
+                        params = {
+                                @org.hibernate.search.annotations.Parameter(name = "minGramSize", value = "3"),
+                                @Parameter(name = "maxGramSize", value = "3") } )
+        }
+)
 public class Story {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false) @Field(index = Index.YES,store = Store.NO,analyzer = @Analyzer(definition = "ngram"))
     private String title;
 
     @Column(nullable = false)
@@ -81,7 +102,7 @@ public class Story {
     @Column(name = "user_id", insertable = false, updatable = false)
     private int userId;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY) @IndexedEmbedded
     private User user;
 
     @OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -299,28 +320,5 @@ public class Story {
 
     public void setRate(Float rate) {
         this.rate = rate==null || rate.intValue()==0 ? 1 : rate;
-    }
-
-    @Override
-    public String toString() {
-        return "Story{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", hostCountry='" + hostCountry + '\'' +
-                ", city='" + city + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", storyType=" + storyType +
-                ", providerOrganization='" + providerOrganization + '\'' +
-                ", field='" + field + '\'' +
-                ", storyInShort='" + storyInShort + '\'' +
-                ", aboutInstitution='" + aboutInstitution + '\'' +
-                ", aboutOpportunity='" + aboutOpportunity + '\'' +
-                ", aboutAccommodation='" + aboutAccommodation + '\'' +
-                ", aboutCityLiving='" + aboutCityLiving + '\'' +
-                ", aboutTransportation='" + aboutTransportation + '\'' +
-                ", aboutTradition='" + aboutTradition + '\'' +
-                ", recommendationAndAdvice='" + recommendationAndAdvice + '\'' +
-                '}';
     }
 }

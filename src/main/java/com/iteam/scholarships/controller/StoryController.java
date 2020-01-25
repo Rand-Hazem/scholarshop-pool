@@ -6,6 +6,7 @@ import com.iteam.scholarships.entity.storydb.Story;
 import com.iteam.scholarships.service.StoryLikeService;
 import com.iteam.scholarships.service.StoryRateService;
 import com.iteam.scholarships.service.StoryService;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RequestMapping("story")
+@RequestMapping("/story/")
 public class StoryController {
 
     @Autowired
@@ -33,13 +36,8 @@ public class StoryController {
     private CurrentUser currentUser;
 
 
-    @GetMapping("all")
-    public String viewAllStories(Model model){
-        return "stories";
-    }
-
-
     @GetMapping("share")
+    @PreAuthorize("hasAuthority('student')")
     public String share(Model model) {
         model.addAttribute("story", new Story());
         return "share-story";
@@ -97,6 +95,41 @@ public class StoryController {
         model.addAttribute("userRate", storyRateService.getCurrentUserRate(story.getId()));
         return "view-story";
     }
+
+
+
+    @GetMapping("/all")
+    public String viewAllStories(Model model){
+        List<Story> storiesList = storyService.findTopRated();
+        model.addAttribute("stories", storiesList);
+        return "stories";
+    }
+
+
+    @GetMapping("/search")
+    public String storiesSearch(
+            @RequestParam(value="search", required=false) String searchText,
+            @RequestParam(value="pageNo", required=false) Integer pageNo,
+            Model model){
+
+        if(searchText==null ||  pageNo == null){
+            return "redirect:/story/all";
+        }
+
+        if (pageNo == null){
+            pageNo = 1;
+            model.addAttribute("pageNo", 1);
+        }
+
+        FullTextQuery fullTextQuery = storyService.searchStory(searchText);
+        model.addAttribute("resultsCount", fullTextQuery.getResultSize());
+        int pageCount =  (int) Math.floorDiv(storyService.count(), 10)+1;
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("stories", fullTextQuery.getResultList());
+
+        return "stories";
+    }
+
 
 
 }

@@ -661,7 +661,7 @@ footer {
   }
 
   .logo {
-    filter: invert(100%);
+   // filter: invert(100%);
   }
 
   #studentNav ul, #advertiserNav ul {
@@ -2612,7 +2612,12 @@ footer {
       }
     }
   }
-
+  .form-control {
+    &:focus {
+      border-color: #b7cade;
+      box-shadow: 0 0 15px -1px rgba(87, 122, 143, 0.5) !important;
+    }
+  }
   .container {
     margin-top: 100vh !important;
     padding: 15px;
@@ -2648,7 +2653,9 @@ footer {
     }
 
   }
-
+  .error{
+    color: #9f0000;
+  }
 }
 
 /* ---------------------------------------- --------      Media  ------------------------------------------------------- */

@@ -30,7 +30,7 @@ public class EmailService {
 
     public void sendRegisterdVerivicationEmail(String sentTo, String token) {
         SimpleMailMessage simpleMailMessage = getSimpleMailMessage(sentTo);
-        simpleMailMessage.setSubject("verify you account on scholarship");
+        simpleMailMessage.setSubject("verify you account on OPPEX");
         simpleMailMessage.setText("Thanks for signing up with scholarship! You must follow this link to activate your account: " +
                 "http://localhost:8080/user/account/accept?token=" + token);
 
@@ -39,7 +39,7 @@ public class EmailService {
 
     public void sendResetPasswordEmail(String sentTo, String token) {
         SimpleMailMessage simpleMailMessage = getSimpleMailMessage(sentTo);
-        simpleMailMessage.setSubject("Reset your password on scholarship");
+        simpleMailMessage.setSubject("Reset your password on OPPEX");
         simpleMailMessage.setText("your reqest to reset password, please click on link below, it will direct you to page where you" +
                 "cas reset your password http://localhost:8080/user/account/reset-password?token=" + token+
                 "\n\n and please note that this link is valid for one day only");

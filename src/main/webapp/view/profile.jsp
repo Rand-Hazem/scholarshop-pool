@@ -1,3 +1,5 @@
+<%@ page import="com.iteam.scholarships.enums.UserOptionalInfoKey" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -5,7 +7,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <%@include file="parts/links.html" %>
-    
+    <%@include file="parts/uploadStaticPath.jsp" %>
     <script src='${contextPath}/resources/static/js/story-ajax.js'></script>
     <script src='${contextPath}/resources/static/js/profile.js'></script>
 </head>
@@ -13,13 +15,20 @@
 <jsp:include page="parts/navbar.jsp"/>
 <!--  ------------------------------------------------------------------------------------------------------- -->
 
-<!-- Profile -->
+<!-- Profile Overview-->
 <div class='profile profile-div'>
     <div class='container'>
         <div class='row'>
             <!-- Profile Picture -->
             <div class='col-xs-12 col-sm-4 col-lg-3 profile-picture-div center'>
-                <img class='img-fluid profile-picture' src='${contextPath}/resources/static/img/user-icon.png' alt='username'>
+                <c:choose>
+                    <c:when test="${empty user.imgUrl}">
+                        <img src="${contextPath}/resources/static/img/user-icon.png" alt="user img"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img class='img-fluid profile-picture' src='${contextPath}${profileImgPath}${user.imgUrl}' alt='username'>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <!-- Profile Information Overview -->
@@ -30,65 +39,91 @@
                     <div class='profile-info-row'>
                         <div class='profile-info-name'> Name</div>
                         <div class='profile-info-value'>
-                            <span>Haneen Abu Ali</span>
+                            <span>${user.firstName} ${user.lastName}</span>
                         </div>
                     </div>
-
 
                     <!-- Nationality -->
-                    <div class='profile-info-row'>
-                        <div class='profile-info-name'> Nationality</div>
+                    <c:if test="${keyDataMap.get(UserOptionalInfoKey.NATIONALITY) != null}">
+                        <div class='profile-info-row'>
+                            <div class='profile-info-name'> Nationality</div>
 
-                        <div class='profile-info-value'>
-                            <span>Palestinian</span>
+                            <div class='profile-info-value'>
+                                <span>${keyDataMap.get(UserOptionalInfoKey.NATIONALITY)}</span>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
 
                     <!-- Country of residence -->
-                    <div class='profile-info-row'>
-                        <div class='profile-info-name'> Resident</div>
+                    <c:if test="${keyDataMap.get(UserOptionalInfoKey.LIVEING_CITY) != null}">
+                        <div class='profile-info-row'>
+                            <div class='profile-info-name'> Resident</div>
 
-                        <div class='profile-info-value'>
-                            <i class='fa fa-map-marker light-orange'></i>
-                            <span>Palestine</span>
-                            <span>Tulkarm</span>
+                            <div class='profile-info-value'>
+                                <i class='fa fa-map-marker light-orange'></i>
+                                <span>${keyDataMap.get(UserOptionalInfoKey.LIVEING_CITY)}</span>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
 
-                    <!-- Email -->
-                    <div class='profile-info-row'>
-                        <div class='profile-info-name'> E-mail</div>
-
-                        <div class='profile-info-value'>
-                            <span><a href='mailto:mail@mail.com'> mail@example.com</a></span>
-                        </div>
-                    </div>
-
-                    <!-- Phone No. -->
-                    <div class='profile-info-row'>
-                        <div class='profile-info-name'> Phone</div>
-                        <div class='profile-info-value'>
-                            <span>+123 456 789 01</span>
-                        </div>
-                    </div>
+                    <!-- Email & Mobile No -->
+                    <c:choose>
+                        <c:when test="${user.type eq 'ADVERTISER'}">
+                            <!-- Email -->
+                            <div class='profile-info-row'>
+                                <div class='profile-info-name'> E-mail</div>
+                                <div class='profile-info-value'>
+                                    <span><a href='${user.advertiser.workEmail}'> ${user.advertiser.workEmail}</a></span>
+                                </div>
+                            </div>
+                            <!-- Phone No. -->
+                            <div class='profile-info-row'>
+                                <div class='profile-info-name'> Phone</div>
+                                <div class='profile-info-value'>
+                                    <span>${user.advertiser.mobileNum}</span>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:when test="${user.type eq 'STUDENT'}">
+                            <!-- Email -->
+                            <div class='profile-info-row'>
+                                <div class='profile-info-name'> E-mail</div>
+                                <div class='profile-info-value'>
+                                    <span><a href='${user.email}'> ${user.email}</a></span>
+                                </div>
+                            </div>
+                        </c:when>
+                    </c:choose>
 
                     <!-- D.O.B -->
                     <div class='profile-info-row'>
                         <div class='profile-info-name'> D.O.B</div>
                         <div class='profile-info-value'>
-                            <span>10/10/2000</span>
+                            <span>${user.birthday}</span>
                         </div>
                     </div>
+
+                    <!-- Social Media Links -->
                     <div class='profile-info-row'>
                         <div class='profile-info-name'> Social Media</div>
                         <div class='profile-info-value'>
                             <div class='social-media-links'>
-                                <a href='#' class='fa fa-facebook link'></a>
-                                <a href='#' class='fa fa-twitter link'></a>
-                                <a href='#' class='fa fa-envelope link'></a>
-                                <a href='#' class='fa fa-linkedin link'></a>
-                                <a href='#' class='fa fa-instagram link'></a>
-                                <a href='#' class='fa fa-globe link'></a>
+                                <c:if test="${keyDataMap.get(UserOptionalInfoKey.FACEBOOK_LINK) != null}">
+                                    <a href='${keyDataMap.get(UserOptionalInfoKey.FACEBOOK_LINK)}'
+                                       class='fa fa-facebook link' target="_blank"></a>
+                                </c:if>
+                                <c:if test="${keyDataMap.get(UserOptionalInfoKey.TWITTER_LINK) != null}">
+                                    <a href='${keyDataMap.get(UserOptionalInfoKey.TWITTER_LINK)}'
+                                       class='fa fa-twitter link' target="_blank"></a>
+                                </c:if>
+                                <c:if test="${keyDataMap.get(UserOptionalInfoKey.LINKEDIN_LINK) != null}">
+                                    <a href='${keyDataMap.get(UserOptionalInfoKey.LINKEDIN_LINK)}'
+                                       class='fa fa-linkedin link' target="_blank"></a>
+                                </c:if>
+                                <c:if test="${keyDataMap.get(UserOptionalInfoKey.WEBSITE_LINK) != null}">
+                                    <a href='${keyDataMap.get(UserOptionalInfoKey.WEBSITE_LINK)}'
+                                       class='fa fa-globe link' target="_blank"></a>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -129,15 +164,22 @@
                     <!-- Tab 4 -->
                     <li class='nav-item'>
                         <a class='nav-link' data-toggle='tab' href='#storiesTab'>
-                            <i class='fa fa-commenting' aria-hidden='true'></i>
-                            <span class='d-none d-md-inline'>Stories</span>
+                            <c:choose>
+                                <c:when test="${user.type eq 'ADVERTISER'}">
+                                    <i class='fa fa-bookmark' aria-hidden='true'></i>
+                                    <span class='d-none d-md-inline'>Scholarships</span>
+                                </c:when>
+                                <c:when test="${user.type eq 'STUDENT'}">
+                                    <i class='fa fa-commenting' aria-hidden='true'></i>
+                                    <span class='d-none d-md-inline'>Stories</span>
+                                </c:when>
+                            </c:choose>
                         </a>
                     </li>
                 </ul>
 
                 <!-- Tabs Contents -->
                 <div class='tab-content'>
-
                     <!-- Tab 1 : About -->
                     <div id='aboutTab' class='container tab-pane active no-content'>
                         <div class=' mb-2'>
@@ -150,11 +192,15 @@
                             </div>
                         </div>
                         <div class='about-container'>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Soluta exercitationem nam perferendis tempora eius repellat expedita numquam,
-                                beatae eaque nihil Aliquam architecto voluptatum provident animi,
-                                excepturi fugit ut! Impedit, eum!
-                            </p>
+                            <c:choose>
+                                <c:when test="${keyDataMap.get(UserOptionalInfoKey.BIO) != null}">
+                                    <p>${keyDataMap.get(UserOptionalInfoKey.BIO)}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src='${contextPath}/resources/static/img/no-content.png' alt='no-content' style="display: block;
+                                        margin-left: auto; margin-right: auto; width: 50%;">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 
@@ -170,94 +216,43 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class='experiences-container container-fluid'>
-                            <div class='row justify-content-center align-items-center'>
-                                <div class='col-lg-10'>
+                        <c:choose>
+                            <c:when test="${user.educationHistoryList.size() !=0}">
+                                <div class='experiences-container container-fluid'>
+                                    <div class='row justify-content-center align-items-center'>
+                                        <div class='col-lg-10'>
                                             <span class='icon-education'>
                                                 <i class='fa fa-graduation-cap fa-lg'></i>
                                             </span>
 
-                                    <div class='experience-nodes-box'>
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Jan 2015 - Current</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='education-major'> Ph.D Degree</h5>
-                                            <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='university-name'> XXX University</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>May 2013 - Aug 2014</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='education-major'> Professional Diploma in
-                                                Graphic Design</h5>
-                                            <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='university-name'> XXX College</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Sep 2010 - Sep 2012</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='education-major'> Master of Engineering in
-                                                Computer Engineering</h5>
-                                            <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='university-name'> ZZZ University</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Thesis: Nulla, Omnis Vitae Illum Molestiae Rem.
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Aug 2005 - Aug 2009</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='education-major'> Bachelor of Engineering in
-                                                Computer Science</h5>
-                                            <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='university-name'> XXX University</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Sep 2006 - May 2009</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='education-major'> High Degree - School Of
-                                                Science</h5>
-                                            <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='university-name'> XXX School</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
+                                            <div class='experience-nodes-box'>
+                                                <c:forEach var="eduation" items="${user.educationHistoryList}">
+                                                    <div class='experience-node'>
+                                                        <c:choose>
+                                                            <c:when test="${eduation.endDate == null}">
+                                                                <c:set var="endDate" value="Current"/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="endDate" value="${eduation.endDate}"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <span data-aos='fade-up' class='period'>${eduation.startDate} <b>-</b> ${endDate}</span>
+                                                        <i data-aos='fade-up' class='fa fa-university' aria-hidden='true'></i>
+                                                        <h5 data-aos='fade-up' class='university-name'> ${eduation.university}</h5>
+                                                        <p data-aos='fade-up' class=' pt-3'> ${eduation.description}</p>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </c:when>
+                            <c:otherwise>
+                                <img src='${contextPath}/resources/static/img/no-content.png' alt='no-content' style="display: block;
+                                        margin-left: auto; margin-right: auto; width: 42%;" class="container no-content">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-
 
                     <!-- Tab 3 : Experience-->
                     <div id='experienceTab' class='tab-pane '>
@@ -271,102 +266,96 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='experiences-container container-fluid'>
-                            <div class='row justify-content-center align-items-center'>
-                                <div class='col-lg-10'>
+
+                        <c:choose>
+                            <c:when test="${user.workHistoryList.size() !=0}">
+                                <div class='experiences-container container-fluid'>
+                                    <div class='row justify-content-center align-items-center'>
+                                        <div class='col-lg-10'>
                                             <span class='icon-experience'>
                                                 <i class='fa fa-briefcase fa-lg'></i>
                                             </span>
-                                    <div class='experience-nodes-box'>
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Jan 2015 - Current</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-name'> Ph.D Degree</h5>
-                                            <i data-aos='fade-up' class='fa fa-building' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-place'> XXX University</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
+                                            <div class='experience-nodes-box'>
+                                                <c:forEach var="work" items="${user.workHistoryList}">
+                                                    <div class='experience-node'>
+                                                        <c:choose>
+                                                            <c:when test="${work.endDate == null}">
+                                                                <c:set var="endDate" value="Current"/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="endDate" value="${work.endDate}"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <span data-aos='fade-up' class='period'>${work.startDate} <b>-</b> ${endDate}</span>
+                                                        <i data-aos='fade-up' class='fa fa-building' aria-hidden='true'></i>
+                                                        <h5 data-aos='fade-up' class='experience-place'>${work.companyName}</h5>
+                                                        <p data-aos='fade-up' class=' pt-3'>${work.position}</p>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
                                         </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>Aug 2007 - Current</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-name'> Professional Diploma in
-                                                Graphic Design</h5>
-                                            <i data-aos='fade-up' class='fa fa-building' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-place'> XXX Company</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>AUG 2007 - JAN 2010</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-name'> Front-End Web Developer</h5>
-                                            <i data-aos='fade-up' class='fa fa-building' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-place'> XXX Company</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
-                                        </div>
-
-                                        <div class='experience-node'>
-                                            <span data-aos='fade-up' class='period'>AUG 2007 - JAN 2010</span>
-                                            <i data-aos='fade-up' class='fa fa-file-text' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-name'> Back-End Web Developer</h5>
-                                            <i data-aos='fade-up' class='fa fa-building' aria-hidden='true'></i>
-                                            <h5 data-aos='fade-up' class='experience-place'> XXX Company</h5>
-
-                                            <p data-aos='fade-up' class=' pt-3'>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                In semper lacus tortor, quis bibendum odio mattis vitae.
-                                                Cras porta massa pretium auctor congue. Suspendisse ante massa,
-                                                euismod sit amet sem sed, viverra tristique diam.
-                                            </p>
-                                        </div>
-
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </c:when>
+                            <c:otherwise>
+                                <img src='${contextPath}/resources/static/img/no-content.png' alt='no-content'
+                                     style="display: block; margin-left: auto; margin-right: auto; width: 42%;">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
-                    <!-- Tab 4 : Stories -->
-                    <div id='storiesTab' class='tab-pane '>
-                        <div class='container mb-2'>
-                            <div class='row'>
-                                <div class='col-sm-12 col-md-3'>
-                                    <div class='heading'>
-                                        <h3>Stories</h3>
-                                        <h6 class='font-lite-black'>MY EXPERIENCE</h6>
+                    <!-- Tab 4 : Scholarships || Stories -->
+                    <c:choose>
+                        <c:when test="${user.type eq 'ADVERTISER'}">
+                            <div id='storiesTab' class='tab-pane '>
+                                <div class='container mb-2'>
+                                    <div class='row'>
+                                        <div class='col-sm-12 col-md-3'>
+                                            <div class='heading'>
+                                                <h3>Scholarships</h3>
+                                                <h6 class='font-lite-black'> ALL ADVERTED SCHOLARSHIPS</h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <c:choose>
+                                    <c:when test="${scholarships.size() != 0}">
+                                        <jsp:include page="parts/scholarship-node.jsp"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src='${contextPath}/resources/static/img/no-content.png' alt='no-content' style="display: block;
+                                        margin-left: auto; margin-right: auto; width: 42%;" class="container no-content">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
-                        </div>
-                        <div class='story-nodes-box container-fluid'>
-                            <div class='row justify-content-center align-items-center'>
-                                <div class='col-lg-11'>
-                                    <jsp:include page="parts/story-node.jsp"/>
+                        </c:when>
+                        <c:when test="${user.type eq 'STUDENT'}">
+                            <div id='storiesTab' class='tab-pane '>
+                                <div class='container mb-2'>
+                                    <div class='row'>
+                                        <div class='col-sm-12 col-md-3'>
+                                            <div class='heading'>
+                                                <h3>Stories</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <c:choose>
+                                    <c:when test="${stories.size() != 0}">
+                                        <jsp:include page="parts/story-node.jsp"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src='${contextPath}/resources/static/img/no-content.png' alt='no-content' style="display: block;
+                                        margin-left: auto; margin-right: auto; width: 42%;" class="container no-content">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
-                        </div>
-                    </div>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

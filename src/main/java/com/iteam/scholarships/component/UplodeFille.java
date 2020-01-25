@@ -157,4 +157,8 @@ public class UplodeFille {
         return null;
     }
 
+    public void deleteScholarshipIllustrationFile(String fileName) {
+        delete("src/main/upload/scholarshipIllustrationFile/" + fileName);
+    }
+
 }

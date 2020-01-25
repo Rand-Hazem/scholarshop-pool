@@ -11,24 +11,27 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class ScholarshipSubmitedApplication {
+@Entity
+@Table()
+public class StudentApplyProfile {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "student_id")
     private int id;
+
+    @Column(nullable = false)
+    private int age;
 
     @Column(nullable = false)
     private String major;
 
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private ScholarshipE.Degree degree;
 
     @Column(nullable = false)
     private String nationality;
 
-
     @Column(nullable = false)
     private String resident;
-
 
     @Column(nullable = false)
     private int completeYearOfStudy;
@@ -39,7 +42,7 @@ public class ScholarshipSubmitedApplication {
     @Column(nullable = false)
     private double schoolGpa;
 
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private ScholarshipE.EnglishLevel englishLevel;
 
     @Column(nullable = false)
@@ -48,20 +51,7 @@ public class ScholarshipSubmitedApplication {
     @ElementCollection(fetch = FetchType.EAGER) @CollectionTable(joinColumns = @JoinColumn(name = "id"))
     private List<String> certificates;
 
-    @Column(name = "scholarship_id", insertable = false, updatable = false)
-    private int scholarshipId;
-
-    @Column(name = "student_id", insertable = false, updatable = false)
-    private int studentId;
-
-    @OneToOne(optional = false, fetch = FetchType.LAZY) @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY) @JoinColumn(name = "scholarship_id")
-    private Scholarship scholarship;
-
-
-    public ScholarshipSubmitedApplication() {
+    public StudentApplyProfile() {
     }
 
     public int getId() {
@@ -70,6 +60,15 @@ public class ScholarshipSubmitedApplication {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Min(15)
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @NotBlank
@@ -141,38 +140,6 @@ public class ScholarshipSubmitedApplication {
 
     public void setCertificates(List<String> certificates) {
         this.certificates = certificates;
-    }
-
-    public int getScholarshipId() {
-        return scholarshipId;
-    }
-
-    public void setScholarshipId(int scholarshipId) {
-        this.scholarshipId = scholarshipId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Scholarship getScholarship() {
-        return scholarship;
-    }
-
-    public void setScholarship(Scholarship scholarship) {
-        this.scholarship = scholarship;
     }
 
     public String getNationality() {

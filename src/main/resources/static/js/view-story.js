@@ -87,7 +87,6 @@ function setReportStoryAction() {
     $("#reportModal #btnSave").on("click", function () {
         reportStoryAction($(this), "#reportModal #reportForm", errorCallbackFun, successCallbackFun);
     });
-
 }
 
 function setDeleteStoryAction() {

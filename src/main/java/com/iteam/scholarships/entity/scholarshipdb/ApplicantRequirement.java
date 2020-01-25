@@ -51,11 +51,13 @@ public class ApplicantRequirement {
     @ElementCollection(fetch = FetchType.LAZY) @CollectionTable(joinColumns = @JoinColumn(name = "scholarship_id"))
     private List<SpecialCertificateScore> specialCertificateScoreList;
 
-
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     private Scholarship scholarship;
 
+
+    public ApplicantRequirement() {
+    }
 
 
 

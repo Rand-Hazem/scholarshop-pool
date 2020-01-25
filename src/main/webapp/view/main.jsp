@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Website name</title>
+    <title>OPPEX</title>
     <%@include file="parts/links.html" %>
     <script src="${contextPath}/resources/static/js/main.js"></script>
 </head>
@@ -11,7 +11,7 @@
 
 <div class="container-fluid main"> <!-- navbar and header  -->
     <div id="mainTopHeader" class="row main-top-header">
-        <p class="website-name">Scholarship Website</p>
+        <p class="website-name">Opportunities Exchange OPPEX</p>
     </div>
 
     <div class="row position-relative w-100">
@@ -32,7 +32,7 @@
         <div id="transperantDivLayout">
             <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top main-navbar">
                 <a class="navbar-brand" href="#">
-                    <img src="${contextPath}/resources/static/img/scholarship-graduaed-icon.svg" class="logo">
+                    <img src="${contextPath}/resources/static/img/logo-dark.png" class="logo">
                 </a>
 
                 <div id="loginSignupNavContainer">
@@ -61,10 +61,10 @@
                             <a class="nav-link " href="#">Advertisers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Scholarships</a>
+                            <a class="nav-link" href="${contextPath}/scholarship/search">Scholarships</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Students stories</a>
+                            <a class="nav-link" href="${contextPath}/story/all">Students stories</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>

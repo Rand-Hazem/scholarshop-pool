@@ -1,7 +1,5 @@
 package com.iteam.scholarships.entity.scholarshipdb;
 
-import com.iteam.scholarships.entity.User;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,14 +11,11 @@ public class SavedScholarship {
     @Column(name = "scholarship_id", insertable = false, updatable = false)
     private int scholarshipId;
 
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private int userId;
+    @Column(name = "student_id")
+    private int studentId;
 
     @ManyToOne(optional = false) @JoinColumn(name = "scholarship_id")
     private Scholarship scholarship;
-
-    @ManyToOne(optional = false) @JoinColumn(name = "user_id")
-    private User user;
 
     public int getId() {
         return id;
@@ -38,12 +33,12 @@ public class SavedScholarship {
         this.scholarshipId = scholarshipId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public Scholarship getScholarship() {
@@ -52,13 +47,5 @@ public class SavedScholarship {
 
     public void setScholarship(Scholarship scholarship) {
         this.scholarship = scholarship;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

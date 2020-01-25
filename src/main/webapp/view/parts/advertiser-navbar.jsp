@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <a href="#" class="navbar-brand">
-            <img class='logo' src="${contextPath}/resources/static/img/scholarship-graduaed-icon.svg" alt="LOGO">
+            <img class='logo' src="${contextPath}/resources/static/img/logo-light.png" alt="LOGO">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#advertiserNav">
             <i class="fa fa-bars" aria-hidden="true" style="color: #ededed;"></i>
@@ -17,16 +17,13 @@
                     </div>
                 </li>
                 <li class="nav-item navbar-left">
-                    <a href="${contextPath}/search-scholarship" class="nav-link">Explore</a>
+                    <a href="${contextPath}/user/scholarship/search" class="nav-link">Explore</a>
                 </li>
                 <li class="nav-item">
                     <a href="${contextPath}/advertiser/scholarship/share" class="nav-link">New advert</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Applied scholarships</a>
-                </li>
-                <li class="nav-item">
-                    <a href="${contextPath}/stories" class="nav-link">Stories</a>
+                    <a href="${contextPath}/story/all" class="nav-link">Stories</a>
                 </li>
                 <li class="nav-item">
                     <a href="${contextPath}/profile" class="nav-link">Profile</a>
@@ -49,6 +46,7 @@
                     <ul id='dropdownMoreItem' class="dropdown-menu dropdown-menu-right animate slide-in">
                         <li><a href="${contextPath}/edit-profile" class="dropdown-item">Edit profile</a></li>
                         <li><a href="${contextPath}/advertiser/scholarship" class="dropdown-item">Adverted scholarship</a></li>
+                        <li><a href="${contextPath}/advertiser/scholarship/applicant-student" class="dropdown-item">Applicant student</a></li>
                         <li><a href="${contextPath}/logout"  class="dropdown-item">Logout</a></li>
                     </ul>
                 </li>

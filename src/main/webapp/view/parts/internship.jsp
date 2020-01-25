@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.apache.commons.text.WordUtils" %>
+<%@include file="uploadStaticPath.jsp" %>
 <div class="internship ">
 
     <!---------------------- Provider Information & Academic Information ----------------------->
@@ -15,7 +16,7 @@
 
         <h4>Training Opportunity Details</h4>
         <p><b>Training Language: </b>
-            <span id="training-language">${WordUtils.capitalizeFull(fn:replace(trainingInformation.trainingLanguage,"_" ," " ))}</span>
+            <span id="training-language">${WordUtils.capitalizeFully(fn:replace(trainingInformation.trainingLanguage,"_" ," " ))}</span>
         </p>
 
         <p><b>Working Environment</b></p>
@@ -111,14 +112,17 @@
         </p><br>
 
         <h3>Application Link</h3>
-        <a href="${scholarshipApplicationDetail.urlProviderApplyForm}" class="btn" role="button" target="_blank"
+        <a href="${scholarshipApplicationDetail.applyThroughProviderWebsite ? "/student/scholarship/".concat(scholarship.id).concat("/apply") : scholarshipApplicationDetail.urlProviderApplyForm}"
+           class="btn" role="button" target="_blank"
            style="background-color: #1F3543; color: white; padding: 5px 10px; border-radius: 5px; text-align: center;">
             Click Here To Apply</a>
         <br><br><br>
 
         <c:if test="${not empty scholarshipApplicationDetail.illustrationFileName}">
             <h3>Illustration File of The Opportunity</h3>
-            <a id="file" href="${contextPath}${scholarshipIllustrationFilePath}${scholarshipApplicationDetail.illustrationFileName}">File</a>
+            <a id="file"  target="_blank"
+               href="${contextPath}${scholarshipIllustrationFilePath}${scholarshipApplicationDetail.illustrationFileName}">
+                Click here</a>
         </c:if>
     </div>
 </div>

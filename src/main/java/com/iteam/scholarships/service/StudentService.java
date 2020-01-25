@@ -35,6 +35,10 @@ public class StudentService {
         return studentInterestRepository.findById(currentUser.getId()).orElse(new StudentInterest());
     }
 
+    public StudentInterest findStudentInterest(){
+        return studentInterestRepository.findStudentInterestByStudentId(currentUser.getId());
+    }
+
 }
 
 

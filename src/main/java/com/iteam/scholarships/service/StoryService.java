@@ -7,10 +7,16 @@ import com.iteam.scholarships.entity.storydb.StoryRate;
 import com.iteam.scholarships.entity.storydb.StoryReport;
 import com.iteam.scholarships.enums.NotificationType;
 import com.iteam.scholarships.repository.StoryRepositoty;
+import com.iteam.scholarships.search.StorySearch;
+import org.hibernate.search.FullTextQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,6 +36,8 @@ public class StoryService {
     private NotificationService notificationService;
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private StorySearch storySearch;
 
 
     public boolean save(Story story) {
@@ -110,7 +118,24 @@ public class StoryService {
        return storyRepositoty.deleteByIdAndUser(storyId, userService.getCurrentUserWithId()) > 0;
     }
 
+    public List<Story> findAllByUserId(int userId){
+        return storyRepositoty.findAllByUser(new User(userId));
+    }
+
+    public List<Story> findTopRated(){
+       //  PageRequest pageRequest =  PageRequest.of(0, 10);
+        return storyRepositoty.findAll();
+    }
 
 
+    public FullTextQuery searchStory(String searchText){
+        FullTextQuery fullTextQuery =  storySearch.searchStoryQuery(searchText);
+        return fullTextQuery;
+    }
+
+
+    public long count(){
+        return storyRepositoty.count();
+    }
 
 }

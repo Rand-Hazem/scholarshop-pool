@@ -89,11 +89,42 @@ function deleteScholarshipAction(btnSelector, id, sucessCallback) {
             }
         }
     );
-
 }
 
 
-$(document).ready(function () {
-
-
-});
+function saveScholarshipAction(btnSelector, scholarshipId, sucessCallback) {
+    $.ajax({
+            method: "put",
+            url: "/student/scholarship/save",
+            data: {"id": scholarshipId},
+            beforeSend: function (jqXHR, settings) {
+                jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                disableButton(btnSelector);
+            },
+            success: function () {
+                sucessCallback();
+            },
+            complete: function (jqXHR, textStatus) {
+                enableButton(btnSelector);
+            }
+        }
+    );
+}
+function unsaveScholarshipAction(btnSelector, scholarshipId, sucessCallback) {
+    $.ajax({
+            method: "put",
+            url: "/student/scholarship/unsave",
+            data: {"id": scholarshipId},
+            beforeSend: function (jqXHR, settings) {
+                jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
+                disableButton(btnSelector);
+            },
+            success: function () {
+                sucessCallback();
+            },
+            complete: function (jqXHR, textStatus) {
+                enableButton(btnSelector);
+            }
+        }
+    );
+}

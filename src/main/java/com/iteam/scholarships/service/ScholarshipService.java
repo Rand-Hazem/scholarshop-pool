@@ -2,13 +2,16 @@ package com.iteam.scholarships.service;
 
 import com.iteam.scholarships.component.CurrentUser;
 import com.iteam.scholarships.entity.Advertiser;
-import com.iteam.scholarships.entity.User;
+import com.iteam.scholarships.entity.scholarshipdb.ApplicantRequirement;
 import com.iteam.scholarships.entity.scholarshipdb.SavedScholarship;
 import com.iteam.scholarships.entity.scholarshipdb.Scholarship;
+import com.iteam.scholarships.entity.scholarshipdb.ScholarshipApplicantRequirement;
 import com.iteam.scholarships.enums.ScholarshipE;
 import com.iteam.scholarships.repository.*;
 import com.iteam.scholarships.wrapper.ScholarshipWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -115,33 +118,58 @@ public class ScholarshipService {
         }
     }
 
-    /** Add scholarship to save-sh table 'favourite list'
+    /**
+     * Add scholarship to save-sh table 'favourite list'
      */
     public boolean save(int scholarshipId) {
-        SavedScholarship saved = savedScholarshipRepository.findByScholarshipAndUser(
-                new Scholarship(scholarshipId), new User(currentUser.getId()));
-
-        System.out.println(saved);
+        SavedScholarship saved =
+                savedScholarshipRepository.findByScholarshipAndStudentId(new Scholarship(scholarshipId), currentUser.getId());
 
         if (saved != null) {
             return true;
         }
 
-        SavedScholarship savedScholarship = new SavedScholarship();
-        saved.setScholarshipId(scholarshipId);
-        saved.setUserId(currentUser.getId());
+        saved  = new SavedScholarship();
+        saved.setScholarship(new Scholarship(scholarshipId));
+        saved.setStudentId(currentUser.getId());
 
-        savedScholarshipRepository.save(savedScholarship);
+        savedScholarshipRepository.save(saved);
 
-        return savedScholarship != null && savedScholarship.getId() > 0;
+        return saved != null && saved.getId() > 0;
     }
 
-    /** delete  saved-sh row
+    /**
+     * delete  saved-sh row
      */
     public boolean unsave(int scholarshipId) {
-        int deletes = savedScholarshipRepository.deleteByScholarshipAndUser(new Scholarship(scholarshipId), new User(currentUser.getId()));
+        int deletes = savedScholarshipRepository.deleteByScholarshipAndStudentId(new Scholarship(scholarshipId),currentUser.getId());
         return deletes > 0;
     }
 
+
+    /**
+     * @param scholarshipId
+     * @return applicant requirement tranning or acadimic
+     */
+    public ApplicantRequirement getApplicantRequirement(int scholarshipId) {
+
+        ScholarshipApplicantRequirement applicantRequirement
+                = scholarshipApplicantRequirementRepository.findByScholarship(new Scholarship(scholarshipId));
+
+        if (applicantRequirement == null) {
+            return tranningApplicantRequirmentRepository.findByScholarship(new Scholarship(scholarshipId));
+        }
+        return applicantRequirement;
+    }
+
+
+    public List<Scholarship> getAllScholarshipsById(int advertiserId) {
+        return scholarshipRepository.findAllByAdvertiser(new Advertiser(advertiserId));
+    }
+
+
+    public Page<SavedScholarship> findSavedScholarships(PageRequest p){
+        return savedScholarshipRepository.findAllByStudentId(currentUser.getId(), p);
+    }
 
 }

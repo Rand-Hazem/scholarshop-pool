@@ -316,19 +316,4 @@ public class User {
         return dataChangedFromCopy;
     }
 
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", state=" + state +
-//                ", type=" + type +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", birthday=" + birthday +
-//                ", password='" + password + '\'' +
-//                ", confirmPass='" + confirmPass + '\'' +
-//                ", gender=" + gender +
-//                '}';
-//    }
 }

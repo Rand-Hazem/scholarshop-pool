@@ -3,6 +3,7 @@ package com.iteam.scholarships.entity.scholarshipdb;
 import com.iteam.scholarships.convertor.EnumListFundCoverToStringConvertor;
 import com.iteam.scholarships.entity.Advertiser;
 import com.iteam.scholarships.enums.ScholarshipE;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,13 +22,13 @@ public class Scholarship {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
+    @Column(nullable = false) @Enumerated(EnumType.STRING) @Field
     private ScholarshipE.Type type;
 
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false) @Field
     private String country; // host country
 
     @Column(nullable = false)
@@ -45,7 +46,7 @@ public class Scholarship {
     @Column(nullable = false)
     private int seats;
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
+    @Column(nullable = false) @Enumerated(EnumType.STRING) @Field
     private ScholarshipE.FundType fundType;
 
     @Column(nullable = false)
@@ -63,7 +64,7 @@ public class Scholarship {
 
     private String specialProgram;
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
+    @Column(nullable = false) @Enumerated(EnumType.STRING) @Field
     private ScholarshipE.Degree degree;
 
     @Column(name = "advertiser_id", insertable = false, updatable = false)

@@ -2,9 +2,6 @@ function setValidation() {
     $("#submitApplicationForm").validate({
         debug: true,
         rules: {
-            fname: "required",
-            lname: "required",
-            email: {required: true, email: true},
             age: {required: true, number: true},
             degree: "required",
             major: "required",
@@ -14,10 +11,16 @@ function setValidation() {
             schoolGpa: {required: true, number: true, min: 0, max: 4},
             universityGpa: {required: true, number: true, min: 0, max: 4},
             englishLevel: "required",
-            RequiredCertification: "required",
-            driveLink: "required",
+            driveLink: "required"
+        }
+    });
+}
 
-
+function onSubmitBtnClick() {
+    $("#submitApplicationForm input[type='submit']").on("click", function () {
+        var form = $("#submitApplicationForm");
+        if ($(form).valid()) {
+            $(form)[0].submit();
         }
     });
 }
@@ -26,7 +29,8 @@ function setTooltip() {
     $('[data-toggle="tooltip"]').tooltip();
 }
 
-$(function () {
-    setTooltip();
+$(document).ready(function () {
     setValidation();
+    onSubmitBtnClick();
+    setTooltip();
 });

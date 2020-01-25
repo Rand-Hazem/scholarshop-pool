@@ -1,26 +1,20 @@
-
 function saveOpportunity() {
     $('.save-opportunity').on('click', function (event) {
-        var doSave = $(this).hasClass("save-opportunity-red");
-        var url = doSave ? "/student/scholarship/save" : "/student/scholarship/unsave";
+        var doUnsave = $(this).hasClass("save-opportunity-red");
+        var url = doUnsave ? "/student/scholarship/save" : "/student/scholarship/unsave";
         var btnSelector = $(this);
 
-        $.ajax({
-                method: "put",
-                url: url,
-                data: {"id": $(btnSelector).data("scholarship-id")},
-                beforeSend: function (jqXHR, settings) {
-                    jqXHR.setRequestHeader(getCSRFHeader(), getCSRFToken());
-                    disableButton(btnSelector);
-                },
-                success: function () {
-                    $(this).toggleClass("save-opportunity-red");
-                },
-                complete: function (jqXHR, textStatus) {
-                    enableButton(btnSelector);
-                }
-            }
-        );
+        var tooggleSave = function () {
+            $(btnSelector).toggleClass("save-opportunity-red");
+        };
+        console.log("clicked")
+        if (doUnsave) {
+            console.log("unsave"+ $(btnSelector).data("scholarship-id"))
+            unsaveScholarshipAction(btnSelector, $(btnSelector).data("scholarship-id"), tooggleSave);
+        } else {
+            console.log("save"+ $(btnSelector).data("scholarship-id"))
+            saveScholarshipAction(btnSelector, $(btnSelector).data("scholarship-id"), tooggleSave);
+        }
     });
 }
 

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.apache.commons.text.WordUtils" %>
+<%@include file="uploadStaticPath.jsp" %>
 <div class="scholarship">
 
     <!-------- Provider Information & Academic Information -------->
@@ -87,7 +88,7 @@
         </p><br>
 
         <h4>Application Link</h4>
-        <a href="${scholarshipApplicationDetail.urlProviderApplyForm == null ? "/student/apply?shId="+scholarship.id : scholarshipApplicationDetail.urlProviderApplyForm}"
+        <a href="${scholarshipApplicationDetail.applyThroughProviderWebsite ? "/student/scholarship/".concat(scholarship.id).concat("/apply") : scholarshipApplicationDetail.urlProviderApplyForm}"
            class="btn" role="button" target="_blank"
            style="background-color: #1F3543; color: white; padding: 5px 10px; border-radius: 5px; text-align: center;">
             Click Here To Apply</a>
@@ -95,7 +96,9 @@
 
         <c:if test="${not empty scholarshipApplicationDetail.illustrationFileName}">
             <h4>Illustration File of The Opportunity</h4>
-            <a id="file" href="">${contextPath}${scholarshipIllustrationFilePath}${scholarshipApplicationDetail.illustrationFileName}</a>
+            <a id="file" target="_blank"
+               href="${contextPath}${scholarshipIllustrationFilePath}${scholarshipApplicationDetail.illustrationFileName}">
+                Click here</a>
         </c:if>
     </div>
 </div>

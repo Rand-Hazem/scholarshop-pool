@@ -293,6 +293,7 @@
                     <div class="modal-body">
                         <div id="reportResponseMsgDiv" class="alert d-none"></div>
                         <form id="reportForm">
+                            <input type="hidden" name="storyId" value="${story.id}">
                             <div class="form-group" name="storyReport">
                                 <label for="recipient-name" class="col-form-label">Select Why do you want to report?</label>
                                 <select name="reportContentType" class="form-control custom-select">

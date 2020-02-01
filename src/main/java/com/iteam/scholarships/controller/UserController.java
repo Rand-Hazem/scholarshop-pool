@@ -92,7 +92,7 @@ public class UserController {
 
     @GetMapping("login")
     public String login() {
-        return "main?login=true";
+        return "redirect:/main?login=true";
     }
 
     @GetMapping({"profile", "user/{id}/profile", "user/{id}/profile/{name}"})

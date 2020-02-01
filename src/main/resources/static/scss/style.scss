@@ -661,7 +661,7 @@ footer {
   }
 
   .logo {
-   // filter: invert(100%);
+    // filter: invert(100%);
   }
 
   #studentNav ul, #advertiserNav ul {
@@ -723,132 +723,6 @@ footer {
     font-size: 1.4rem;
   }
 }
-
-/* ---------------------------------------------- Advertiser Navbae --------------------------------------- */
-/*
-.advertiser-navbar {
-  .navbar {
-    background-color: $advertiser-nav-color !important;
-  }
-
-  .navbar-brand {
-    margin: auto;
-    color: red !important;
-  }
-
-
-  .menu-toggle {
-    position: absolute;
-    padding: 12px;
-    top: 14px;
-    right: 8px;;
-    cursor: pointer;
-  }
-
-  .nav-link {
-    text-decoration: none;
-    color: $link-color !important;
-    padding: 10px 0px;
-    margin: 0px 20px;
-    line-height: 12px;
-
-
-    &::before {
-      transition: 300ms;
-      height: 5px;
-      content: "";
-      position: absolute;
-      background-color: #031D44;
-    }
-
-    &:hover {
-      opacity: 0.65;
-    }
-  }
-
-  .dropdown {
-    cursor: pointer;
-
-    .dp-color {
-      color: black !important;
-    }
-  }
-
-  .search-box {
-    position: absolute;
-    top: 50%;
-    transform: translate(-100%, -50%);
-    background: #203746;
-    height: 40px;
-    border-radius: 40px;
-
-  }
-
-  .search-box:hover > .search-txt {
-    width: 300px;
-    padding: 0 13px;
-  }
-
-  .search-btn {
-    border-radius: 50%;
-    text-decoration: none;
-    display: none;
-    position: absolute;
-    right: 0;
-    justify-content: center;
-    align-items: center;
-    transition: 0.4s;
-    color: white;
-    cursor: pointer;
-  }
-
-  .search-btn > i {
-    font-size: 30px;
-  }
-
-  .search-txt {
-    border: none;
-    background: none;
-    outline: none;
-    float: left;
-    padding: 0;
-    color: white;
-    transition: 0.4s;
-    line-height: 40px;
-    width: 0px;
-  }
-
-  .search-box-small-nav {
-    width: 100%;
-    margin: auto;
-    height: 60px;
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  #search {
-    width: 100%;
-    height: 40px;
-    font-size: 18px;
-    background-color: #203746;
-    padding: 11px;
-    border: 1px solid #203746;;
-    border-radius: 12px;
-    margin-top: 12px;
-    font-size: 16px;
-    line-height: 40px;
-    font-weight: bold;
-    color: white;
-  }
-
-  #search:focus {
-    border: 1px solid white;;
-    border-radius: 12px;
-  }
-
-
-}
-*/
 
 /* ---------------------------------------------- Share Story Page --------------------------------------- */
 .share-story {
@@ -2491,7 +2365,6 @@ footer {
 /* ------------------------------------------- View Opportunity ----------------------------------------- */
 .view-opportunity {
   .view-opportunity-box {
-    width: 70%;
     background: #fff;
     box-shadow: 0 4px 8px 0px #e1d9d9;
     position: relative;
@@ -2564,15 +2437,30 @@ footer {
         color: red;
       }
     }
+
+    .custom.list-group {
+      .list-group-item {
+        border: none;
+        padding: 10px 0px;
+
+        &:first-child{
+          padding-right: 15px;
+        }
+
+        &.header {
+          font-weight: bold;
+        }
+      }
+    }
+
   }
 
   .opportunity-background-img {
     background-size: cover;
     width: 100vw;
-    height: 400px;
+    height: 70vh;
     object-fit: cover;
   }
-
 }
 
 /* ---------------------------------------- --------      submit application page  ------------------------------------------------------- */
@@ -2612,12 +2500,14 @@ footer {
       }
     }
   }
+
   .form-control {
     &:focus {
       border-color: #b7cade;
       box-shadow: 0 0 15px -1px rgba(87, 122, 143, 0.5) !important;
     }
   }
+
   .container {
     margin-top: 100vh !important;
     padding: 15px;
@@ -2653,7 +2543,8 @@ footer {
     }
 
   }
-  .error{
+
+  .error {
     color: #9f0000;
   }
 }

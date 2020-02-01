@@ -672,6 +672,15 @@ function setSelectedOption() {
     });
 }
 
+/**
+ *  If image src can't be loaded, set the default one
+ * @param img
+ */
+function onImgSrcError(img, defaultUrl){
+    img.onerror = null;
+    img.src = defaultUrl;
+    return true;
+}
 $(document).ready(function () {
 
     //fill all ogranization-select-list with stored orgs

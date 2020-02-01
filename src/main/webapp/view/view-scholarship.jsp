@@ -7,7 +7,6 @@
 <head>
     <title>${WordUtils.capitalizeFully(scholarship.title)}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" content="${_csrf.token}">
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <%@include file="parts/links.html" %>
@@ -25,95 +24,139 @@
              alt="Opportunity background picture">
     </div>
 
-    <!-------------- General Overview About the opportunity --------------->
-    <div class="container view-opportunity-box">
-        <div class="row">
-            <div class="col-md-8 col-12">
-                <!------------------------- Opportunity Title ------------------------->
+
+    <!-- *************************************************************************************** -->
+
+    <div class="container">
+        <!-------------- General Overview About the opportunity --------------->
+        <div class="row view-opportunity-box align-center">
+            <div class="col-md-7 col-11">
                 <h3 class="opportunity-title">${scholarship.title}</h3>
                 <p class="opportunity-description pt-2">${scholarship.description}</p>
-
-                <!-------------- organization -------------->
                 <div class="opportunity-meta">
                     <span class="advertiser mr-2 border-right">
-                        <c:if test="${user.imgUrl==null}">
-                            <img src="${contextPath}/resources/static/img/user-icon.png" alt="author" class="mr-2">
-                        </c:if>
-                        <c:if test="${user.imgUrl!=null}">
-                            <img src="${contextPath}${profileImgPath}${user.imgUrl}" class="mr-2">
-                        </c:if>
+                            <img src="${contextPath}${profileImgPath}${user.imgUrl}" alt="author" class="mr-2"
+                                 onerror="onImgSrcError(this, '${contextPath}/resources/static/img/user-icon.png')">
                         ${user.firstName}  ${user.lastName}
                     </span>
                     <span class="provider-organization mr-2">${scholarship.providreOrg}</span>
                 </div>
-
-                <sec:authorize access="isAnonymous()">
-                    <b><a href="${contextPath}/login">Sign in to Start Applying</a></b>
-                </sec:authorize>
-
             </div>
+
             <div class="col-md-4 col-12">
-                <div class="opportunity-fund">
-                    <i class="fa fa-money"></i>
-                    <b>
-                        ${scholarship.fundAmount!=0 ? '$'.concat(scholarship.fundAmount) : ""}&nbsp;
-                        ${scholarship.fundType} FUNDING
-                    </b>
-                </div>
-                <div class="opportunity-deadline">
-                    Deadline:
-                    ${scholarship.applyDeadline==null ? 'Open Deadline' : scholarship.applyDeadline}
-                </div>
-                <sec:authorize access="isAuthenticated()">
-                    <button type="button" class="btn save-opportunity" data-scholarship-id="${scholarship.id}">
-                        <i class="fa fa-heart"></i>&nbsp;Save opportunity
-                    </button>
-                </sec:authorize>
+                <ul class="list-group list-group-horizontal-sm flex-md-column">
+                    <li class="list-group-item border-0 p-0">
+                        <div class="opportunity-fund">
+                            <i class="fa fa-money"></i>
+                            <b>
+                                ${scholarship.fundAmount!=0 ? '$'.concat(scholarship.fundAmount) : ""}&nbsp;
+                                ${scholarship.fundType} FUNDING
+                            </b>
+                        </div>
+                    </li>
+                    <li class="list-group-item border-0 p-0">
+                        <div class="opportunity-deadline">
+                            Deadline:
+                            ${scholarship.applyDeadline==null ? 'Open Deadline' : scholarship.applyDeadline}
+                        </div>
+                    </li>
+                    <sec:authorize access="isAuthenticated()">
+                        <li class="list-group-item border-0 p-0">
+                            <button type="button" class="btn save-opportunity" data-scholarship-id="${scholarship.id}">
+                                <i class="fa fa-heart"></i>&nbsp;Save opportunity
+                            </button>
+                        </li>
+                    </sec:authorize>
+                </ul>
             </div>
+
+            <sec:authorize access="isAnonymous()">
+                <div><b>
+                    <a class="ml-3" href="${contextPath}/login">Sign in to Start Applying</a>
+                </b></div>
+            </sec:authorize>
         </div>
+
+        <!-------- Common Information for scholarships and internships -------->
+        <div class="view-opportunity-box">
+            <h4 class="mb-3"><i class="fa fa-info-circle"></i> General Information</h4>
+            <div>
+                <ul class="list-group list-group-horizontal custom">
+                    <li class="list-group-item header">Opportunity Type:</li>
+                    <li class="list-group-item">${WordUtils.capitalizeFully(scholarship.type)}</li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group list-group-horizontal custom">
+                    <li class="list-group-item header">Available Seats:</li>
+                    <li class="list-group-item">${scholarship.seats}</li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group list-group-horizontal custom">
+                    <li class="list-group-item header">Host country:</li>
+                    <li class="list-group-item">
+                        <span data-country="${scholarship.country}"></span>
+                        <span>, ${scholarship.city}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group list-group-horizontal custom">
+                    <li class="list-group-item header">Duration:</li>
+                    <li class="list-group-item">
+                        From <span>${scholarship.durationFrom}</span> , To
+                        <span>${scholarship.durationTo}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group list-group-horizontal custom">
+                    <li class="list-group-item header">Opportunity funding:</li>
+                    <li class="list-group-item"> ${scholarship.fundType} Funding</li>
+                </ul>
+            </div>
+
+            <c:if test="${scholarship.fundCover != null}">
+                <div>
+                    <ul class="list-group list-group-horizontal custom">
+                        <li class="list-group-item header">Funding covers:</li>
+                        <li class="list-group-item">
+                            <c:forEach var="item" items="${scholarship.fundCover}">
+                                <span>${WordUtils.capitalizeFully(fn:replace(item, "_", " "))}</span> |&nbsp;
+                            </c:forEach>
+                        </li>
+                    </ul>
+                </div>
+            </c:if>
+
+            <c:if test="${scholarship.officialWebsite!=null}">
+                <div>
+                    <ul class="list-group list-group-horizontal custom">
+                        <li class="list-group-item header">Website Address:</li>
+                        <li class="list-group-item">${scholarship.officialWebsite}</li>
+                    </ul>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty scholarship.privilege}">
+                <div class="mt-3">
+                    <p><b>What does the successful applicant gain from your opportunity? Opportunity privileges</b></p>
+                    <p id="opportunity-privileges">${scholarship.privilege}</p>
+                </div>
+            </c:if>
+        </div>
+
+
     </div>
 
-    <!-------- Common Information for scholarships and internships -------->
-    <div class="container view-opportunity-box">
-        <h4><i class="fa fa-info-circle"></i> General Information</h4><br><br>
 
-        <h5>Opportunity Type</h5>
-        <p id="opportunity-type">${WordUtils.capitalizeFully(scholarship.type)}</p><br>
+    <!-- *************************************************************************************** -->
 
-        <h5>Available Seats:</h5>
-        <p id="opportunity-seats">${scholarship.seats}</p><br>
-
-        <h5>Opportunity will take place in</h5>
-        <span id="opportunity-country-city" data-country="${scholarship.country}"></span>
-        <span id="opportunity-country-city">, ${scholarship.city}</span><br><br><br>
-
-        <h5>Duration</h5>
-        From <span id="opportunity-duration-from">${scholarship.durationFrom}</span> , To
-        <span id="opportunity-duration-to">${scholarship.durationTo}</span>
-        <br><br><br>
-
-        <h5>About opportunity funding</h5>
-        <p id="opportunity-fund-type"><b>${scholarship.fundType}</b> Funding</p>
-        <c:if test="${scholarship.fundCover != null}">
-            <p><b>Funding covers:&nbsp;</b></p>
-            <c:forEach var="item" items="${scholarship.fundCover}">
-                <span>${WordUtils.capitalizeFully(fn:replace(item, "_", " "))}</span>
-                |&nbsp;
-            </c:forEach>
-        </c:if><br><br>
-
-        <c:if test="${scholarship.officialWebsite!=null}">
-            <h5>Opportunity Website Address</h5>
-            <a id="opportunity-website" href="">${scholarship.officialWebsite}</a><br><br>
-        </c:if>
-
-        <c:if test="${not empty scholarship.privilege}">
-            <h5>What does the successful applicant gain from your opportunity? Opportunity privileges</h5>
-            <p id="opportunity-privileges">
-                    ${scholarship.privilege}
-            </p><br>
-        </c:if>
-    </div>
 
     <!---------------------- Scholarship Information ---------------------->
     <c:if test="${scholarship.type eq 'SCHOLARSHIP' || scholarship.type eq 'EXCHANGE'}">

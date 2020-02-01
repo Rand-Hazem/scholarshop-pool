@@ -24,7 +24,7 @@
                     <div class="position-relative">
                         <img src="${contextPath}/resources/static/img/countries/${scholarship.country}.jpg"
                              class="country-background-img"
-                             onerror="this.onerror=null;this.src='${contextPath}/resources/static/img/countries/default-country.jpg';">
+                             onerror="onImgSrcError(this,'${contextPath}/resources/static/img/countries/default-country.jpg')">
                         <div class="head-top">
                             <h4 class="title">${scholarship.title}</h4>
                             <div class="dropdown">

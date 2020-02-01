@@ -2330,7 +2330,6 @@ footer {
 
 /* ------------------------------------------- View Opportunity ----------------------------------------- */
 .view-opportunity .view-opportunity-box {
-  width: 70%;
   background: #fff;
   box-shadow: 0 4px 8px 0px #e1d9d9;
   position: relative;
@@ -2378,10 +2377,17 @@ footer {
       box-shadow: none; }
   .view-opportunity .view-opportunity-box .save-opportunity-red i {
     color: red; }
+  .view-opportunity .view-opportunity-box .custom.list-group .list-group-item {
+    border: none;
+    padding: 10px 0px; }
+    .view-opportunity .view-opportunity-box .custom.list-group .list-group-item:first-child {
+      padding-right: 15px; }
+    .view-opportunity .view-opportunity-box .custom.list-group .list-group-item.header {
+      font-weight: bold; }
 .view-opportunity .opportunity-background-img {
   background-size: cover;
   width: 100vw;
-  height: 400px;
+  height: 70vh;
   object-fit: cover; }
 
 /* ---------------------------------------- --------      submit application page  ------------------------------------------------------- */
@@ -2496,10 +2502,7 @@ footer {
     .profile.profile-div .profile-info-name {
       width: 80px; }
     .profile.profile-div .profile-picture-div {
-      margin-bottom: 20px; }
-
-  .view-opportunity {
-    width: 90% !important; } }
+      margin-bottom: 20px; } }
 @media screen and (max-width: 768px) {
   .search-scholarship .wrapper.sidebar-toggle:after {
     content: " ";

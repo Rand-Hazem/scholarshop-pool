@@ -1,6 +1,6 @@
 
 ***${message} ***
 
-<script>
-    window.history.back();
-</script>
+<%--<script>--%>
+<%--    window.history.back();--%>
+<%--</script>--%>
